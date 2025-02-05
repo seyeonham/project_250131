@@ -1,0 +1,81 @@
+a, a:hover {
+    color:black;
+    text-decoration:none;
+}
+
+.main-bar {
+    height: 100px;
+    background-color: #88DC9B;
+}
+
+#sign-in-box, #sign-up-box {
+    min-width: 600px;
+    min-height: 400px;
+    border: solid, 2px;
+    border-radius: 12px;
+    border-color: #88DC9B;
+}
+
+.sign-up-view {
+    border: solid, 2px;
+    border-radius: 12px;
+    border-color: #88DC9B;
+}
+
+.sign-in-btn {
+    border: solid, 2px;
+    border-radius: 12px;
+    border-color: #88DC9B;
+    background: #88DC9B;
+}
+
+.sign-up-btn {
+    width: 200px;
+    border: solid, 2px;
+    border-radius: 12px;
+    border-color: #88DC9B;
+    background: #88DC9B;
+}
+
+.loginIdCheckBtn {
+    background-color: #88DC9B;
+    white-space: nowrap;
+}
+
+/* dropdown */
+
+.dropdown {
+    position: relative;
+    display: in-block;
+}
+
+.drop {
+    width: 150px;
+    border: none;
+    background-color: #88DC9B;
+    cursor: pointer;
+}
+
+.drop-options {
+    display:none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .drop-options {
+    display:block;
+}
+
+.drop-options a {
+    color:black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.drop-options a:hover {
+    background-color:lightgray;
+}

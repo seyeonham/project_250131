@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="content">
+    <section class="contents d-flex justify-content-center">
+        <div id="sign-up-box" class="my-3">
+            <div class="m-3">
+                <h3 class="mb-3">맛집랭킹 회원가입</h3>
+                <form method="post" action="/user/register">
+                    <div class="form-group">
+                        <label for="loginId">아이디</label>
+                        <div class="d-flex">
+                            <input type="text" class="form-control" name="loginId" id="loginId" placeholder="아이디를 입력하세요.">
+                            <button type="button" class="btn loginIdCheckBtn" id="loginIdCheckBtn">중복확인</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">비밀번호</label>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력하세요.">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordCheck">비밀번호 확인</label>
+                        <input type="password" class="form-control" id="passwordCheck" placeholder="비밀번호를 입력하세요.">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="이름을 입력하세요.">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="text" class="form-control" name="email" id="email" placeholder="이메일을 입력하세요.">
+                    </div>
+                    <div class="form-group">
+                        <label for="region">자주 가는 지역</label>
+                        <select id="region" class="form-control">
+                            <option selected>-- 선택하기 --</option>
+                            <span th:each="">
+                                <option th:text="">서울특별시</option>
+                            </span>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn sign-up-btn">회원가입</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</th:block>
