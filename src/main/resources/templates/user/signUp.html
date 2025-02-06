@@ -8,7 +8,7 @@
         <div id="sign-up-box" class="my-3">
             <div class="m-3">
                 <h3 class="mb-3">맛집랭킹 회원가입</h3>
-                <form method="post" action="/user/register">
+                <form method="post" action="/user/sign-up">
                     <div class="form-group">
                         <label for="loginId">아이디</label>
                         <div class="d-flex">
@@ -36,8 +36,8 @@
                         <label for="region">자주 가는 지역</label>
                         <select id="region" class="form-control">
                             <option selected>-- 선택하기 --</option>
-                            <span th:each="">
-                                <option th:text="">서울특별시</option>
+                            <span th:each="region : ${regionList}">
+                                <option th:text="${region.region}"></option>
                             </span>
                         </select>
                     </div>
