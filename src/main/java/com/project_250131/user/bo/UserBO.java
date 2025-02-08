@@ -1,5 +1,6 @@
 package com.project_250131.user.bo;
 
+import com.project_250131.common.EncryptUtils;
 import com.project_250131.user.entity.UserEntity;
 import com.project_250131.user.mapper.UserMapper;
 import com.project_250131.user.repository.UserRepository;
@@ -25,5 +26,24 @@ public class UserBO {
     public UserEntity getUserEntityByLoginId(String loginId) {
         UserEntity userEntity = userRepository.findByLoginId(loginId).orElse(null);
         return userEntity;
+    }
+
+    // 회원가입
+    public boolean addUserEntity(String loginId, String password, String name,
+                                String email, String region) {
+
+        String hashedPassword = EncryptUtils.bcrypt(password);
+
+        UserEntity user = userRepository.save(
+            UserEntity.builder()
+                    .loginId(loginId)
+                    .password(hashedPassword)
+                    .name(name)
+                    .email(email)
+                    .region(region)
+                    .build()
+        );
+
+        return user == null ? false : true;
     }
 }

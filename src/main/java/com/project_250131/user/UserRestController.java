@@ -48,7 +48,18 @@ public class UserRestController {
             @RequestParam("region") String region
     ) {
         // DB insert
-        userBO.addUserEntity(loginId, password, name, email, region);
+        boolean isSuccess = userBO.addUserEntity(loginId, password, name, email, region);
+
         // 응답값
+        Map<String, Object> result = new HashMap<>();
+        if (isSuccess) {
+            result.put("code", 200);
+            result.put("result", "성공");
+        } else {
+            result.put("code", 500);
+            result.put("error_message", "회원가입에 실패하였습니다.");
+        }
+
+        return result;
     }
 }
