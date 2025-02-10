@@ -2,6 +2,7 @@ package com.project_250131.user;
 
 import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,6 +59,32 @@ public class UserRestController {
         } else {
             result.put("code", 500);
             result.put("error_message", "회원가입에 실패하였습니다.");
+        }
+
+        return result;
+    }
+
+    @PostMapping("/sign-in")
+    public Map<String, Object> signIn(
+            @RequestParam("loginId") String loginId,
+            @RequestParam("password") String password,
+            HttpSession session
+    ) {
+        // DB select
+        UserEntity user = userBO.getUserEntityByLoginIdPassword(loginId, password);
+
+        // 응답값
+        Map<String, Object> result = new HashMap<>();
+        if (user != null) {
+            session.setAttribute("userId", user.getId());
+            session.setAttribute("userLoginId", user.getLoginId());
+            session.setAttribute("userName", user.getName());
+
+            result.put("code", 200);
+            result.put("result", "성공");
+        } else {
+            result.put("code", 300);
+            result.put("error_message", "아이디 혹은 비밀번호가 일치하지 않습니다.");
         }
 
         return result;

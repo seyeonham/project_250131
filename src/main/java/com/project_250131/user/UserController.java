@@ -2,6 +2,7 @@ package com.project_250131.user;
 
 import com.project_250131.region.bo.RegionBO;
 import com.project_250131.region.entity.RegionEntity;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,5 +29,19 @@ public class UserController {
 
         model.addAttribute("regionList", regionList);
         return "user/signUp";
+    }
+
+    @GetMapping("/sign-out")
+    public String signOut(HttpSession session) {
+        session.removeAttribute("userId");
+        session.removeAttribute("userLoginId");
+        session.removeAttribute("userName");
+
+        return "redirect:/user/sign-in";
+    }
+
+    @GetMapping("/naver-login")
+    public void naverLogin() {
+        
     }
 }

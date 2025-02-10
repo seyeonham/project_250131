@@ -4,19 +4,58 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/defaultLayout}">
 <th:block layout:fragment="content">
-<section class="contents d-flex justify-content-center">
-    <div id="sign-in-box" class="mt-5">
-        <div class="m-5">
-            <h3 class="mb-5">로그인</h3>
-            <form method="post" action="/user/sign-in">
-            <input type="text" class="form-control mb-2" name="loginId" id="loginId" placeholder="아이디를 입력하세요.">
-            <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력하세요.">
-            <div class="d-flex mt-4">
-                <a href="/user/sign-up" class="sign-up-view w-50 text-center pt-1">회원가입</a>
-                <button type="submit" class="btn sign-in-btn w-50 ml-1">로그인</button>
+    <section class="contents d-flex justify-content-center">
+        <div id="sign-in-box" class="mt-5">
+            <div class="m-5">
+                <h3 class="mb-5">로그인</h3>
+                <form id="loginForm" method="post" action="/user/sign-in">
+                    <input type="text" class="form-control mb-2" name="loginId" id="loginId" placeholder="아이디를 입력하세요.">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="비밀번호를 입력하세요.">
+                    <div class="d-flex mt-4">
+                        <a href="/user/sign-up" class="sign-up-view w-50 text-center pt-1">회원가입</a>
+                        <button type="submit" class="btn sign-in-btn w-50 ml-1">로그인</button>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="/user/naver-login">네이버 로그인</a>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
-    </div>
-</section>
+    </section>
+
+    <script>
+        $(function () {
+            // 로그인
+            $("#loginForm").on("submit", function(e) {
+                e.preventDefault();
+
+                let loginId = $("#loginId").val().trim();
+                let password = $("#password").val();
+
+                // validation
+                if (!loginId) {
+                    alert("아이디를 입력해주세요.");
+                    return false;
+                }
+
+                if (!password) {
+                    alert("비밀번호를 입력해주세요.");
+                    return false;
+                }
+
+                let url = $(this).attr("action");
+                let params = $(this).serialize();
+
+                // ajax
+                $.post(url, params)
+                .done(function(data) {
+                    if (data.code == 200) {
+                        location.href = "/store/user-store-list";
+                    } else {
+                        alert(data.error_message);
+                    }
+                });
+            });
+        });
+    </script>
 </th:block>

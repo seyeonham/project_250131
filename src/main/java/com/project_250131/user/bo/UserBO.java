@@ -5,6 +5,7 @@ import com.project_250131.user.entity.UserEntity;
 import com.project_250131.user.mapper.UserMapper;
 import com.project_250131.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,5 +46,19 @@ public class UserBO {
         );
 
         return user == null ? false : true;
+    }
+
+    public UserEntity getUserEntityByLoginIdPassword(String loginId, String password) {
+
+        UserEntity userEntity = userRepository.findByLoginId(loginId).orElse(null);
+        if (userEntity != null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+            if (passwordEncoder.matches(password, userEntity.getPassword())) {
+                return userEntity;
+            }
+        }
+
+        return null;
     }
 }
