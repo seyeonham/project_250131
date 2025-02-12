@@ -5,6 +5,7 @@ import com.project_250131.user.entity.UserEntity;
 import com.project_250131.user.mapper.UserMapper;
 import com.project_250131.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,19 @@ public class UserBO {
         return userEntity;
     }
 
-    // 회원가입
-    public boolean addUserEntity(String loginId, String password, String name,
-                                String email, String region) {
+    public UserEntity getUserEntityByEmail(String email) {
+        UserEntity userEntity = userRepository.findByEmail(email).orElse(null);
+        return userEntity;
+    }
 
-        String hashedPassword = EncryptUtils.bcrypt(password);
+    // 회원가입
+    public UserEntity addUserEntity(String loginId, String password, String name,
+                                String email, String region, String provider, String providerId) {
+
+        String hashedPassword = null;
+        if (password != null) {
+            hashedPassword = EncryptUtils.bcrypt(password);
+        }
 
         UserEntity user = userRepository.save(
             UserEntity.builder()
@@ -42,10 +51,12 @@ public class UserBO {
                     .name(name)
                     .email(email)
                     .region(region)
+                    .provider(provider)
+                    .providerId(providerId)
                     .build()
         );
 
-        return user == null ? false : true;
+        return user;
     }
 
     public UserEntity getUserEntityByLoginIdPassword(String loginId, String password) {

@@ -1,5 +1,6 @@
 package com.project_250131.user;
 
+import com.project_250131.user.bo.NaverLoginService;
 import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +16,7 @@ import java.util.Map;
 public class UserRestController {
 
     private final UserBO userBO;
+    private final NaverLoginService naverLoginService;
 
     /**
      * 아이디 중복 확인
@@ -46,14 +48,14 @@ public class UserRestController {
             @RequestParam("password") String password,
             @RequestParam("name") String name,
             @RequestParam("email") String email,
-            @RequestParam("region") String region
+            @RequestParam(value = "region", required = false) String region
     ) {
         // DB insert
-        boolean isSuccess = userBO.addUserEntity(loginId, password, name, email, region);
+        UserEntity user = userBO.addUserEntity(loginId, password, name, email, region, "local", null);
 
         // 응답값
         Map<String, Object> result = new HashMap<>();
-        if (isSuccess) {
+        if (user != null) {
             result.put("code", 200);
             result.put("result", "성공");
         } else {
@@ -89,4 +91,5 @@ public class UserRestController {
 
         return result;
     }
+
 }

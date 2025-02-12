@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "user")
 @Entity
 public class UserEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -29,6 +30,11 @@ public class UserEntity {
     private String email;
 
     private String region;
+
+    private String provider;
+
+    @Column(name = "providerId")
+    private String providerId;
 
     @CreationTimestamp
     @Column(name = "createdAt")

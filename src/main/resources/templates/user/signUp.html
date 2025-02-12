@@ -161,8 +161,7 @@
                 let email = emailFirst + "@" + emailDomain;
 
                 if (region == "-- 선택하기 --") {
-                    alert("자주 가는 지역을 선택해주세요.");
-                    return false;
+                    region = null;
                 }
 
                 $.ajax({
