@@ -33,7 +33,7 @@ class Project250131ApplicationTests {
 	@Test
 	void 회원가입() {
 		userBO.addUserEntity("test", "test", "name",
-				"email@google.com", null);
+				"email@google.com", null, "naver", "11");
 	}
 
 	@Test

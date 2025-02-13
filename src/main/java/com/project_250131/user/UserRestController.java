@@ -25,20 +25,28 @@ public class UserRestController {
      */
     @GetMapping("/is-duplicate-id")
     public Map<String, Object> isDuplicateId(
-            @RequestParam("loginId") String loginId
+            @RequestParam("loginId") String loginId,
+            HttpSession session
     ) {
         UserEntity user = userBO.getUserEntityByLoginId(loginId);
         boolean isDuplicateId = false;
+        boolean isSame = false;
 
         // DB select
         Map<String, Object> result = new HashMap<>();
+        int userId = (Integer)session.getAttribute("userId");
         if (user != null) {
+            UserEntity sessionUser = userBO.getUserEntityById(userId);
+            if (sessionUser.getLoginId().equals(loginId)) {
+                isSame = true;
+            }
             isDuplicateId = true;
         }
 
         // 응답값
         result.put("code", 200);
         result.put("is_duplicate_id", isDuplicateId);
+        result.put("is_same", isSame);
         return result;
     }
 

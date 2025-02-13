@@ -98,4 +98,16 @@ public class UserController {
 
         return "redirect:/store/user-store-list";
     }
+
+    @GetMapping("/edit-profile")
+    public String editProfile(Model model, HttpSession session) {
+        List<RegionEntity> regionList = regionBO.getRegionList();
+        model.addAttribute("regionList", regionList);
+
+        int id = (Integer)session.getAttribute("userId");
+        UserEntity user = userBO.getUserEntityById(id);
+        model.addAttribute("user", user);
+
+        return "user/editProfile";
+    }
 }

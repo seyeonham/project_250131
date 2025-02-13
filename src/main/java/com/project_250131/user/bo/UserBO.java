@@ -35,6 +35,12 @@ public class UserBO {
         return userEntity;
     }
 
+    // 유저 한 명 가져오기
+    public UserEntity getUserEntityById(int id) {
+        UserEntity userEntity = userRepository.findById(id).orElse(null);
+        return userEntity;
+    }
+
     // 회원가입
     public UserEntity addUserEntity(String loginId, String password, String name,
                                 String email, String region, String provider, String providerId) {

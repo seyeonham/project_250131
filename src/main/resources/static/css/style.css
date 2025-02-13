@@ -37,7 +37,7 @@ a, a:hover {
     background: #88DC9B;
 }
 
-.loginIdCheckBtn {
+.loginIdCheckBtn, .passwordCheckBtn {
     background-color: #88DC9B;
     white-space: nowrap;
 }
