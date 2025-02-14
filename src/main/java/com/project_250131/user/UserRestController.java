@@ -60,7 +60,7 @@ public class UserRestController {
             @RequestParam(value = "region", required = false) String region
     ) {
         // DB insert
-        UserEntity user = userBO.addUserEntity(loginId, password, name, email, region, "local", null);
+        UserEntity user = userBO.addUserEntity(loginId, password, name, email, region, "local");
 
         // 응답값
         Map<String, Object> result = new HashMap<>();
@@ -131,8 +131,9 @@ public class UserRestController {
     ) {
 
         int userId = (Integer)session.getAttribute("userId");
+        String provider = (String)session.getAttribute("userProvider");
 
-        UserEntity userEntity = userBO.updateUserEntityById(userId, loginId, newPassword, name, email, region, "local", null);
+        UserEntity userEntity = userBO.updateUserEntityById(userId, loginId, newPassword, name, email, region, provider);
         Map<String, Object> result = new HashMap<>();
         if (userEntity != null) {
             result.put("code", 200);

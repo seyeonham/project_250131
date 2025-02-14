@@ -33,9 +33,6 @@ public class UserEntity {
 
     private String provider;
 
-    @Column(name = "providerId")
-    private String providerId;
-
     @CreationTimestamp
     @Column(name = "createdAt")
     private LocalDateTime createdAt;

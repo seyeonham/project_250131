@@ -7,54 +7,60 @@
     <section class="contents d-flex justify-content-center">
         <div id="sign-up-box" class="my-3">
             <div class="m-3">
-                <h3 class="mb-3">맛집랭킹 회원가입</h3>
-                <div class="form-group">
-                    <label for="loginId">아이디</label>
-                    <div class="d-flex">
-                        <input type="text" class="form-control" th:value="${user.loginId}" name="loginId" id="loginId" placeholder="아이디를 입력하세요.">
-                        <button type="button" class="btn loginIdCheckBtn" id="loginIdCheckBtn">중복확인</button>
+                <h3 class="mb-3">맛집랭킹 정보수정</h3>
+                <div th:if="${user.provider} == 'local'">
+                    <div class="form-group">
+                        <label for="loginId">아이디</label>
+                        <div class="d-flex">
+                            <input type="text" class="form-control" th:value="${user.loginId}" name="loginId" id="loginId" placeholder="아이디를 입력하세요.">
+                            <button type="button" class="btn loginIdCheckBtn" id="loginIdCheckBtn">중복확인</button>
+                        </div>
+                        <!-- 아이디 중복확인 체크 문구 -->
+                        <div id="idLengthCheck" class="text-danger d-none"><small>아이디를 4자 이상 입력해주세요.</small></div>
+                        <div id="idDuplicateCheck" class="text-danger d-none"><small>중복된 아이디입니다.</small></div>
+                        <div id="idCheckOk" class="text-success d-none"><small>사용 가능한 아이디입니다.</small></div>
+                        <div id="idCheckSame" class="text-primary d-none"><small>기존 아이디입니다.</small></div>
                     </div>
-                    <!-- 아이디 중복확인 체크 문구 -->
-                    <div id="idLengthCheck" class="text-danger d-none"><small>아이디를 4자 이상 입력해주세요.</small></div>
-                    <div id="idDuplicateCheck" class="text-danger d-none"><small>중복된 아이디입니다.</small></div>
-                    <div id="idCheckOk" class="text-success d-none"><small>사용 가능한 아이디입니다.</small></div>
-                    <div id="idCheckSame" class="text-primary d-none"><small>기존 아이디입니다.</small></div>
-                </div>
-                <div class="form-group">
-                    <label for="password">기존 비밀번호</label>
-                    <div class="d-flex">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="기존 비밀번호를 입력하세요.">
-                        <button type="button" th:data-user-id="${session.userId}" class="btn passwordCheckBtn" id="passwordCheckBtn">확인</button>
+                    <div class="form-group">
+                        <label for="password">기존 비밀번호</label>
+                        <div class="d-flex">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="기존 비밀번호를 입력하세요.">
+                            <button type="button" th:data-user-id="${session.userId}" class="btn passwordCheckBtn" id="passwordCheckBtn">확인</button>
+                        </div>
+                        <!-- 비밀번호 확인 문구 -->
+                        <div id="passwordCheckFalse" class="small text-danger d-none">비밀번호가 틀렸습니다.</div>
+                        <div id="passwordCheckOk" class="small text-success d-none">변경하실 비밀번호를 입력해주세요.</div>
                     </div>
-                    <!-- 비밀번호 확인 문구 -->
-                    <div id="passwordCheckFalse" class="small text-danger d-none">비밀번호가 틀렸습니다.</div>
-                    <div id="passwordCheckOk" class="small text-success d-none">변경하실 비밀번호를 입력해주세요.</div>
-                </div>
-                <div class="form-group">
-                    <label for="newPassword">변경할 비밀번호</label>
-                    <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="변경할 비밀번호를 입력하세요.">
-                </div>
-                <div class="form-group">
-                    <label for="newPasswordCheck">변경할 비밀번호 확인</label>
-                    <input type="password" class="form-control" id="newPasswordCheck" placeholder="변경할 비밀번호를 입력하세요.">
+                    <div class="form-group">
+                        <label for="newPassword">변경할 비밀번호</label>
+                        <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="변경할 비밀번호를 입력하세요.">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPasswordCheck">변경할 비밀번호 확인</label>
+                        <input type="password" class="form-control" id="newPasswordCheck" placeholder="변경할 비밀번호를 입력하세요.">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="name">이름</label>
-                    <input type="text" class="form-control" th:value="${user.name}" name="name" id="name" placeholder="이름을 입력하세요.">
+                    <input th:if="${user.provider} == 'local'" type="text" class="form-control" th:value="${user.name}" name="name" id="name" placeholder="이름을 입력하세요.">
+                    <div th:if="${user.provider} == 'naver'"><h5 th:text="${user.name}"></h5></div>
                 </div>
                 <div class="form-group">
                     <label for="email">이메일</label>
                     <div class="d-flex align-items-center">
-                        <input type="text" class="form-control" th:value="${user.email}" name="email" id="email" placeholder="이메일을 입력하세요.">
-                        <span>@</span>
-                        <select id="chooseEmailDomain" class="form-control emailDomain">
-                            <option value="google.com">google.com</option>
-                            <option value="naver.com">naver.com</option>
-                            <option value="nate.com">nate.com</option>
-                            <option value="daum.com">daum.com</option>
-                            <option>직접 입력하기</option>
-                        </select>
-                        <input type="text" id="writeEmailDomain" class="form-control d-none emailDomain">
+                        <input th:if="${user.provider} == 'local'" type="text" class="form-control" th:value="${user.email}" name="email" id="email" placeholder="이메일을 입력하세요.">
+                        <div th:if="${user.provider} == 'naver'"><h5 th:text="${user.email}"></h5></div>
+                        <div th:if="${user.provider} == 'local'">
+                            <span>@</span>
+                            <select id="chooseEmailDomain" class="form-control emailDomain">
+                                <option value="google.com">google.com</option>
+                                <option value="naver.com">naver.com</option>
+                                <option value="nate.com">nate.com</option>
+                                <option value="daum.com">daum.com</option>
+                                <option>직접 입력하기</option>
+                            </select>
+                            <input type="text" id="writeEmailDomain" class="form-control d-none emailDomain">
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -75,16 +81,18 @@
 
     <script>
         $(function () {
-            let email = $("#email").val().split("@")[0];
-            let emailDomain = $("#email").val().split("@")[1];
+            if ($("#email").length) {
+                let email = $("#email").val().split("@")[0];
+                let emailDomain = $("#email").val().split("@")[1];
 
-            $("#email").val(email);
-            if ($("#chooseEmailDomain option[value='" + emailDomain + "']").length > 0) {
-                $("#chooseEmailDomain").val(emailDomain);
-            } else {
-                $("#chooseEmailDomain").addClass("d-none");
-                $("#writeEmailDomain").removeClass("d-none");
-                $("#writeEmailDomain").val(emailDomain);
+                $("#email").val(email);
+                if ($("#chooseEmailDomain option[value='" + emailDomain + "']").length > 0) {
+                    $("#chooseEmailDomain").val(emailDomain);
+                } else {
+                    $("#chooseEmailDomain").addClass("d-none");
+                    $("#writeEmailDomain").removeClass("d-none");
+                    $("#writeEmailDomain").val(emailDomain);
+                }
             }
 
             let region = $("#region").data("user-region");
@@ -180,28 +188,32 @@
 
             // 정보 수정
             $("#editBtn").on("click", function() {
-                let loginId = $("#loginId").val().trim();
-                let newPassword = $("#newPassword").val();
-                let newPasswordCheck = $("#newPasswordCheck").val();
-                let name = $("#name").val().trim();
-                let email = $("#email").val().trim();
+                let loginId = $("#loginId").length ? $("#loginId").val().trim() : null;
+                let newPassword = $("#newPassword").length ? $("#newPassword").val() : null;
+                let newPasswordCheck = $("#newPasswordCheck").length ? $("#newPasswordCheck").val() : null;
+                let name = $("#name").length ? $("#name").val().trim() : null;
+                let email = $("#email").length ? $("#email").val().trim() : null;
                 let region = $("#region").val();
 
-                if ($("#idCheckOk").hasClass("d-none") && $("#idCheckSame").hasClass("d-none")) {
-                    alert("아이디 중복확인을 해주세요.");
-                    return false;
+                if ($("#loginId").length > 0) {
+                    if ($("#idCheckOk").hasClass("d-none") && $("#idCheckSame").hasClass("d-none")) {
+                        alert("아이디 중복확인을 해주세요.");
+                        return false;
+                    }
                 }
 
-                if (newPassword != "" || newPasswordCheck != "") {
-                    if ($("#passwordCheckFalse").hasClass("d-none") == false) {
-                        alert("기존 비밀번호를 먼저 확인해주세요.");
-                        return false;
-                    } else if ($("#passwordCheckFalse").hasClass("d-none") && $("#passwordCheckOk").hasClass("d-none")) {
-                        alert("기존 비밀번호를 먼저 확인해주세요.");
-                        return false;
-                    } else if (newPassword != newPasswordCheck) {
-                        alert("변경할 비밀번호가 일치하지 않습니다.");
-                        return false;
+                if ($("#newPassword").length > 0) {
+                    if (newPassword != "" || newPasswordCheck != "") {
+                        if ($("#passwordCheckFalse").hasClass("d-none") == false) {
+                            alert("기존 비밀번호를 먼저 확인해주세요.");
+                            return false;
+                        } else if ($("#passwordCheckFalse").hasClass("d-none") && $("#passwordCheckOk").hasClass("d-none")) {
+                            alert("기존 비밀번호를 먼저 확인해주세요.");
+                            return false;
+                        } else if (newPassword != newPasswordCheck) {
+                            alert("변경할 비밀번호가 일치하지 않습니다.");
+                            return false;
+                        }
                     }
                 }
 

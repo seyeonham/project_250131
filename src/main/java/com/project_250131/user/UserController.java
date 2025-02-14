@@ -79,7 +79,6 @@ public class UserController {
         }
 
         Map<String, String> userInfo = naverLoginService.getUserInfo(accessToken);
-        String userId = userInfo.get("id");
         String name = userInfo.get("name");
         String email = userInfo.get("email");
 
@@ -89,12 +88,13 @@ public class UserController {
 
         UserEntity user = userBO.getUserEntityByEmail(email);
         if (user == null) {
-            user = userBO.addUserEntity(null, null, name, email, null, "naver", userId);
+            user = userBO.addUserEntity(null, null, name, email, null, "naver");
         }
 
         session.setAttribute("userId", user.getId());
         session.setAttribute("userName", user.getName());
         session.setAttribute("userEmail", user.getEmail());
+        session.setAttribute("userProvider", user.getProvider());
 
         return "redirect:/store/user-store-list";
     }

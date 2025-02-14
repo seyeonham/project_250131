@@ -58,7 +58,7 @@ public class UserBO {
 
     // 회원가입
     public UserEntity addUserEntity(String loginId, String password, String name,
-                                String email, String region, String provider, String providerId) {
+                                String email, String region, String provider) {
 
         String hashedPassword = null;
         if (password != null) {
@@ -73,7 +73,6 @@ public class UserBO {
                     .email(email)
                     .region(region)
                     .provider(provider)
-                    .providerId(providerId)
                     .build()
         );
 
@@ -82,7 +81,7 @@ public class UserBO {
 
     // 유저 정보 수정
     public UserEntity updateUserEntityById(int userId, String loginId, String newPassword, String name,
-                                           String email, String region, String provider, String providerId) {
+                                           String email, String region, String provider) {
 
         Optional<UserEntity> user = userRepository.findById(userId);
         String hashedPassword = "";
@@ -90,24 +89,41 @@ public class UserBO {
             hashedPassword = EncryptUtils.bcrypt(newPassword);
         }
 
-        if (user.isPresent()) {
-            UserEntity userEntity = user.get();
-            userEntity = userEntity.builder()
-                    .id(userId)
-                    .loginId(loginId != "" ? loginId : userEntity.getLoginId())
-                    .password(hashedPassword != "" ? hashedPassword : userEntity.getPassword())
-                    .name(name != "" ? name : userEntity.getName())
-                    .email(email != "" ? email : userEntity.getEmail())
-                    .region(region != null ? region : userEntity.getRegion())
-                    .provider(provider)
-                    .providerId(providerId)
-                    .createdAt(userEntity.getCreatedAt())
-                    .updatedAt(LocalDateTime.now())
-                    .build();
+        if (provider == "local") {
+            if (user.isPresent()) {
+                UserEntity userEntity = user.get();
+                userEntity = userEntity.builder()
+                        .id(userId)
+                        .loginId(loginId != "" ? loginId : userEntity.getLoginId())
+                        .password(hashedPassword != "" ? hashedPassword : userEntity.getPassword())
+                        .name(name != "" ? name : userEntity.getName())
+                        .email(email != "" ? email : userEntity.getEmail())
+                        .region(region != null ? region : userEntity.getRegion())
+                        .provider(provider)
+                        .createdAt(userEntity.getCreatedAt())
+                        .updatedAt(LocalDateTime.now())
+                        .build();
 
-            return userRepository.save(userEntity);
+                return userRepository.save(userEntity);
+            }
+        } else {
+            if (user.isPresent()) {
+                UserEntity userEntity = user.get();
+                userEntity = userEntity.builder()
+                        .id(userId)
+                        .loginId(loginId)
+                        .password(hashedPassword)
+                        .name(name != "" ? name : userEntity.getName())
+                        .email(email != "" ? email : userEntity.getEmail())
+                        .region(region != null ? region : userEntity.getRegion())
+                        .provider(provider)
+                        .createdAt(userEntity.getCreatedAt())
+                        .updatedAt(LocalDateTime.now())
+                        .build();
+
+                return userRepository.save(userEntity);
+            }
         }
-
         return null;
     }
 }
