@@ -39,8 +39,9 @@ public class UserRestController {
             UserEntity sessionUser = userBO.getUserEntityById(userId);
             if (sessionUser.getLoginId().equals(loginId)) {
                 isSame = true;
+            } else {
+                isDuplicateId = true;
             }
-            isDuplicateId = true;
         }
 
         // 응답값
@@ -100,4 +101,46 @@ public class UserRestController {
         return result;
     }
 
+    @GetMapping("/check-password")
+    public Map<String, Object> checkPassword(
+            @RequestParam("password") String password,
+            HttpSession session
+    ) {
+        String loginId = (String)session.getAttribute("userLoginId");
+
+        UserEntity userEntity = userBO.getUserEntityByLoginIdPassword(loginId, password);
+        Map<String, Object> result = new HashMap<>();
+        boolean checkPassword = false;
+        if (userEntity != null) {
+            checkPassword = true;
+        }
+
+        result.put("code", 200);
+        result.put("check_password", checkPassword);
+        return result;
+    }
+
+    @PatchMapping("/edit-profile")
+    public Map<String, Object> editProfile (
+            @RequestParam(value = "loginId", required = false) String loginId,
+            @RequestParam(value = "newPassword", required = false) String newPassword,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "region", required = false) String region,
+            HttpSession session
+    ) {
+
+        int userId = (Integer)session.getAttribute("userId");
+
+        UserEntity userEntity = userBO.updateUserEntityById(userId, loginId, newPassword, name, email, region, "local", null);
+        Map<String, Object> result = new HashMap<>();
+        if (userEntity != null) {
+            result.put("code", 200);
+            result.put("result", "성공");
+        } else {
+            result.put("code", 500);
+            result.put("error_message", "정보를 수정하는데 실패했습니다.");
+        }
+        return result;
+    }
 }

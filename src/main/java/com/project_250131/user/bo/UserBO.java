@@ -9,6 +9,7 @@ import org.apache.catalina.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -41,6 +42,20 @@ public class UserBO {
         return userEntity;
     }
 
+    public UserEntity getUserEntityByLoginIdPassword(String loginId, String password) {
+
+        UserEntity userEntity = userRepository.findByLoginId(loginId).orElse(null);
+        if (userEntity != null) {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+            if (passwordEncoder.matches(password, userEntity.getPassword())) {
+                return userEntity;
+            }
+        }
+
+        return null;
+    }
+
     // 회원가입
     public UserEntity addUserEntity(String loginId, String password, String name,
                                 String email, String region, String provider, String providerId) {
@@ -65,15 +80,32 @@ public class UserBO {
         return user;
     }
 
-    public UserEntity getUserEntityByLoginIdPassword(String loginId, String password) {
+    // 유저 정보 수정
+    public UserEntity updateUserEntityById(int userId, String loginId, String newPassword, String name,
+                                           String email, String region, String provider, String providerId) {
 
-        UserEntity userEntity = userRepository.findByLoginId(loginId).orElse(null);
-        if (userEntity != null) {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        Optional<UserEntity> user = userRepository.findById(userId);
+        String hashedPassword = "";
+        if (newPassword != "") {
+            hashedPassword = EncryptUtils.bcrypt(newPassword);
+        }
 
-            if (passwordEncoder.matches(password, userEntity.getPassword())) {
-                return userEntity;
-            }
+        if (user.isPresent()) {
+            UserEntity userEntity = user.get();
+            userEntity = userEntity.builder()
+                    .id(userId)
+                    .loginId(loginId != "" ? loginId : userEntity.getLoginId())
+                    .password(hashedPassword != "" ? hashedPassword : userEntity.getPassword())
+                    .name(name != "" ? name : userEntity.getName())
+                    .email(email != "" ? email : userEntity.getEmail())
+                    .region(region != null ? region : userEntity.getRegion())
+                    .provider(provider)
+                    .providerId(providerId)
+                    .createdAt(userEntity.getCreatedAt())
+                    .updatedAt(LocalDateTime.now())
+                    .build();
+
+            return userRepository.save(userEntity);
         }
 
         return null;

@@ -51,4 +51,11 @@ class Project250131ApplicationTests {
 		assertTrue(passwordEncoder.matches(password, result.getPassword()));
 	}
 
+	@Transactional
+	@Test
+	void 정보수정() {
+		userBO.updateUserEntityById(2, "bbbb", "bbbb",
+				"장꾸꾸", "", "서울특별시", "local", null);
+	}
+
 }

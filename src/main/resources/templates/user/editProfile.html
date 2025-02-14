@@ -26,10 +26,10 @@
                         <input type="password" class="form-control" name="password" id="password" placeholder="기존 비밀번호를 입력하세요.">
                         <button type="button" th:data-user-id="${session.userId}" class="btn passwordCheckBtn" id="passwordCheckBtn">확인</button>
                     </div>
+                    <!-- 비밀번호 확인 문구 -->
+                    <div id="passwordCheckFalse" class="small text-danger d-none">비밀번호가 틀렸습니다.</div>
+                    <div id="passwordCheckOk" class="small text-success d-none">변경하실 비밀번호를 입력해주세요.</div>
                 </div>
-                <!-- 비밀번호 확인 문구 -->
-                <div id="passwordCheckFalse" class="small text-danger d-none">비밀번호가 틀렸습니다.</div>
-                <div id="passwordCheckOk" class="small text-success d-none">변경하실 비밀번호를 입력해주세요.</div>
                 <div class="form-group">
                     <label for="newPassword">변경할 비밀번호</label>
                     <input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="변경할 비밀번호를 입력하세요.">
@@ -112,7 +112,6 @@
                 $("#idCheckSame").addClass("d-none");
 
                 let loginId = $("#loginId").val().trim();
-                console.log(loginId);
 
                 if (loginId.length < 4) {
                     $("#idCheckLength").removeClass("d-none");
@@ -146,12 +145,89 @@
 
             // 비밀번호 확인 버튼
             $("#passwordCheckBtn").on("click", function() {
+                $("#passwordCheckFalse").addClass("d-none");
+                $("#passwordCheckOk").addClass("d-none");
 
+                let password = $("#password").val();
+
+                if (!password) {
+                    alert("기존 비밀번호를 입력해주세요.");
+                    return;
+                }
+
+                $.ajax({
+                    // request
+                    url:"/user/check-password"
+                    , data:{"password":password}
+
+                    // response
+                    , success:function(data) {
+                        if (data.code == 200) {
+                            if (data.check_password) {
+                                $("#passwordCheckOk").removeClass("d-none");
+                            } else {
+                                $("#passwordCheckFalse").removeClass("d-none");
+                            }
+                        } else {
+                            alert("기존 비밀번호 확인에 실패했습니다.");
+                        }
+                    }
+                    , error:function(e) {
+                        alert("기존 비밀번호 확인에 실패했습니다. 관리자에게 문의해주세요.");
+                    }
+                });
             });
 
             // 정보 수정
             $("#editBtn").on("click", function() {
-                let loginId =
+                let loginId = $("#loginId").val().trim();
+                let newPassword = $("#newPassword").val();
+                let newPasswordCheck = $("#newPasswordCheck").val();
+                let name = $("#name").val().trim();
+                let email = $("#email").val().trim();
+                let region = $("#region").val();
+
+                if ($("#idCheckOk").hasClass("d-none") && $("#idCheckSame").hasClass("d-none")) {
+                    alert("아이디 중복확인을 해주세요.");
+                    return false;
+                }
+
+                if (newPassword != "" || newPasswordCheck != "") {
+                    if ($("#passwordCheckFalse").hasClass("d-none") == false) {
+                        alert("기존 비밀번호를 먼저 확인해주세요.");
+                        return false;
+                    } else if ($("#passwordCheckFalse").hasClass("d-none") && $("#passwordCheckOk").hasClass("d-none")) {
+                        alert("기존 비밀번호를 먼저 확인해주세요.");
+                        return false;
+                    } else if (newPassword != newPasswordCheck) {
+                        alert("변경할 비밀번호가 일치하지 않습니다.");
+                        return false;
+                    }
+                }
+
+                if (region == "-- 선택하기--") {
+                    region == null;
+                }
+
+                $.ajax({
+                    // request
+                    type:"patch"
+                    , url:"/user/edit-profile"
+                    , data:{"loginId":loginId, "newPassword":newPassword, "name":name, "email":email, "region":region}
+
+                    // response
+                    , success:function(data) {
+                        if (data.code == 200) {
+                            alert("정보 수정이 완료되었습니다.")
+                            location.href = "/store/user-store-list";
+                        } else {
+                            alert(data.error_message);
+                        }
+                    }
+                    , error:function(e) {
+                        alert("정보를 수정하는데 실패했습니다. 관리자에게 문의해주세요.");
+                    }
+                });
             });
 
         });
