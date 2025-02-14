@@ -56,6 +56,13 @@ public class UserBO {
         return null;
     }
 
+    // 아이디 찾기
+    public UserEntity getUserEntityByNameEmail(String name, String email) {
+        UserEntity userEntity = userRepository.findByNameAndEmail(name, email).orElse(null);
+
+        return userEntity;
+    }
+
     // 회원가입
     public UserEntity addUserEntity(String loginId, String password, String name,
                                 String email, String region, String provider) {

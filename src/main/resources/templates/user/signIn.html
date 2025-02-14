@@ -5,7 +5,7 @@
       layout:decorate="~{layout/defaultLayout}">
 <th:block layout:fragment="content">
     <section class="contents d-flex justify-content-center">
-        <div id="sign-in-box" class="mt-5">
+        <div id="signInBox" class="mt-5">
             <div class="m-5">
                 <h3 class="mb-5">로그인</h3>
                 <form id="loginForm" method="post" action="/user/sign-in">
@@ -15,10 +15,14 @@
                         <a href="/user/sign-up" class="sign-up-view w-50 text-center pt-1">회원가입</a>
                         <button type="submit" class="btn sign-in-btn w-50 ml-1">로그인</button>
                     </div>
-                    <div class="d-flex justify-content-center mt-5">
+                    <div class="d-flex justify-content-center mt-4">
                         <a href="/user/naver-login" class="naver-login">
                             <img src="https://static.nid.naver.com/oauth/small_g_in.PNG" alt="네이버 로그인" width="100">
                         </a>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <a href="/user/find-loginId" class="text-secondary border-bottom mr-4">아이디 찾기</a>
+                        <a href="/user/find-password" class="text-secondary border-bottom">비밀번호 찾기</a>
                     </div>
                 </form>
             </div>

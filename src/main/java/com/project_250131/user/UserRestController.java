@@ -5,6 +5,7 @@ import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -34,7 +35,7 @@ public class UserRestController {
 
         // DB select
         Map<String, Object> result = new HashMap<>();
-        int userId = (Integer)session.getAttribute("userId");
+        Integer userId = (Integer)session.getAttribute("userId");
         if (user != null) {
             UserEntity sessionUser = userBO.getUserEntityById(userId);
             if (sessionUser.getLoginId().equals(loginId)) {
@@ -142,6 +143,26 @@ public class UserRestController {
             result.put("code", 500);
             result.put("error_message", "정보를 수정하는데 실패했습니다.");
         }
+        return result;
+    }
+
+    @PostMapping("/find-loginId")
+    public Map<String, Object> findLoginId(
+            @RequestParam("name") String name,
+            @RequestParam("email") String email
+    ) {
+
+        UserEntity userEntity = userBO.getUserEntityByNameEmail(name, email);
+
+        Map<String, Object> result = new HashMap<>();
+        if (userEntity != null) {
+            result.put("code", 200);
+            result.put("result", "성공");
+            result.put("loginId", userEntity.getLoginId());
+        } else {
+            result.put("code", 300);
+        }
+
         return result;
     }
 }

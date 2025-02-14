@@ -3,6 +3,8 @@ package com.project_250131.user.bo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project_250131.config.NaverProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -13,19 +15,19 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Service
 public class NaverLoginService {
 
-    private static final String CLIENT_ID = "qOmR_kGT5NAw084OznZs";
-    private static final String CLIENT_SECRET = "eJpq4i3BAt";
-    private static final String REDIRECT_URI = "http://localhost:80/user/naver/callback";
+    private final NaverProperties naverProperties;
 
     public String getAccessToken(String code, String state) {
-        String tokenUrl = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code"
-                + "&client_id=" + CLIENT_ID
-                + "&client_secret=" + CLIENT_SECRET
-                + "&code=" + code
-                + "&state=" + state;
+        String tokenUrl = naverProperties.getTokenUrl() +
+                "?grant_type=authorization_code" +
+                "&client_id=" + naverProperties.getClientId() +
+                "&client_secret=" + naverProperties.getClientSecret() +
+                "&code=" + code +
+                "&state=" + state;
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, null, String.class);

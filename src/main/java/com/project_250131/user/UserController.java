@@ -110,4 +110,11 @@ public class UserController {
 
         return "user/editProfile";
     }
+
+    @GetMapping("/find-loginId")
+    public String findLoginId() {
+        return "user/findLoginId";
+    }
+
+
 }
