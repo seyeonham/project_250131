@@ -18,6 +18,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  config:
+    import: optional:application-secret.yml
 mybatis:
   mapper-locations: mappers/*Mapper.xml
 naver:

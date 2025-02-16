@@ -1,15 +1,20 @@
 package com.project_250131.user;
 
+import com.project_250131.config.MailProperties;
 import com.project_250131.user.bo.NaverLoginService;
 import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -17,7 +22,8 @@ import java.util.Map;
 public class UserRestController {
 
     private final UserBO userBO;
-    private final NaverLoginService naverLoginService;
+    private final JavaMailSender mailSender;
+    private final MailProperties mailProperties;
 
     /**
      * 아이디 중복 확인
@@ -91,6 +97,7 @@ public class UserRestController {
             session.setAttribute("userId", user.getId());
             session.setAttribute("userLoginId", user.getLoginId());
             session.setAttribute("userName", user.getName());
+            session.setAttribute("userProvider", user.getProvider());
 
             result.put("code", 200);
             result.put("result", "성공");
@@ -161,6 +168,79 @@ public class UserRestController {
             result.put("loginId", userEntity.getLoginId());
         } else {
             result.put("code", 300);
+        }
+
+        return result;
+    }
+
+    @PostMapping("/find-password")
+    public Map<String, Object> findPassword(
+            @RequestParam("loginId") String loginId,
+            @RequestParam("email") String email
+    ) {
+        UserEntity userEntity = userBO.getUserEntityByLoginIdEmail(loginId, email);
+
+        Map<String, Object> result = new HashMap<>();
+        if (userEntity != null) {
+            result.put("code", 200);
+            result.put("result", "성공");
+        } else {
+            result.put("code", 300);
+        }
+
+        return result;
+    }
+
+    @GetMapping("/send-passcode")
+    public Map<String, Object> sendPasscode(
+            @RequestParam("email") String email
+    ) {
+        int passcode = ThreadLocalRandom.current().nextInt(111111, 1000000);
+
+        String title = "맛집랭킹 비밀번호 찾기 인증번호";
+        String from = mailProperties.getUsername();
+        String to = email;
+
+        String content =
+                "안녕하세요. 맛집랭킹 비밀번호 찾기 인증 이메일 입니다.\n\n" +
+                "인증번호는 " + passcode + " 입니다. ";
+
+        Map<String, Object> result = new HashMap<>();
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+
+            messageHelper.setFrom(from);
+            messageHelper.setTo(to);
+            messageHelper.setSubject(title);
+            messageHelper.setText(content);
+
+            mailSender.send(message);
+            result.put("code", 200);
+            result.put("passcode", passcode);
+        } catch (MessagingException e) {
+            result.put("code", 500);
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    @PatchMapping("/change-password")
+    public Map<String, Object> changePassword(
+            @RequestParam("loginId") String loginId,
+            @RequestParam("email") String email,
+            @RequestParam("password") String password
+    ) {
+        UserEntity userEntity = userBO.updateUserEntityByLoginIdEmail(loginId, email, password);
+
+        Map<String, Object> result = new HashMap<>();
+        if (userEntity != null) {
+            result.put("code", 200);
+            result.put("result", "성공");
+        } else {
+            result.put("code", 500);
+            result.put("error_message", "비밀번호 변경에 실패했습니다.");
         }
 
         return result;

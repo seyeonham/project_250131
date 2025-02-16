@@ -5,7 +5,7 @@
         layout:decorate="~{layout/defaultLayout}">
 <th:block layout:fragment="content">
     <section class="contents d-flex justify-content-center">
-        <div id="sign-up-box" class="my-3">
+        <div id="signUpBox" class="my-3">
             <div class="m-3">
                 <h3 class="mb-3">맛집랭킹 정보수정</h3>
                 <div th:if="${user.provider} == 'local'">
@@ -47,20 +47,18 @@
                 </div>
                 <div class="form-group">
                     <label for="email">이메일</label>
-                    <div class="d-flex align-items-center">
-                        <input th:if="${user.provider} == 'local'" type="text" class="form-control" th:value="${user.email}" name="email" id="email" placeholder="이메일을 입력하세요.">
-                        <div th:if="${user.provider} == 'naver'"><h5 th:text="${user.email}"></h5></div>
-                        <div th:if="${user.provider} == 'local'">
-                            <span>@</span>
-                            <select id="chooseEmailDomain" class="form-control emailDomain">
-                                <option value="gmail.com">gmail.com</option>
-                                <option value="naver.com">naver.com</option>
-                                <option value="nate.com">nate.com</option>
-                                <option value="daum.com">daum.com</option>
-                                <option>직접 입력하기</option>
-                            </select>
-                            <input type="text" id="writeEmailDomain" class="form-control d-none emailDomain">
-                        </div>
+                    <div th:if="${user.provider} == 'naver'"><h5 th:text="${user.email}"></h5></div>
+                    <div th:if="${user.provider} == 'local'" class="d-flex align-items-center">
+                        <input type="text" class="form-control" th:value="${user.email}" name="email" id="email" placeholder="이메일을 입력하세요.">
+                        <span>@</span>
+                        <select id="chooseEmailDomain" class="form-control emailDomain">
+                            <option value="gmail.com">gmail.com</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="nate.com">nate.com</option>
+                            <option value="daum.com">daum.com</option>
+                            <option>직접 입력하기</option>
+                        </select>
+                        <input type="text" id="writeEmailDomain" class="form-control d-none emailDomain">
                     </div>
                 </div>
                 <div class="form-group">
@@ -191,9 +189,12 @@
                 let loginId = $("#loginId").length ? $("#loginId").val().trim() : null;
                 let newPassword = $("#newPassword").length ? $("#newPassword").val() : null;
                 let newPasswordCheck = $("#newPasswordCheck").length ? $("#newPasswordCheck").val() : null;
-                let name = $("#name").length ? $("#name").val().trim() : null;
-                let email = $("#email").length ? $("#email").val().trim() : null;
+                let name = $("#name").val().trim()
+                let emailFirst = $("#email").val().trim()
+                let emailDomain = $("#emailDomain").val();
                 let region = $("#region").val();
+
+                let email = emailFirst + "@" + emailDomain;
 
                 if ($("#loginId").length > 0) {
                     if ($("#idCheckOk").hasClass("d-none") && $("#idCheckSame").hasClass("d-none")) {

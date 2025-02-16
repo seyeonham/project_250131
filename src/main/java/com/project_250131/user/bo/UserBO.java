@@ -59,7 +59,12 @@ public class UserBO {
     // 아이디 찾기
     public UserEntity getUserEntityByNameEmail(String name, String email) {
         UserEntity userEntity = userRepository.findByNameAndEmail(name, email).orElse(null);
+        return userEntity;
+    }
 
+    // 비밀번호 찾기 - 유저 찾기
+    public UserEntity getUserEntityByLoginIdEmail(String loginId, String email) {
+        UserEntity userEntity = userRepository.findByLoginIdAndEmail(loginId, email).orElse(null);
         return userEntity;
     }
 
@@ -131,6 +136,33 @@ public class UserBO {
                 return userRepository.save(userEntity);
             }
         }
+        return null;
+    }
+
+    // 새비밀번호 변경
+    public UserEntity updateUserEntityByLoginIdEmail(
+            String loginId, String email, String password) {
+
+        String hashedPassword = EncryptUtils.bcrypt(password);
+
+        Optional<UserEntity> user = userRepository.findByLoginIdAndEmail(loginId, email);
+        if (user != null) {
+            UserEntity userEntity = user.get();
+            userEntity = userEntity.builder()
+                    .id(userEntity.getId())
+                    .loginId(userEntity.getLoginId())
+                    .password(hashedPassword)
+                    .name(userEntity.getName())
+                    .email(userEntity.getEmail())
+                    .region(userEntity.getRegion())
+                    .provider(userEntity.getProvider())
+                    .createdAt(userEntity.getCreatedAt())
+                    .updatedAt(LocalDateTime.now())
+                    .build();
+
+            return userRepository.save(userEntity);
+        }
+
         return null;
     }
 }

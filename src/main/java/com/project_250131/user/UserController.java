@@ -116,5 +116,8 @@ public class UserController {
         return "user/findLoginId";
     }
 
-
+    @GetMapping("/find-password")
+    public String findPassword() {
+        return "user/findPassword";
+    }
 }
