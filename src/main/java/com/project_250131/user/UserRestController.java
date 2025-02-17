@@ -1,20 +1,15 @@
 package com.project_250131.user;
 
-import com.project_250131.config.MailProperties;
-import com.project_250131.user.bo.NaverLoginService;
+import com.project_250131.user.bo.MailService;
 import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
 import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -22,8 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class UserRestController {
 
     private final UserBO userBO;
-    private final JavaMailSender mailSender;
-    private final MailProperties mailProperties;
+    private final MailService mailService;
 
     /**
      * 아이디 중복 확인
@@ -195,27 +189,10 @@ public class UserRestController {
     public Map<String, Object> sendPasscode(
             @RequestParam("email") String email
     ) {
-        int passcode = ThreadLocalRandom.current().nextInt(111111, 1000000);
-
-        String title = "맛집랭킹 비밀번호 찾기 인증번호";
-        String from = mailProperties.getUsername();
-        String to = email;
-
-        String content =
-                "안녕하세요. 맛집랭킹 비밀번호 찾기 인증 이메일 입니다.\n\n" +
-                "인증번호는 " + passcode + " 입니다. ";
 
         Map<String, Object> result = new HashMap<>();
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
-
-            messageHelper.setFrom(from);
-            messageHelper.setTo(to);
-            messageHelper.setSubject(title);
-            messageHelper.setText(content);
-
-            mailSender.send(message);
+            int passcode = mailService.sendMail(email);
             result.put("code", 200);
             result.put("passcode", passcode);
         } catch (MessagingException e) {

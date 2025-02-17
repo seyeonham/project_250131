@@ -101,7 +101,7 @@ public class UserBO {
             hashedPassword = EncryptUtils.bcrypt(newPassword);
         }
 
-        if (provider == "local") {
+        if (provider.equals("local")) {
             if (user.isPresent()) {
                 UserEntity userEntity = user.get();
                 userEntity = userEntity.builder()

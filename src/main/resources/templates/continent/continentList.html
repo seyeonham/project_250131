@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="content">
+    <section class="contents">
+        <div class="display-4 font-weight-bold category-title">대륙별 맛집 추천</div>
+        <div class="category-container">
+            <div th:each="continent : ${continentList}">
+                <div class="category-list">
+                    <a th:href="@{/store/continent-store-list(continent=${continent.continent})}">
+                        <img th:src="${continent.imagePath}" class="category-image">
+                        <p th:text="${continent.continent}" class="category-text"></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>
