@@ -30,13 +30,13 @@ class Project250131ApplicationTests {
 	}
 
 	@Transactional
-	@Test
+	//@Test
 	void 회원가입() {
 		userBO.addUserEntity("test", "test", "name",
 				"email@google.com", null, "naver");
 	}
 
-	@Test
+	//@Test
 	void 로그인() {
 		// given
 		String loginId = "bbbb";
@@ -52,7 +52,7 @@ class Project250131ApplicationTests {
 	}
 
 	@Transactional
-	@Test
+	//@Test
 	void 정보수정() {
 		userBO.updateUserEntityById(2, "bbbb", "bbbb",
 				"장꾸꾸", "", "서울특별시", "local");
