@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Configuration
+@Component
 @RequiredArgsConstructor
 public class CsvItemWriter implements ItemWriter<StoreDTO> {
 

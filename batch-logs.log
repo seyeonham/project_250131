@@ -1,0 +1,536 @@
+2025-02-19T14:16:30.068+09:00  INFO 38060 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 38060 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:16:30.073+09:00  INFO 38060 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:16:30.404+09:00  INFO 38060 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:16:30.405+09:00  INFO 38060 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:16:31.153+09:00  INFO 38060 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 3 ms.
+2025-02-19T14:16:31.441+09:00  INFO 38060 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:16:31.533+09:00  INFO 38060 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 78 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:16:32.456+09:00  INFO 38060 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:16:32.479+09:00  INFO 38060 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:16:32.479+09:00  INFO 38060 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:16:32.572+09:00  INFO 38060 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:16:32.573+09:00  INFO 38060 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2167 ms
+2025-02-19T14:16:32.890+09:00  INFO 38060 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:16:32.969+09:00  INFO 38060 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:16:33.028+09:00  INFO 38060 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:16:33.489+09:00  INFO 38060 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:16:33.550+09:00  INFO 38060 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:16:33.972+09:00  INFO 38060 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1611e23d
+2025-02-19T14:16:33.988+09:00  INFO 38060 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:16:34.110+09:00  INFO 38060 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:16:35.301+09:00  INFO 38060 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:16:35.304+09:00  INFO 38060 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:16:35.624+09:00  INFO 38060 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:16:35.645+09:00  INFO 38060 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:16:36.116+09:00  INFO 38060 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:16:36.125+09:00  INFO 38060 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:16:36.183+09:00  WARN 38060 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19T14:16:36.760+09:00  INFO 38060 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-19T14:16:36.820+09:00  INFO 38060 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2025-02-19T14:16:36.831+09:00  INFO 38060 --- [restartedMain] c.p.Project250131Application             : Started Project250131Application in 7.463 seconds (process running for 8.14)
+2025-02-19T14:16:37.281+09:00  INFO 38060 --- [restartedMain] p6spy                                    : #1739942197281 | took 3ms | statement | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+select count(*) from store se1_0
+select count(*) from store se1_0;
+2025-02-19T14:16:37.300+09:00  INFO 38060 --- [restartedMain] p6spy                                    : #1739942197300 | took 0ms | commit | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:16:37.341+09:00  INFO 38060 --- [restartedMain] p6spy                                    : #1739942197341 | took 30ms | statement | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = ? and JOB_KEY = ?
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = 'job' and JOB_KEY = 'd41d8cd98f00b204e9800998ecf8427e';
+2025-02-19T14:16:37.346+09:00  INFO 38060 --- [restartedMain] p6spy                                    : #1739942197346 | took 0ms | rollback | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:17:21.970+09:00  INFO 23008 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 23008 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:17:21.973+09:00  INFO 23008 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:17:22.288+09:00  INFO 23008 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:17:22.288+09:00  INFO 23008 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:17:23.006+09:00  INFO 23008 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 4 ms.
+2025-02-19T14:17:23.009+09:00  INFO 23008 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:17:23.009+09:00  INFO 23008 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:17:23.009+09:00  INFO 23008 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:17:23.009+09:00  INFO 23008 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:17:23.009+09:00  INFO 23008 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:17:23.009+09:00  INFO 23008 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:17:23.311+09:00  INFO 23008 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:17:23.421+09:00  INFO 23008 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 99 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:17:24.589+09:00  INFO 23008 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:17:24.615+09:00  INFO 23008 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:17:24.615+09:00  INFO 23008 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:17:24.739+09:00  INFO 23008 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:17:24.739+09:00  INFO 23008 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2451 ms
+2025-02-19T14:17:25.123+09:00  INFO 23008 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:17:25.233+09:00  INFO 23008 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:17:25.284+09:00  INFO 23008 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:17:25.698+09:00  INFO 23008 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:17:25.757+09:00  INFO 23008 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:17:26.096+09:00  INFO 23008 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2143d21a
+2025-02-19T14:17:26.098+09:00  INFO 23008 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:17:26.179+09:00  INFO 23008 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:17:27.237+09:00  INFO 23008 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:17:27.240+09:00  INFO 23008 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:17:27.551+09:00  INFO 23008 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:17:27.571+09:00  INFO 23008 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:17:28.042+09:00  INFO 23008 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:17:28.051+09:00  INFO 23008 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:17:28.109+09:00  WARN 23008 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19T14:17:28.783+09:00  INFO 23008 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-19T14:17:28.835+09:00  INFO 23008 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2025-02-19T14:17:28.849+09:00  INFO 23008 --- [restartedMain] c.p.Project250131Application             : Started Project250131Application in 7.537 seconds (process running for 8.113)
+2025-02-19T14:17:29.382+09:00  INFO 23008 --- [restartedMain] p6spy                                    : #1739942249382 | took 3ms | statement | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+select count(*) from store se1_0
+select count(*) from store se1_0;
+2025-02-19T14:17:29.405+09:00  INFO 23008 --- [restartedMain] p6spy                                    : #1739942249405 | took 2ms | commit | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:17:29.447+09:00  INFO 23008 --- [restartedMain] p6spy                                    : #1739942249447 | took 30ms | statement | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = ? and JOB_KEY = ?
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = 'job' and JOB_KEY = 'd41d8cd98f00b204e9800998ecf8427e';
+2025-02-19T14:17:29.451+09:00  INFO 23008 --- [restartedMain] p6spy                                    : #1739942249451 | took 0ms | rollback | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:17:58.488+09:00  INFO 16492 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 16492 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:17:58.492+09:00  INFO 16492 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:17:58.814+09:00  INFO 16492 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:17:58.814+09:00  INFO 16492 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:17:59.570+09:00  INFO 16492 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 4 ms.
+2025-02-19T14:17:59.573+09:00  INFO 16492 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:17:59.573+09:00  INFO 16492 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:17:59.573+09:00  INFO 16492 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:17:59.573+09:00  INFO 16492 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:17:59.573+09:00  INFO 16492 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:17:59.573+09:00  INFO 16492 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:17:59.918+09:00  INFO 16492 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:18:00.053+09:00  INFO 16492 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 121 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:18:01.180+09:00  INFO 16492 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:18:01.201+09:00  INFO 16492 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:18:01.202+09:00  INFO 16492 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:18:01.357+09:00  INFO 16492 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:18:01.358+09:00  INFO 16492 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2544 ms
+2025-02-19T14:18:01.739+09:00  INFO 16492 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:18:01.843+09:00  INFO 16492 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:18:01.897+09:00  INFO 16492 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:18:02.388+09:00  INFO 16492 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:18:02.463+09:00  INFO 16492 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:18:02.860+09:00  INFO 16492 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6c67ff4b
+2025-02-19T14:18:02.863+09:00  INFO 16492 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:18:02.953+09:00  INFO 16492 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:18:04.098+09:00  INFO 16492 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:18:04.101+09:00  INFO 16492 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:18:04.547+09:00  INFO 16492 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:18:04.575+09:00  INFO 16492 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:18:05.220+09:00  INFO 16492 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:18:05.231+09:00  INFO 16492 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:18:05.322+09:00  WARN 16492 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19T14:18:06.167+09:00  INFO 16492 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-19T14:18:06.237+09:00  INFO 16492 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2025-02-19T14:18:06.253+09:00  INFO 16492 --- [restartedMain] c.p.Project250131Application             : Started Project250131Application in 8.431 seconds (process running for 9.044)
+2025-02-19T14:18:06.844+09:00  INFO 16492 --- [restartedMain] p6spy                                    : #1739942286844 | took 18ms | statement | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+select count(*) from store se1_0
+select count(*) from store se1_0;
+2025-02-19T14:18:06.875+09:00  INFO 16492 --- [restartedMain] p6spy                                    : #1739942286875 | took 0ms | commit | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:18:06.939+09:00  INFO 16492 --- [restartedMain] p6spy                                    : #1739942286939 | took 49ms | statement | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = ? and JOB_KEY = ?
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = 'job' and JOB_KEY = 'd41d8cd98f00b204e9800998ecf8427e';
+2025-02-19T14:18:06.954+09:00  INFO 16492 --- [restartedMain] p6spy                                    : #1739942286954 | took 0ms | rollback | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:23:22.742+09:00  INFO 33240 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 33240 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:23:22.746+09:00  INFO 33240 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:23:23.091+09:00  INFO 33240 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:23:23.092+09:00  INFO 33240 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:23:24.001+09:00  INFO 33240 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 5 ms.
+2025-02-19T14:23:24.004+09:00  INFO 33240 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:23:24.004+09:00  INFO 33240 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:23:24.004+09:00  INFO 33240 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:23:24.004+09:00  INFO 33240 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:23:24.004+09:00  INFO 33240 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:23:24.005+09:00  INFO 33240 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:23:24.386+09:00  INFO 33240 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:23:24.510+09:00  INFO 33240 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:23:25.501+09:00  INFO 33240 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:23:25.518+09:00  INFO 33240 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:23:25.519+09:00  INFO 33240 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:23:25.616+09:00  INFO 33240 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:23:25.616+09:00  INFO 33240 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2524 ms
+2025-02-19T14:23:25.951+09:00  INFO 33240 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:23:26.040+09:00  INFO 33240 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:23:26.094+09:00  INFO 33240 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:23:26.531+09:00  INFO 33240 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:23:26.585+09:00  INFO 33240 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:23:26.939+09:00  INFO 33240 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@75adce0d
+2025-02-19T14:23:26.941+09:00  INFO 33240 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:23:27.032+09:00  INFO 33240 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:23:28.231+09:00  INFO 33240 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:23:28.235+09:00  INFO 33240 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:23:28.694+09:00  INFO 33240 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:23:28.716+09:00  INFO 33240 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:23:29.266+09:00  INFO 33240 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:23:29.276+09:00  INFO 33240 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:23:29.334+09:00  WARN 33240 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19T14:23:29.942+09:00  INFO 33240 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-19T14:23:29.989+09:00  INFO 33240 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2025-02-19T14:23:30.001+09:00  INFO 33240 --- [restartedMain] c.p.Project250131Application             : Started Project250131Application in 7.917 seconds (process running for 8.533)
+2025-02-19T14:23:30.520+09:00  INFO 33240 --- [restartedMain] p6spy                                    : #1739942610519 | took 3ms | statement | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+select count(*) from store se1_0
+select count(*) from store se1_0;
+2025-02-19T14:23:30.539+09:00  INFO 33240 --- [restartedMain] p6spy                                    : #1739942610539 | took 0ms | commit | connection 2| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:23:30.590+09:00  INFO 33240 --- [restartedMain] p6spy                                    : #1739942610590 | took 37ms | statement | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = ? and JOB_KEY = ?
+SELECT JOB_INSTANCE_ID, JOB_NAME from BATCH_JOB_INSTANCE where JOB_NAME = 'job' and JOB_KEY = 'd41d8cd98f00b204e9800998ecf8427e';
+2025-02-19T14:23:30.595+09:00  INFO 33240 --- [restartedMain] p6spy                                    : #1739942610595 | took 0ms | rollback | connection 3| url jdbc:mysql://localhost:3306/project_250131?characterEncoding=UTF-8
+
+;
+2025-02-19T14:24:03.614+09:00  INFO 6080 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 6080 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:24:03.619+09:00  INFO 6080 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:24:04.011+09:00  INFO 6080 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:24:04.012+09:00  INFO 6080 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:24:04.852+09:00  INFO 6080 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 4 ms.
+2025-02-19T14:24:04.856+09:00  INFO 6080 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:24:04.857+09:00  INFO 6080 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:24:04.857+09:00  INFO 6080 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:24:04.857+09:00  INFO 6080 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:24:04.857+09:00  INFO 6080 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:24:04.857+09:00  INFO 6080 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 1 ms.
+2025-02-19T14:24:05.263+09:00  INFO 6080 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:24:05.376+09:00  INFO 6080 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:24:06.398+09:00  INFO 6080 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:24:06.424+09:00  INFO 6080 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:24:06.425+09:00  INFO 6080 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:24:06.519+09:00  INFO 6080 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:24:06.521+09:00  INFO 6080 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2509 ms
+2025-02-19T14:24:06.848+09:00  INFO 6080 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:24:06.942+09:00  INFO 6080 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:24:06.994+09:00  INFO 6080 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:24:07.405+09:00  INFO 6080 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:24:07.454+09:00  INFO 6080 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:24:07.832+09:00  INFO 6080 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44f9a4dc
+2025-02-19T14:24:07.835+09:00  INFO 6080 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:24:07.921+09:00  INFO 6080 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:24:09.108+09:00  INFO 6080 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:24:09.112+09:00  INFO 6080 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:24:09.948+09:00  INFO 6080 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:24:10.040+09:00  INFO 6080 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:24:10.052+09:00  INFO 6080 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:24:10.054+09:00  INFO 6080 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:24:10.128+09:00  WARN 6080 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19T14:24:10.754+09:00  INFO 6080 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-19T14:24:10.800+09:00  INFO 6080 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2025-02-19T14:24:10.811+09:00  INFO 6080 --- [restartedMain] c.p.Project250131Application             : Started Project250131Application in 7.892 seconds (process running for 8.548)
+2025-02-19T14:25:26.601+09:00  INFO 4456 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 4456 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:25:26.606+09:00  INFO 4456 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:25:27.002+09:00  INFO 4456 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:25:27.003+09:00  INFO 4456 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:25:27.936+09:00  INFO 4456 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 7 ms.
+2025-02-19T14:25:27.940+09:00  INFO 4456 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:25:27.940+09:00  INFO 4456 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:25:27.940+09:00  INFO 4456 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:25:27.940+09:00  INFO 4456 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:25:27.940+09:00  INFO 4456 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:25:27.940+09:00  INFO 4456 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:25:28.298+09:00  INFO 4456 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:25:28.392+09:00  INFO 4456 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 83 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:25:29.343+09:00  INFO 4456 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:25:29.362+09:00  INFO 4456 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:25:29.362+09:00  INFO 4456 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:25:29.461+09:00  INFO 4456 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:25:29.462+09:00  INFO 4456 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2459 ms
+2025-02-19T14:25:29.802+09:00  INFO 4456 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:25:29.887+09:00  INFO 4456 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:25:29.935+09:00  INFO 4456 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:25:30.322+09:00  INFO 4456 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:25:30.405+09:00  INFO 4456 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:25:30.815+09:00  INFO 4456 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44f9a4dc
+2025-02-19T14:25:30.817+09:00  INFO 4456 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:25:30.905+09:00  INFO 4456 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:25:32.166+09:00  INFO 4456 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:25:32.170+09:00  INFO 4456 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:25:32.994+09:00  INFO 4456 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:25:33.084+09:00  INFO 4456 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:25:33.093+09:00  INFO 4456 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:25:33.097+09:00  INFO 4456 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:25:33.160+09:00  WARN 4456 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19T14:25:33.808+09:00  INFO 4456 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-19T14:25:33.856+09:00  INFO 4456 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2025-02-19T14:25:33.872+09:00  INFO 4456 --- [restartedMain] c.p.Project250131Application             : Started Project250131Application in 7.956 seconds (process running for 8.575)
+2025-02-19T14:31:10.006+09:00  INFO 18984 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 18984 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:31:10.006+09:00  INFO 18984 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:31:10.349+09:00  INFO 18984 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:31:10.349+09:00  INFO 18984 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:31:11.083+09:00  INFO 18984 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 4 ms.
+2025-02-19T14:31:11.083+09:00  INFO 18984 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:31:11.083+09:00  INFO 18984 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:31:11.083+09:00  INFO 18984 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:31:11.083+09:00  INFO 18984 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:31:11.083+09:00  INFO 18984 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:31:11.083+09:00  INFO 18984 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:31:11.463+09:00  INFO 18984 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:31:11.578+09:00  INFO 18984 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:31:12.647+09:00  INFO 18984 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:31:12.666+09:00  INFO 18984 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:31:12.666+09:00  INFO 18984 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:31:12.756+09:00  INFO 18984 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:31:12.756+09:00  INFO 18984 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2407 ms
+2025-02-19T14:31:13.093+09:00  INFO 18984 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:31:13.174+09:00  INFO 18984 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:31:13.222+09:00  INFO 18984 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:31:13.584+09:00  INFO 18984 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:31:13.629+09:00  INFO 18984 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:31:13.984+09:00  INFO 18984 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@a64e0ab
+2025-02-19T14:31:13.988+09:00  INFO 18984 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:31:14.085+09:00  INFO 18984 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:31:15.132+09:00  INFO 18984 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:31:15.136+09:00  INFO 18984 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:31:15.978+09:00  INFO 18984 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:31:16.080+09:00  INFO 18984 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:31:16.093+09:00  INFO 18984 --- [restartedMain] .c.a.BatchObservabilityBeanPostProcessor : No Micrometer observation registry found, defaulting to ObservationRegistry.NOOP
+2025-02-19T14:31:16.097+09:00  INFO 18984 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:31:16.180+09:00  WARN 18984 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-19T14:31:16.857+09:00  INFO 18984 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-02-19T14:31:16.915+09:00  INFO 18984 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 80 (http) with context path '/'
+2025-02-19T14:31:16.929+09:00  INFO 18984 --- [restartedMain] c.p.Project250131Application             : Started Project250131Application in 7.68 seconds (process running for 8.315)
+2025-02-19T14:34:17.766+09:00  INFO 22692 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 22692 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:34:17.771+09:00  INFO 22692 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:34:18.094+09:00  INFO 22692 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:34:18.094+09:00  INFO 22692 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:34:18.810+09:00  INFO 22692 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 4 ms.
+2025-02-19T14:34:18.810+09:00  INFO 22692 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:34:18.810+09:00  INFO 22692 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:34:18.811+09:00  INFO 22692 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:34:18.811+09:00  INFO 22692 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:34:18.811+09:00  INFO 22692 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:34:18.811+09:00  INFO 22692 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:34:19.147+09:00  INFO 22692 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:34:19.256+09:00  INFO 22692 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 95 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:34:20.334+09:00  INFO 22692 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:34:20.357+09:00  INFO 22692 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:34:20.358+09:00  INFO 22692 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:34:20.472+09:00  INFO 22692 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:34:20.473+09:00  INFO 22692 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2379 ms
+2025-02-19T14:34:20.859+09:00  INFO 22692 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:34:20.956+09:00  INFO 22692 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:34:21.016+09:00  INFO 22692 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:34:21.433+09:00  INFO 22692 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:34:21.481+09:00  INFO 22692 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:34:21.851+09:00  INFO 22692 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44f9a4dc
+2025-02-19T14:34:21.854+09:00  INFO 22692 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:34:21.946+09:00  INFO 22692 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:34:23.066+09:00  INFO 22692 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:34:23.070+09:00  INFO 22692 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:34:23.442+09:00  INFO 22692 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:34:23.461+09:00  INFO 22692 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:34:23.470+09:00  WARN 22692 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'csvBatchConfig': Invocation of init method failed
+2025-02-19T14:34:23.471+09:00  INFO 22692 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:34:23.488+09:00  INFO 22692 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-19T14:34:23.500+09:00  INFO 22692 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-19T14:34:23.507+09:00  INFO 22692 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-19T14:34:23.520+09:00  INFO 22692 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-19T14:34:23.553+09:00 ERROR 22692 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌──->──┐
+|  csvBatchConfig
+└──<-──┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
+2025-02-19T14:35:04.503+09:00  INFO 25728 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 25728 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:35:04.508+09:00  INFO 25728 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:35:04.905+09:00  INFO 25728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:35:04.905+09:00  INFO 25728 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:35:05.670+09:00  INFO 25728 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 4 ms.
+2025-02-19T14:35:05.671+09:00  INFO 25728 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:35:05.671+09:00  INFO 25728 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:35:05.671+09:00  INFO 25728 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:35:05.671+09:00  INFO 25728 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:35:05.671+09:00  INFO 25728 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:35:05.671+09:00  INFO 25728 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:35:05.997+09:00  INFO 25728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:35:06.119+09:00  INFO 25728 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 111 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:35:07.430+09:00  INFO 25728 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:35:07.454+09:00  INFO 25728 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:35:07.455+09:00  INFO 25728 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:35:07.582+09:00  INFO 25728 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:35:07.583+09:00  INFO 25728 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2677 ms
+2025-02-19T14:35:07.999+09:00  INFO 25728 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:35:08.109+09:00  INFO 25728 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:35:08.173+09:00  INFO 25728 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:35:08.781+09:00  INFO 25728 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:35:08.851+09:00  INFO 25728 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:35:09.362+09:00  INFO 25728 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44f9a4dc
+2025-02-19T14:35:09.367+09:00  INFO 25728 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:35:09.517+09:00  INFO 25728 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:35:10.661+09:00  INFO 25728 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:35:10.664+09:00  INFO 25728 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:35:11.054+09:00  INFO 25728 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:35:11.074+09:00  INFO 25728 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:35:11.082+09:00  INFO 25728 --- [restartedMain] c.p.store.batch.CsvBatchConfig           : Starting batch job...
+2025-02-19T14:35:11.084+09:00  WARN 25728 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'csvBatchConfig': Invocation of init method failed
+2025-02-19T14:35:11.085+09:00  INFO 25728 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:35:11.091+09:00  INFO 25728 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-19T14:35:11.105+09:00  INFO 25728 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-19T14:35:11.110+09:00  INFO 25728 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-19T14:35:11.127+09:00  INFO 25728 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-19T14:35:11.159+09:00 ERROR 25728 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌──->──┐
+|  csvBatchConfig
+└──<-──┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+
+2025-02-19T14:36:54.521+09:00  INFO 25088 --- [restartedMain] c.p.Project250131Application             : Starting Project250131Application using Java 17.0.12 with PID 25088 (C:\함세연\project\project_250131\build\classes\java\main started by CVI in C:\함세연\project\project_250131)
+2025-02-19T14:36:54.531+09:00  INFO 25088 --- [restartedMain] c.p.Project250131Application             : No active profile set, falling back to 1 default profile: "default"
+2025-02-19T14:36:54.953+09:00  INFO 25088 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-02-19T14:36:54.954+09:00  INFO 25088 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-02-19T14:36:55.816+09:00  INFO 25088 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 4 ms.
+2025-02-19T14:36:55.817+09:00  INFO 25088 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRepository already defined in the application context, skipping the registration of a jobRepository
+2025-02-19T14:36:55.817+09:00  INFO 25088 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobExplorer already defined in the application context, skipping the registration of a jobExplorer
+2025-02-19T14:36:55.817+09:00  INFO 25088 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobLauncher already defined in the application context, skipping the registration of a jobLauncher
+2025-02-19T14:36:55.817+09:00  INFO 25088 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobRegistry already defined in the application context, skipping the registration of a jobRegistry
+2025-02-19T14:36:55.817+09:00  INFO 25088 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Bean jobOperator already defined in the application context, skipping the registration of a jobOperator
+2025-02-19T14:36:55.817+09:00  INFO 25088 --- [restartedMain] o.s.b.c.c.annotation.BatchRegistrar      : Finished Spring Batch infrastructure beans configuration in 0 ms.
+2025-02-19T14:36:56.146+09:00  INFO 25088 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-19T14:36:56.244+09:00  INFO 25088 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 87 ms. Found 4 JPA repository interfaces.
+2025-02-19T14:36:57.270+09:00  INFO 25088 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 80 (http)
+2025-02-19T14:36:57.288+09:00  INFO 25088 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-02-19T14:36:57.289+09:00  INFO 25088 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.34]
+2025-02-19T14:36:57.388+09:00  INFO 25088 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-02-19T14:36:57.388+09:00  INFO 25088 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2434 ms
+2025-02-19T14:36:57.767+09:00  INFO 25088 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-19T14:36:57.868+09:00  INFO 25088 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-19T14:36:57.924+09:00  INFO 25088 --- [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-19T14:36:58.362+09:00  INFO 25088 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-19T14:36:58.414+09:00  INFO 25088 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-19T14:36:58.803+09:00  INFO 25088 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54903187
+2025-02-19T14:36:58.806+09:00  INFO 25088 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-19T14:36:58.923+09:00  INFO 25088 --- [restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'p6SpyDataSourceDecorator [com.p6spy.engine.spy.P6DataSource] -> dataSource [com.zaxxer.hikari.HikariDataSource]']
+	Database driver: undefined/unknown
+	Database version: 8.0.40
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-19T14:37:00.347+09:00  INFO 25088 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-19T14:37:00.350+09:00  INFO 25088 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:37:00.726+09:00  INFO 25088 --- [restartedMain] o.s.b.c.r.s.JobRepositoryFactoryBean     : No database type set, using meta data indicating: MYSQL
+2025-02-19T14:37:00.748+09:00  INFO 25088 --- [restartedMain] o.s.b.c.l.support.SimpleJobLauncher      : No TaskExecutor has been set, defaulting to synchronous executor.
+2025-02-19T14:37:00.760+09:00  WARN 25088 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'csvBatchConfig': Invocation of init method failed
+2025-02-19T14:37:00.761+09:00  INFO 25088 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-02-19T14:37:00.769+09:00  INFO 25088 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-02-19T14:37:00.782+09:00  INFO 25088 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-02-19T14:37:00.789+09:00  INFO 25088 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-02-19T14:37:00.805+09:00  INFO 25088 --- [restartedMain] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-02-19T14:37:00.840+09:00 ERROR 25088 --- [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+The dependencies of some of the beans in the application context form a cycle:
+
+┌──->──┐
+|  csvBatchConfig
+└──<-──┘
+
+
+Action:
+
+Relying upon circular references is discouraged and they are prohibited by default. Update your application to remove the dependency cycle between beans. As a last resort, it may be possible to break the cycle automatically by setting spring.main.allow-circular-references to true.
+

@@ -3,7 +3,10 @@ package com.project_250131.store.domain;
 import com.project_250131.store.entity.StoreEntity;
 import lombok.Data;
 
+import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class StoreDTO {
@@ -19,6 +22,15 @@ public class StoreDTO {
     private String openHourWeekends;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    public static List<String> getFieldNames() {
+        Field[] declaredFields = StoreDTO.class.getDeclaredFields();
+        List<String> result = new ArrayList<>();
+        for (Field declaredField : declaredFields) {
+            result.add(declaredField.getName());
+        }
+        return result;
+    }
 
     public StoreEntity toEntity() {
         return StoreEntity.builder()
