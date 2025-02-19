@@ -20,10 +20,10 @@ public class StoreEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String continent;
+    @Column(name = "storeName")
+    private String storeName;
 
-    @Column(name = "phoneNumber")
-    private String phoneNumber;
+    private String continent;
 
     @Column(name = "roadAddress")
     private String roadAddress;
@@ -34,6 +34,9 @@ public class StoreEntity {
     private String latitude;
 
     private String longitude;
+
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
 
     @Column(name = "openHourWeekdays")
     private String openHourWeekdays;

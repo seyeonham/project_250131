@@ -12,12 +12,13 @@ import java.util.List;
 public class StoreDTO {
 
     private int id;
+    private String storeName;
     private String continent;
-    private String phoneNumber;
     private String roadAddress;
     private String streetAddress;
     private String latitude;
     private String longitude;
+    private String phoneNumber;
     private String openHourWeekdays;
     private String openHourWeekends;
     private LocalDateTime createdAt;
@@ -35,12 +36,13 @@ public class StoreDTO {
     public StoreEntity toEntity() {
         return StoreEntity.builder()
                 .id(this.id)
+                .storeName(this.storeName)
                 .continent(this.continent)
-                .phoneNumber(this.phoneNumber)
                 .roadAddress(this.roadAddress)
                 .streetAddress(this.streetAddress)
                 .latitude(this.latitude)
                 .longitude(this.longitude)
+                .phoneNumber(this.phoneNumber)
                 .openHourWeekdays(this.openHourWeekdays)
                 .openHourWeekends(this.openHourWeekends)
                 .createdAt(LocalDateTime.now())

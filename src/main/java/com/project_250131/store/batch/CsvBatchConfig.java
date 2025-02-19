@@ -50,7 +50,6 @@ public class CsvBatchConfig {
                 .build();
     }
 
-    // 수동으로 배치 작업을 트리거하는 메서드
     @Bean
     public CommandLineRunner runBatchJobAtStartup() {
         return args -> {
@@ -62,6 +61,4 @@ public class CsvBatchConfig {
             }
         };
     }
-
-
 }

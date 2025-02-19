@@ -21,12 +21,16 @@ public class CsvReader {
     @Bean
     public FlatFileItemReader<StoreDTO> csvStoreReader() {
         FlatFileItemReader<StoreDTO> reader = new FlatFileItemReader<>();
-        reader.setResource(new ClassPathResource("/csv/store.csv"));
+        reader.setResource(new ClassPathResource("csv/store.csv"));
         reader.setEncoding("UTF-8");
+        reader.setLinesToSkip(1);
 
         DefaultLineMapper<StoreDTO> defaultLineMapper = new DefaultLineMapper<>();
 
         DelimitedLineTokenizer tokenizer = new DelimitedLineTokenizer(",");
+        tokenizer.setNames("FCLTY_NM", "CTGRY_TWO_NM", "LC_LA", "LC_LO", "RDNMADR_NM", "LNM_ADDR", "TEL_NO", "WORKDAY_OPER_TIME_DC", "WKEND_OPER_TIME_DC");
+        tokenizer.setIncludedFields(0, 2, 11, 12, 14, 15, 16, 17, 18);
+        tokenizer.setStrict(false);
 
         defaultLineMapper.setLineTokenizer(tokenizer);
 
