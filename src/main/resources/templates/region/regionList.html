@@ -9,7 +9,7 @@
         <div class="category-container">
             <div th:each="region : ${regionList}">
                 <div class="category-list">
-                    <a th:href="@{/store/region-store-list(region=${region.region})}">
+                    <a th:href="@{/store/store-list(region=${region.region})}">
                         <img th:src="${region.imagePath}" class="category-image">
                         <p th:text="${region.region}" class="category-text"></p>
                     </a>

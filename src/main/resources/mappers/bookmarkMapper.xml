@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project_250131.bookmark.mapper.BookmarkMapper">
+    <select id="selectBookmarkCountByStoreId" parameterType="int">
+        SELECT
+            COUNT(1)
+        FROM
+            `bookmark`
+        WHERE
+            `storeId` = #{storeId}
+            AND `deleteYn` = 0
+    </select>
+
+    <select id="selectBookmarkByUserIdStoreId" parameterType="map">
+        SELECT
+            `id`
+            ,`userId`
+            ,`storeId`
+            ,`deleteYn`
+            ,`createdAt`
+            ,`updatedAt`
+        FROM
+            `bookmark`
+        WHERE
+            `userId` = #{userId}
+            AND `storeId` = #{storeId}
+            AND `deleteYn` = 0
+    </select>
+</mapper>

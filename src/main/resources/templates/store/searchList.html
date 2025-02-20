@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="content">
+    <section class="contents">
+        <div class="search-box">
+            <h2 class="my-4">맛집 검색</h2>
+            <div class="d-flex">
+                <select id="searchType" class="form-control w-25 mr-1">
+                    <option value="region">지역</option>
+                    <option value="continent">대륙</option>
+                </select>
+                <input type="text" id="keyword" class="form-control">
+                <button type="button" id="searchBtn" class="btn">검색</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(function() {
+            $("#searchBtn").on("click", function() {
+                let searchType = $("#searchType").val();
+                let keyword = $("#keyword").val().trim();
+
+                if (!keyword) {
+                    alert("검색어를 입력해주세요.");
+                    return;
+                }
+
+                if (searchType == "region") {
+                    let regionKeyword = keyword;
+                } else if (searchType == "continent") {
+                    let continentKeyword = keyword;
+                }
+            });
+        });
+    </script>
+</th:block>

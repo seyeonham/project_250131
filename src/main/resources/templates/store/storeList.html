@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout/defaultLayout}">
+<th:block layout:fragment="content">
+    <section class="contents">
+        <div class="store-list">
+            <div th:if="${storeRegionList} != null">
+                <div class="display-4 my-3" th:text="${region}">지역</div>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div th:text="|검색결과 ${storeRegionCount}개|"></div>
+                    <div class="d-flex">
+                        <select class="form-control mr-2">
+                            <option>대륙별</option>
+                            <span th:each="continent : ${continentList}">
+                                <option th:text="${continent.continent}"></option>
+                            </span>
+                        </select>
+                        <select class="form-control">
+                            <option>기본순</option>
+                            <option>별점순</option>
+                            <option>리뷰순</option>
+                        </select>
+                    </div>
+                </div>
+                <div th:each="storeList : ${storeRegionList}" class="store-box mt-3">
+                    <div th:if="${storeList.menuImage} != null">
+                        <img th:src="${storeList.menuImage}">
+                    </div>
+                    <div>
+                        <div>
+                            <div th:text="${storeList.store.storeName}"></div>
+                            <div>
+                                별점
+                            </div>
+                            <div th:text="|${storeList.reviewAverage}점|"></div>
+                        </div>
+                        <div th:if="${storeList.bookmark} == true"><img src="/img/full-heart.png">북마크</div>
+                        <div th:if="${storeList.bookmark} == false"><img src="/img/empty-heart.png">북마크</div>
+
+                        <div th:text="${storeList.store.continent}"></div>
+                        <div th:text="${storeList.store.roadAddress}"></div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${storeContinentList} != null" th:each="storeList : ${storeContinentList}">
+                <div class="display-4 my-3" th:text="${continent}">대륙</div>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div th:text="|검색결과 ${storeContinentCount}개|"></div>
+                    <div class="d-flex">
+                        <select class="form-control mr-2">
+                            <option>지역별</option>
+                            <span th:each="region : ${regionList}">
+                                <option th:text="${region.region}"></option>
+                            </span>
+                        </select>
+                        <select class="form-control">
+                            <option>기본순</option>
+                            <option>별점순</option>
+                            <option>리뷰순</option>
+                        </select>
+                    </div>
+                </div>
+                <div th:each="storeList : ${storeContinentList}" class="store-box mt-3">
+                    <img>
+                    <div>
+                        <div th:text="${storeList.storeName}"></div>
+                        <div th:text="${storeList.continent}"></div>
+                        <div th:text="${storeList.roadAddress}"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</th:block>

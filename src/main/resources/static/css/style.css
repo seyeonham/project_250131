@@ -3,6 +3,17 @@ a, a:hover {
     text-decoration:none;
 }
 
+.store-list {
+    width:1000px;
+    margin: auto;
+}
+
+.store-box {
+    border: solid, 2px;
+    border-radius: 12px;
+    border-color: #88DC9B;
+}
+
 .main-bar {
     height: 100px;
     background-color: #88DC9B;
@@ -96,6 +107,16 @@ a, a:hover {
     font-weight: bold;
     padding-left: 10px;
     margin-bottom: 3px;
+}
+
+.search-box {
+    width:1000px;
+    margin: auto;
+}
+
+#searchBtn {
+    background-color: #88DC9B;
+    white-space: nowrap;
 }
 
 /* dropdown */
