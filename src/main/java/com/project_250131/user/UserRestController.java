@@ -92,6 +92,7 @@ public class UserRestController {
             session.setAttribute("userLoginId", user.getLoginId());
             session.setAttribute("userName", user.getName());
             session.setAttribute("userProvider", user.getProvider());
+            session.setAttribute("userRegion", user.getRegion());
 
             result.put("code", 200);
             result.put("result", "성공");

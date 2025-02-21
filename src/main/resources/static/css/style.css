@@ -119,6 +119,30 @@ a, a:hover {
     white-space: nowrap;
 }
 
+.store-name {
+    font-weight: bold;
+    font-size: 30px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.store-continent {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.store-address {
+    margin-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.keyword {
+    font-size: 30px;
+    margin-top: 10px;
+}
+
 /* dropdown */
 
 .dropdown {
@@ -155,4 +179,33 @@ a, a:hover {
 
 .drop-options a:hover {
     background-color:lightgray;
+}
+
+/* paging */
+
+.pagination {
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.pagination ul {
+    list-style: none;
+    display: flex;
+    padding: none;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    color: #333;
+}
+
+.pagination .active a {
+    background-color: #88DC9B;
+    color: white;
+    border-color: #88DC9B;
 }

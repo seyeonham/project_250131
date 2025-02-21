@@ -8,5 +8,6 @@ import java.util.List;
 @Mapper
 public interface ReviewMapper {
 
+    public Double selectReviewPointByStoreId(int storeId);
     public List<Review> selectReviewListByStoreId(int storeId);
 }

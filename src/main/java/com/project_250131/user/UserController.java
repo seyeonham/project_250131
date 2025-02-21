@@ -48,6 +48,8 @@ public class UserController {
         session.removeAttribute("userId");
         session.removeAttribute("userLoginId");
         session.removeAttribute("userName");
+        session.removeAttribute("userProvider");
+        session.removeAttribute("userRegion");
 
         return "redirect:/user/sign-in";
     }
@@ -95,6 +97,7 @@ public class UserController {
         session.setAttribute("userName", user.getName());
         session.setAttribute("userEmail", user.getEmail());
         session.setAttribute("userProvider", user.getProvider());
+        session.setAttribute("userRegion", user.getRegion());
 
         return "redirect:/store/user-store-list";
     }

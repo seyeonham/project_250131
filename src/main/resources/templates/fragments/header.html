@@ -11,9 +11,10 @@
         </div>
         <div class="dropdown">
           <button class="drop">
-            <img src="/img/profile.png" width="40">
+            <a th:if="${session.userId} == null" href="/user/sign-in"><img src="/img/profile.png" width="40"></a>
+            <img th:if="${session.userId} != null" src="/img/profile.png" width="40">
           </button>
-          <div class="drop-options">
+          <div class="drop-options" th:if="${session.userId} != null">
             <a href="#">내 단골 맛집</a>
             <a href="#">최근 방문한 가게</a>
             <a href="#">즐겨찾기 맛집</a>
