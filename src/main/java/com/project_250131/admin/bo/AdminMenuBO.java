@@ -14,15 +14,15 @@ public class AdminMenuBO {
     private final MenuMapper menuMapper;
     private final FileManagerService fileManagerService;
 
-    public Menu addMenu(int storeId, MultipartFile file, String name, String price) {
+    public int addMenu(int storeId, MultipartFile file, String name, int price) {
         String imagePath = fileManagerService.uploadMenuFile(file, storeId);
 
         if (imagePath == null) { // 파일 업로드 실패
-            return null;
+            return 0;
         }
 
-        Menu menu = menuMapper.insertMenu(storeId, imagePath, name, price);
+        int rowCount = menuMapper.insertMenu(storeId, imagePath, name, price);
 
-        return menu;
+        return rowCount;
     }
 }

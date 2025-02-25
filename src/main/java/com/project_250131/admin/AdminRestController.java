@@ -24,12 +24,12 @@ public class AdminRestController {
             @RequestParam("storeId") int storeId,
             @RequestParam("file") MultipartFile file,
             @RequestParam("name") String name,
-            @RequestParam("price") String price
+            @RequestParam("price") int price
 
     ) {
-        Menu menu = adminMenuBO.addMenu(storeId, file, name, price);
+        int rowCount = adminMenuBO.addMenu(storeId, file, name, price);
         Map<String, Object> result = new HashMap<>();
-        if (menu != null) {
+        if (rowCount > 0) {
             result.put("code", 200);
             result.put("result", "성공");
         } else {

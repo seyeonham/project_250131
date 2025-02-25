@@ -44,24 +44,26 @@
       </div>
       <div th:each="storeList : ${storeList}" class="store-box border-warning mt-3">
         <a th:href="|/admin/store-detail?storeId=${storeList.store.id}|">
-          <div th:if="${storeList.menuImage} != null">
-            <img th:src="${storeList.menuImage}">
-          </div>
-          <div>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="d-flex align-items-end">
-                <div th:text="${storeList.store.storeName}" class="store-name"></div>
-                <div>
-                  별점
-                </div>
-                <div th:text="|${storeList.reviewAverage}점|"></div>
-              </div>
-              <a href="#" id="deleteStoreBtn" th:data-store-id="${storeList.store.id}" class="mr-3">
-                <img src="/img/x-icon.png" width="20" height="20">
-              </a>
+          <div class="d-flex m-2">
+            <div th:if="${storeList.menuImage} != null">
+              <img th:src="${storeList.menuImage}" width="130" height="130">
             </div>
-            <div th:text="${storeList.store.continent}" class="store-continent"></div>
-            <div th:text="${storeList.store.roadAddress}" class="store-address"></div>
+            <div class="w-100">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-end">
+                  <div th:text="${storeList.store.storeName}" class="store-name"></div>
+                  <div>
+                    별점
+                  </div>
+                  <div th:text="|${storeList.reviewAverage}점|"></div>
+                </div>
+                <a href="#" id="deleteStoreBtn" th:data-store-id="${storeList.store.id}" class="mr-3">
+                  <img src="/img/x-icon.png" width="20" height="20">
+                </a>
+              </div>
+              <div th:text="${storeList.store.continent}" class="store-continent"></div>
+              <div th:text="${storeList.store.roadAddress}" class="store-address"></div>
+            </div>
           </div>
         </a>
       </div>

@@ -14,10 +14,10 @@ public interface MenuMapper {
 
     public List<Menu> selectMenuListByStoreId(int storeId);
 
-    public Menu insertMenu(
+    public int insertMenu(
             @Param("storeId") int storeId,
             @Param("imagePath") String imagePath,
             @Param("name") String name,
-            @Param("price") String price
+            @Param("price") int price
             );
 }

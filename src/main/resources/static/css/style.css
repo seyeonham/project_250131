@@ -189,6 +189,13 @@ a, a:hover {
     height: 100px;
 }
 
+#addMenuBox {
+    border: solid, 1px;
+    border-color: #E4A11B;
+    border-radius: 12px;
+    min-height: 100px;
+}
+
 /* dropdown */
 
 .dropdown {
