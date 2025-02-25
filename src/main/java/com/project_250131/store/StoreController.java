@@ -5,6 +5,7 @@ import com.project_250131.continent.entity.ContinentEntity;
 import com.project_250131.region.bo.RegionBO;
 import com.project_250131.region.entity.RegionEntity;
 import com.project_250131.store.bo.StoreBO;
+import com.project_250131.store.domain.StoreDetailDTO;
 import com.project_250131.store.domain.StoreListDTO;
 import com.project_250131.store.entity.StoreEntity;
 import jakarta.servlet.http.HttpSession;
@@ -136,6 +137,7 @@ public class StoreController {
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "region", required = false) String region,
             @RequestParam(value = "continent", required = false) String continent,
+            @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "1") int page,
             Model model, HttpSession session
     ) {
@@ -180,6 +182,19 @@ public class StoreController {
             model.addAttribute("regionList", regionList);
             model.addAttribute("storeContinentList", storeContinentList);
             model.addAttribute("storeContinentCount", storeContinentCount);
+        } else if (name != null) {
+            List<StoreListDTO> storeNameList = storeBO.generateStoreListByStoreName(updatedPageable, name, userId);
+            int storeNameCount = storeBO.getStoreCountByStoreName(name);
+
+            if (storeNameCount > 0) {
+                totalPages = (int) Math.ceil((double) storeNameCount / pageable.getPageSize());
+                startPage = (currentGroup - 1) * 10 + 1;
+                endPage = Math.min(startPage + 9, totalPages);
+            }
+
+            model.addAttribute("name", name);
+            model.addAttribute("storeNameList", storeNameList);
+            model.addAttribute("storeNameCount", storeNameCount);
         }
 
         model.addAttribute("totalPages", totalPages);
@@ -197,7 +212,39 @@ public class StoreController {
             Model model
     ) {
 
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        model.addAttribute("storeList", storeList);
 
         return "store/storeDetail";
+    }
+
+    @GetMapping("store-detail-menu")
+    public String storeDetailMenu(
+            @RequestParam("storeId") int storeId,
+            Model model
+    ) {
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        model.addAttribute("storeList", storeList);
+        return "store/storeDetailMenu";
+    }
+
+    @GetMapping("store-detail-review")
+    public String storeDetailReview(
+            @RequestParam("storeId") int storeId,
+            Model model
+    ) {
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        model.addAttribute("storeList", storeList);
+        return "store/storeDetailReview";
+    }
+
+    @GetMapping("store-detail-info")
+    public String storeDetailInfo(
+            @RequestParam("storeId") int storeId,
+            Model model
+    ) {
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        model.addAttribute("storeList", storeList);
+        return "store/storeDetailInfo";
     }
 }

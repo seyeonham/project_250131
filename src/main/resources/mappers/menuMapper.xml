@@ -32,4 +32,21 @@
         WHERE
             `storeId` = #{storeId}
     </select>
+
+    <insert id="insertMenu" parameterType="map">
+        INSERT INTO `menu`
+        (
+            `storeId`
+            , `imagePath`
+            , `name`
+            , `price`
+        )
+        VALUES
+        (
+            #{storeId}
+            , #{imagePath}
+            , #{name}
+            , #{price}
+        )
+    </insert>
 </mapper>

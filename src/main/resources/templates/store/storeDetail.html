@@ -4,7 +4,104 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/defaultLayout}">
 <th:block layout:fragment="content">
-    <section class="contents d-flex justify-content-center">
+    <section class="contents">
+        <div class="store-detail-box" th:each="storeList : ${storeList}" th:data-store-id="${storeList.store.id}">
+            <div class="store-image">
 
+            </div>
+            <div class="store-detail d-flex justify-content-between align-items-end my-3">
+                <div class="d-flex align-items-end">
+                    <div class="display-4" th:text="${storeList.store.storeName}"></div>
+                    <div th:text="${storeList.store.continent}" class="mx-3"></div>
+                    <div>별점</div>
+                    <div th:text="|${storeList.reviewAverage}점|"></div>
+                </div>
+                <div th:if="${session.userId} != null" class="mr-3 d-flex">
+                    <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/full-heart.png" width="25"></a>
+                    <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/empty-heart.png" width="25"></a>
+                    <div th:text="${storeList.bookmarkCount}" class="ml-2"></div>
+                </div>
+                <div th:if="${session.userId} == null" class="d-flex">
+                    <a href="/user/sign-in"><img src="/img/empty-heart.png" width="25"></a>
+                    <div th:text="${storeList.bookmarkCount}" class="ml-2"></div>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="menuBtn" class="btn detail-btn">메뉴</button>
+                <button type="button" id="reviewBtn" class="btn detail-btn">리뷰</button>
+                <button type="button" id="infoBtn" class="btn detail-btn">정보</button>
+            </div>
+            <div id="storeDetailAppend" class="my-3"></div>
+        </div>
     </section>
+
+    <script>
+        $(function() {
+            // 메뉴 버튼
+            $("#menuBtn").on("click", function() {
+                let storeId = $(".store-detail-box").data("store-id");
+
+                $.ajax({
+                    // request
+                    url:"/store/store-detail-menu"
+                    ,data: {"storeId":storeId}
+
+                    // response
+                    ,success:function(data) {
+                        $("#menuBtn").removeClass("detail-btn");
+                        $("#menuBtn").addClass("detail-on-btn");
+                        $("#reviewBtn").removeClass("detail-on-btn");
+                        $("#reviewBtn").addClass("detail-btn");
+                        $("#infoBtn").removeClass("detail-on-btn");
+                        $("#infoBtn").addClass("detail-btn");
+                        $("#storeDetailAppend").html(data);
+                    }
+                });
+            });
+
+            // 리뷰 버튼
+            $("#reviewBtn").on("click", function() {
+                let storeId = $(".store-detail-box").data("store-id");
+
+                $.ajax({
+                    // request
+                    url:"/store/store-detail-review"
+                    ,data: {"storeId":storeId}
+
+                    // response
+                    ,success:function(data) {
+                        $("#reviewBtn").removeClass("detail-btn");
+                        $("#reviewBtn").addClass("detail-on-btn");
+                        $("#menuBtn").removeClass("detail-on-btn");
+                        $("#menuBtn").addClass("detail-btn");
+                        $("#infoBtn").removeClass("detail-on-btn");
+                        $("#infoBtn").addClass("detail-btn");
+                        $("#storeDetailAppend").html(data);
+                    }
+                });
+            });
+
+            // 정보 버튼
+            $("#infoBtn").on("click", function() {
+                let storeId = $(".store-detail-box").data("store-id");
+
+                $.ajax({
+                    // request
+                    url:"/store/store-detail-info"
+                    ,data: {"storeId":storeId}
+
+                    // response
+                    ,success:function(data) {
+                        $("#infoBtn").removeClass("detail-btn");
+                        $("#infoBtn").addClass("detail-on-btn");
+                        $("#menuBtn").removeClass("detail-on-btn");
+                        $("#menuBtn").addClass("detail-btn");
+                        $("#reviewBtn").removeClass("detail-on-btn");
+                        $("#reviewBtn").addClass("detail-btn");
+                        $("#storeDetailAppend").html(data);
+                    }
+                });
+            });
+        });
+    </script>
 </th:block>

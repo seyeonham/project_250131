@@ -1,0 +1,8 @@
+<div th:text="|도로명주소 : ${storeList.store.roadAddress}|"></div>
+<div th:text="|지번주소 : ${storeList.store.streetAddress}|"></div>
+<div th:text="|전화번호 : ${storeList.store.phoneNumber}|" th:if="${storeList.store.phoneNumber != null and !#strings.isEmpty(storeList.store.phoneNumber)}"></div>
+<div th:if="${storeList.store.openHourWeekdays != null and !#strings.isEmpty(storeList.store.openHourWeekdays)}">
+  <div class="mt-3">운영시간</div>
+  <div th:text="${storeList.store.openHourWeekdays}"></div>
+  <div th:text="${storeList.store.openHourWeekends}"></div>
+</div>

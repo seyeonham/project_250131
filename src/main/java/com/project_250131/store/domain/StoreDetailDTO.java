@@ -10,11 +10,18 @@ import java.util.List;
 @Data
 public class StoreDetailDTO {
 
+    // 맛집 1개
     private StoreEntity store;
 
+    // 맛집 메뉴 리스트
     private List<Menu> menuList;
 
+    // 맛집 리뷰 리스트
     private List<Review> reviewList;
 
+    // 맛집 리뷰 평점
+    private double reviewAverage;
+
+    // 북마크 횟수
     private int bookmarkCount;
 }

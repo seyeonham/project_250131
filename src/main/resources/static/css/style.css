@@ -143,6 +143,52 @@ a, a:hover {
     margin-top: 10px;
 }
 
+.store-detail-box {
+    width:1000px;
+    margin: auto;
+}
+
+.detail-btn {
+    border: solid 1px;
+    border-color: #88DC9B;
+    border-radius: 12px;
+}
+
+.detail-on-btn {
+    border: solid 1px;
+    border-color: #88DC9B;
+    border-radius: 12px;
+    background-color: #88DC9B;
+}
+
+.admin-btn {
+    border: solid 1px;
+    border-color: #E4A11B;
+    border-radius: 12px;
+}
+
+.admin-on-btn {
+    border: solid 1px;
+    border-color: #E4A11B;
+    border-radius: 12px;
+    background-color: #E4A11B;
+}
+
+#addStoreBox {
+    min-width: 800px;
+    min-height: 400px;
+    border: solid, 2px;
+    border-radius: 12px;
+    border-color: #E4A11B;
+}
+
+.menu-box {
+    border: solid, 1px;
+    border-color: #88DC9B;
+    border-radius: 12px;
+    height: 100px;
+}
+
 /* dropdown */
 
 .dropdown {
@@ -208,4 +254,10 @@ a, a:hover {
     background-color: #88DC9B;
     color: white;
     border-color: #88DC9B;
+}
+
+.pagination .admin-active a {
+    background-color: #E4A11B;
+    color: white;
+    border-color: #E4A11B;
 }

@@ -13,13 +13,13 @@
     <select id="selectReviewListByStoreId" parameterType="int">
         SELECT
             `id`
-            `storeId`
-            `userId`
-            `imagePath`
-            `point`
-            `content`
-            `createdAt`
-            `updatedAt`
+            ,`storeId`
+            ,`userId`
+            ,`imagePath`
+            ,`point`
+            ,`content`
+            ,`createdAt`
+            ,`updatedAt`
         FROM
             `review`
         WHERE

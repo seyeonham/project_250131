@@ -71,6 +71,18 @@ public class StoreBO {
         return count;
     }
 
+    public Page<StoreEntity> getStoreListByStoreName(String name, Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
+        int size = pageable.getPageSize();
+        PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+        return storeRepository.findByStoreNameContaining(name, pageable);
+    }
+
+    public int getStoreCountByStoreName(String name) {
+        int count = storeRepository.countByStoreNameContaining(name);
+        return count;
+    }
+
     // 전체 맛집 목록
     public List<StoreListDTO> generateStoreList(Integer userId, Pageable pageable) {
         List<StoreListDTO> storeList = new ArrayList<>();
@@ -176,6 +188,41 @@ public class StoreBO {
         return storeList;
     }
 
+    // 이름별 맛집 목록
+    public List<StoreListDTO> generateStoreListByStoreName(Pageable pageable, String name, Integer userId) {
+        List<StoreListDTO> storeList = new ArrayList<>();
+
+        Page<StoreEntity> stores = getStoreListByStoreName(name, pageable);
+
+        for (StoreEntity storeEntity : stores) {
+            StoreListDTO storeListDTO = new StoreListDTO();
+
+            // 맛집 1개
+            storeListDTO.setStore(storeEntity);
+            int storeId = storeEntity.getId();
+
+            // 메뉴 대표 이미지
+            if (menuBO.getMenuByStoreId(storeId) != null) {
+                String imagePath = menuBO.getMenuByStoreId(storeId).getImagePath();
+                storeListDTO.setMenuImage(imagePath);
+            }
+
+            // 리뷰 평점
+            double point = reviewBO.getReviewPointByStoreId(storeId);
+            storeListDTO.setReviewAverage(point);
+
+            // 북마크 여부
+            if (userId != null) {
+                boolean bookmark = bookmarkBO.getBookmarkByUserIdStoreId(userId, storeId);
+                storeListDTO.setBookmark(bookmark);
+            }
+
+            storeList.add(storeListDTO);
+        }
+
+        return storeList;
+    }
+
     public StoreDetailDTO generateStoreByStoreId(int storeId) {
         StoreDetailDTO storeDetailDTO = new StoreDetailDTO();
 
@@ -190,6 +237,10 @@ public class StoreBO {
         // 리뷰
         List<Review> reviewList = reviewBO.getReviewListByStoreId(storeId);
         storeDetailDTO.setReviewList(reviewList);
+
+        // 리뷰 평점
+        double point = reviewBO.getReviewPointByStoreId(storeId);
+        storeDetailDTO.setReviewAverage(point);
 
         // 북마크 개수
         int bookmarkCount = bookmarkBO.getBookmarkCountByStoreId(storeId);

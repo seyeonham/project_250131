@@ -18,4 +18,7 @@ public interface StoreRepository extends JpaRepository<StoreEntity, Integer> {
 
     public Page<StoreEntity> findByContinentContaining(String continent, Pageable pageable);
     public int countByContinentContaining(String continent);
+
+    public Page<StoreEntity> findByStoreNameContaining(String name, Pageable pageable);
+    public int countByStoreNameContaining(String name);
 }
