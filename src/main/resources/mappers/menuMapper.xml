@@ -33,6 +33,21 @@
             `storeId` = #{storeId}
     </select>
 
+    <select id="selectMenuById" parameterType="int">
+        SELECT
+            `id`
+            ,`storeId`
+            ,`imagePath`
+            ,`name`
+            ,`price`
+            ,`createdAt`
+            ,`updatedAt`
+        FROM
+            `menu`
+        WHERE
+            `id` = #{id}
+    </select>
+
     <insert id="insertMenu" parameterType="map">
         INSERT INTO `menu`
         (
@@ -49,4 +64,10 @@
             , #{price}
         )
     </insert>
+
+    <delete id="deleteMenu" parameterType="int">
+        DELETE FROM `menu`
+        WHERE
+            `id` = #{id}
+    </delete>
 </mapper>

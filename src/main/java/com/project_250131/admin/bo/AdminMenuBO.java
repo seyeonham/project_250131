@@ -25,4 +25,11 @@ public class AdminMenuBO {
 
         return rowCount;
     }
+
+    public int deleteMenu(int menuId) {
+        Menu menu = menuMapper.selectMenuById(menuId);
+        fileManagerService.deleteFile(menu.getImagePath());
+        int rowCount = menuMapper.deleteMenu(menuId);
+        return rowCount;
+    }
 }

@@ -21,9 +21,4 @@ public class MenuBO {
     public List<Menu> getMenuListByStoreId(int storeId) {
         return menuMapper.selectMenuListByStoreId(storeId);
     }
-
-    // 메뉴 추가
-    public int addMenuByStoreId(int storeId, String name, String price, MultipartFile file) {
-        return 1;
-    }
 }

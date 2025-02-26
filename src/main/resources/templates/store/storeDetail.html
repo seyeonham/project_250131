@@ -32,13 +32,43 @@
                 <button type="button" id="infoBtn" class="btn detail-btn">정보</button>
             </div>
             <div id="storeDetailAppend" class="my-3"></div>
+            <div id="map" class="my-3 d-none" th:data-latitude="${storeList.store.latitude}" th:data-longitude="${storeList.store.longitude}"></div>
         </div>
     </section>
 
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=1a7a5602b235f6e23f3ed0512bfa5a12"></script>
+    <script>
+        let map = null;
+        let marker = null;
+
+        window.onload = function() {
+            let latitude = parseFloat($("#map").data("latitude"));
+            let longitude = parseFloat($("#map").data("longitude"));
+
+            let container = document.getElementById("map");
+            let options = {
+                center: new kakao.maps.LatLng(latitude, longitude),
+                level: 2
+            };
+
+            // 지도 생성
+            map = new kakao.maps.Map(container, options);
+
+            // 마커 생성
+            let markerPosition = new kakao.maps.LatLng(latitude, longitude);
+            marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+        };
+    </script>
     <script>
         $(function() {
             // 메뉴 버튼
             $("#menuBtn").on("click", function() {
+                // 지도 삭제
+                $("#map").addClass("d-none");
+                marker.setMap(null);
+
                 let storeId = $(".store-detail-box").data("store-id");
 
                 $.ajax({
@@ -61,6 +91,10 @@
 
             // 리뷰 버튼
             $("#reviewBtn").on("click", function() {
+                // 지도 삭제
+                $("#map").addClass("d-none");
+                marker.setMap(null);
+
                 let storeId = $(".store-detail-box").data("store-id");
 
                 $.ajax({
@@ -83,6 +117,14 @@
 
             // 정보 버튼
             $("#infoBtn").on("click", function() {
+                $("#map").removeClass("d-none");
+
+                setTimeout(() => {
+                    map.relayout();
+                    map.setCenter(marker.getPosition()); // 중심 재설정
+                    marker.setMap(map);
+                }, 300);
+
                 let storeId = $(".store-detail-box").data("store-id");
 
                 $.ajax({
@@ -103,5 +145,6 @@
                 });
             });
         });
+
     </script>
 </th:block>

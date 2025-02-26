@@ -57,7 +57,7 @@
                   </div>
                   <div th:text="|${storeList.reviewAverage}점|"></div>
                 </div>
-                <a href="#" id="deleteStoreBtn" th:data-store-id="${storeList.store.id}" class="mr-3">
+                <a href="#" class="deleteStoreBtn mr-3" th:data-store-id="${storeList.store.id}">
                   <img src="/img/x-icon.png" width="20" height="20">
                 </a>
               </div>
@@ -111,8 +111,8 @@
       });
 
       // 맛집 삭제
-      $("#deleteStoreBtn").on("click", function() {
-        let storeId = $("#deleteStoreBtn").data("store-id");
+      $(".deleteStoreBtn").on("click", function() {
+        let storeId = $(".deleteStoreBtn").data("store-id");
 
         $.ajax({
           // request

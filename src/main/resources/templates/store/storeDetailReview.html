@@ -1,0 +1,27 @@
+<!-- 메뉴 추가 -->
+<!-- 별점 -->
+<fieldset>
+    <span class="text-bold">별점을 선택해주세요</span>
+    <input type="radio" value="1" id="rate1"><label for="rate1">★</label>
+    <input type="radio" value="2" id="rate2"><label for="rate2">★</label>
+    <input type="radio" value="3" id="rate3"><label for="rate3">★</label>
+    <input type="radio" value="4" id="rate4"><label for="rate4">★</label>
+    <input type="radio" value="5" id="rate5"><label for="rate5">★</label>
+</fieldset>
+<!-- 리뷰 내용, 사진 -->
+<div id="addReviewBox">
+    <textarea placeholder="리뷰를 작성해주세요." class="w-100" rows="4"></textarea>
+    <div class="d-flex justify-content-between mx-2">
+        <div class="d-flex">
+            <!-- file 태그를 숨겨두고 이미지를 클릭하면 파일을 클릭한 것과 같은 효과를 준다. -->
+            <input type="file" id="file" accept=".jpg, .png, .gif" class="d-none">
+
+            <!-- 이미지에 마우스 올리면 마우스 커서가 link로 변경 -->
+            <a href="#" id="fileUploadBtn"><img width="35" src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-image-512.png"></a>
+            <div id="fileName" class="ml-2"></div>
+        </div>
+        <button type="button" id="addReviewBtn" class="btn mb-1">작성</button>
+    </div>
+</div>
+
+<!-- 리뷰 리스트 -->

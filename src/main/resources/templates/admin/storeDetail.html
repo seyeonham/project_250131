@@ -51,7 +51,7 @@
             <span class="ml-1">원</span>
           </div>
           <div class="d-flex justify-content-between align-items-end mt-2">
-            <input type="file" id="file">
+            <input type="file" id="file" accept=".jpg, .png, .gif">
             <button type="button" id="addMenuBtn" class="btn btn-warning">추가</button>
           </div>
         </div>
@@ -64,7 +64,7 @@
           <div class="w-100 ml-2">
             <div class="d-flex justify-content-between">
               <h4 th:text="${menu.name}"></h4>
-              <a href="#" id="deleteMenuBtn" th:data-menu-id="${menu.id}" class="mr-3">
+              <a href="#" class="deleteMenuBtn mr-3" th:data-menu-id="${menu.id}">
                 <img src="/img/x-icon.png" width="20" height="20">
               </a>
             </div>
@@ -159,6 +159,31 @@
             , error:function(e) {
                 alert("메뉴를 추가하는데 실패했습니다. 관리자에게 문의해주세요.");
             }
+        });
+      });
+
+      // 메뉴 삭제
+      $(".deleteMenuBtn").on("click", function() {
+        let menuId = $(".deleteMenuBtn").data("menu-id");
+
+        $.ajax({
+          // request
+          type:"delete"
+          , url:"/admin/delete-menu"
+          , data:{"menuId":menuId}
+
+          // response
+          , success:function(data) {
+            if (data.code == 200) {
+              alert("삭제되었습니다.");
+              location.reload();
+            } else {
+              alert(data.error_message);
+            }
+          }
+          , error:function(e) {
+            alert("메뉴를 삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+          }
         });
       });
     });

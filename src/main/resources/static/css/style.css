@@ -196,6 +196,27 @@ a, a:hover {
     min-height: 100px;
 }
 
+#map {
+    width:1000px;
+    height:500px;
+}
+
+#addReviewBox {
+    width: 1000px;
+    border: solid, 2px;
+    border-radius: 12px;
+    border-color: #88DC9B;
+}
+
+#addReviewBtn {
+    background-color: #88DC9B;
+}
+
+textarea {
+    border:none;
+    border-radius:12px;
+}
+
 /* dropdown */
 
 .dropdown {
@@ -268,3 +289,5 @@ a, a:hover {
     color: white;
     border-color: #E4A11B;
 }
+
+/* star point */
