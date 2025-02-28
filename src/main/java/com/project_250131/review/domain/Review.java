@@ -11,7 +11,7 @@ public class Review {
     private int storeId;
     private int userId;
     private String imagePath;
-    private Double point;
+    private int point;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

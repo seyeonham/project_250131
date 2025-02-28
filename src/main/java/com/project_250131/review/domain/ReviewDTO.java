@@ -11,7 +11,7 @@ public class ReviewDTO {
     private int userId;
     private String userName;
     private String imagePath;
-    private Double point;
+    private int point;
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

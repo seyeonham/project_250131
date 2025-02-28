@@ -13,7 +13,13 @@
                 <div class="d-flex align-items-end">
                     <div class="display-4" th:text="${storeList.store.storeName}"></div>
                     <div th:text="${storeList.store.continent}" class="mx-3"></div>
-                    <div>별점</div>
+                    <div id="reviewAverage" class="mr-2" th:data-review-average="${storeList.reviewAverage}">
+                        <span class="star1">★</span>
+                        <span class="star2">★</span>
+                        <span class="star3">★</span>
+                        <span class="star4">★</span>
+                        <span class="star5">★</span>
+                    </div>
                     <div th:text="|${storeList.reviewAverage}점|"></div>
                 </div>
                 <div th:if="${session.userId} != null" class="mr-3 d-flex">
@@ -63,6 +69,18 @@
     </script>
     <script>
         $(function() {
+            // 별점 평점
+            let averageStars = document.querySelectorAll("#reviewAverage span");
+            let averagePoint = parseInt($("#reviewAverage").data("review-average"), 10);
+
+            if (averageStars.length > 0) {
+                averageStars.forEach((star, index) => {
+                    if (index < averagePoint) {
+                        star.classList.add("active");
+                    }
+                });
+            }
+
             // 메뉴 버튼
             $("#menuBtn").on("click", function() {
                 // 지도 삭제
@@ -95,6 +113,26 @@
                 $("#map").addClass("d-none");
                 marker.setMap(null);
 
+                // 별점
+                setTimeout(() => {
+                    let ratedStars = document.querySelectorAll(".rated-star");
+
+                    ratedStars.forEach((ratedStar) => {
+                        let stars = ratedStar.querySelectorAll("span");
+                        let point = parseInt(ratedStar.dataset.reviewPoint);
+
+                        if (stars.length > 0) {
+                            stars.forEach((star, index) => {
+                                if (index < point) {
+                                    star.classList.add("active");
+                                } else {
+                                    star.classList.remove("active");
+                                }
+                            });
+                        }
+                    });
+                }, 100);
+
                 let storeId = $(".store-detail-box").data("store-id");
 
                 $.ajax({
@@ -123,7 +161,7 @@
                     map.relayout();
                     map.setCenter(marker.getPosition()); // 중심 재설정
                     marker.setMap(map);
-                }, 300);
+                }, 100);
 
                 let storeId = $(".store-detail-box").data("store-id");
 
@@ -242,7 +280,34 @@
                     }
                 });
             });
-        });
 
+            $(document).on("click", ".deleteReviewBtn", function(e)  {
+                e.preventDefault();
+                let reviewId = $(".deleteReviewBtn").data("review-id");
+
+                $.ajax({
+                    // request
+                    type:"delete"
+                    , url:"/review/delete"
+                    , data:{"reviewId":reviewId}
+
+                    // response
+                    , success:function(data) {
+                        if (data.code == 200) {
+                            alert("리뷰가 삭제되었습니다.");
+                            location.reload();
+                        } else if (data.code == 403) {
+                            alert(data.error_message);
+                            location.href = "/user/sign-in";
+                        } else {
+                            alert(data.error_message);
+                        }
+                    }
+                    , error:function(e) {
+                        alert("리뷰를 삭제하는데 실패했습니다. 관리자에게 문의해주세요.");
+                    }
+                });
+            });
+        });
     </script>
 </th:block>

@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -108,7 +109,9 @@ public class StoreBO {
 
             // 리뷰 평점
             double point = reviewBO.getReviewPointByStoreId(storeId);
-            storeListDTO.setReviewAverage(point);
+            DecimalFormat df = new DecimalFormat("#.#");
+            String dfAverage = df.format(point);
+            storeListDTO.setReviewAverage(dfAverage);
 
             // 북마크 여부
             if (userId != null) {
@@ -143,7 +146,9 @@ public class StoreBO {
 
             // 리뷰 평점
             double point = reviewBO.getReviewPointByStoreId(storeId);
-            storeListDTO.setReviewAverage(point);
+            DecimalFormat df = new DecimalFormat("#.#");
+            String dfAverage = df.format(point);
+            storeListDTO.setReviewAverage(dfAverage);
 
             // 북마크 여부
             if (userId != null) {
@@ -178,7 +183,9 @@ public class StoreBO {
 
             // 리뷰 평점
             double point = reviewBO.getReviewPointByStoreId(storeId);
-            storeListDTO.setReviewAverage(point);
+            DecimalFormat df = new DecimalFormat("#.#");
+            String dfAverage = df.format(point);
+            storeListDTO.setReviewAverage(dfAverage);
 
             // 북마크 여부
             if (userId != null) {
@@ -213,7 +220,9 @@ public class StoreBO {
 
             // 리뷰 평점
             double point = reviewBO.getReviewPointByStoreId(storeId);
-            storeListDTO.setReviewAverage(point);
+            DecimalFormat df = new DecimalFormat("#.#");
+            String dfAverage = df.format(point);
+            storeListDTO.setReviewAverage(dfAverage);
 
             // 북마크 여부
             if (userId != null) {
@@ -262,7 +271,9 @@ public class StoreBO {
 
         // 리뷰 평점
         double point = reviewBO.getReviewPointByStoreId(storeId);
-        storeDetailDTO.setReviewAverage(point);
+        DecimalFormat df = new DecimalFormat("#.#");
+        String dfAverage = df.format(point);
+        storeDetailDTO.setReviewAverage(dfAverage);
 
         // 북마크 개수
         int bookmarkCount = bookmarkBO.getBookmarkCountByStoreId(storeId);

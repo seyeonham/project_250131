@@ -19,7 +19,7 @@ public class StoreListDTO {
     private String menuImage;
 
     // 맛집 평균 평점
-    private double reviewAverage;
+    private String reviewAverage;
 
     // 유저의 북마크 여부
     private boolean bookmark;

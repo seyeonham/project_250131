@@ -25,6 +25,21 @@
         WHERE
             `storeId` = #{storeId}
     </select>
+    <select id="selectReviewById" parameterType="int">
+        SELECT
+            `id`
+            ,`storeId`
+            ,`userId`
+            ,`imagePath`
+            ,`point`
+            ,`content`
+            ,`createdAt`
+            ,`updatedAt`
+        FROM
+            `review`
+        WHERE
+            `id` = #{id}
+    </select>
 
     <insert id="insertReview" parameterType="map">
         INSERT INTO `review`
@@ -48,4 +63,10 @@
             , NOW()
         )
     </insert>
+
+    <delete id="deleteReviewById" parameterType="int">
+        DELETE FROM `review`
+        WHERE
+            `id` = #{id}
+    </delete>
 </mapper>

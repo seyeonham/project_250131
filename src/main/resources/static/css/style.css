@@ -318,3 +318,27 @@ textarea {
 #starPoint input[type=radio]:checked ~ label{
     text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
 }
+
+.rated-star span {
+    font-size: 25px;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+
+.rated-star span.active {
+    font-size: 25px;
+    color: transparent;
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+
+#reviewAverage span {
+    font-size: 35px;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+
+#reviewAverage span.active{
+    font-size: 35px;
+    color: transparent;
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}

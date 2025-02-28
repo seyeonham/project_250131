@@ -37,4 +37,11 @@ public class ReviewBO {
         int rowCount = reviewMapper.insertReview(storeId, userId, imagePath, point, content);
         return rowCount;
     }
+
+    public int deleteReviewById(int id) {
+        Review review = reviewMapper.selectReviewById(id);
+        fileManagerService.deleteFile(review.getImagePath());
+        int rowCount = reviewMapper.deleteReviewById(id);
+        return rowCount;
+    }
 }

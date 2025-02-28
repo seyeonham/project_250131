@@ -29,19 +29,26 @@
 </div>
 <!-- 리뷰 리스트 -->
 <div th:each="review : ${storeList.reviewList}" class="review-box my-2">
-    <div class="d-flex m-2">
-        <img th:if="${review.imagePath} != null" th:src="${review.imagePath}" width="80" height="80">
-        <div class="w-100 ml-2">
+    <div class="d-flex ml-2">
+        <img th:if="${review.imagePath} != null" th:src="${review.imagePath}" class="reviewImage mt-2" width="80" height="80">
+        <div class="w-100 ml-2 mt-1">
             <div class="d-flex justify-content-between">
                 <div class="d-flex align-items-center">
                     <h4 th:text="${review.userName}"></h4>
+                    <div class="rated-star ml-2 mb-3" th:data-review-point="${review.point}">
+                        <span class="star1">★</span>
+                        <span class="star2">★</span>
+                        <span class="star3">★</span>
+                        <span class="star4">★</span>
+                        <span class="star5">★</span>
+                    </div>
                     <span th:text="|${review.point}점|" class="ml-2"></span>
                 </div>
                 <a href="#" th:if="${session.userId} == ${review.userId}" class="deleteReviewBtn mr-3" th:data-review-id="${review.id}">
                     <img src="/img/x-icon.png" width="20" height="20">
                 </a>
             </div>
-            <div th:text="${review.content}" class="mt-3"></div>
+            <div th:text="${review.content}"></div>
         </div>
     </div>
 </div>

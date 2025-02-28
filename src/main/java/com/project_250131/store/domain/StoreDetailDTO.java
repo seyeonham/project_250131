@@ -22,7 +22,7 @@ public class StoreDetailDTO {
     private List<ReviewDTO> reviewList;
 
     // 맛집 리뷰 평점
-    private double reviewAverage;
+    private String reviewAverage;
 
     // 북마크 횟수
     private int bookmarkCount;
