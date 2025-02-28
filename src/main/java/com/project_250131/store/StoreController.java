@@ -209,10 +209,11 @@ public class StoreController {
     @GetMapping("/store-detail")
     public String storeDetail(
             @RequestParam("storeId") int storeId,
-            Model model
+            Model model, HttpSession session
     ) {
 
-        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        Integer userId = (Integer)session.getAttribute("userId");
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId, userId);
         model.addAttribute("storeList", storeList);
 
         return "store/storeDetail";
@@ -221,9 +222,10 @@ public class StoreController {
     @GetMapping("store-detail-menu")
     public String storeDetailMenu(
             @RequestParam("storeId") int storeId,
-            Model model
+            Model model, HttpSession session
     ) {
-        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        Integer userId = (Integer)session.getAttribute("userId");
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId, userId);
         model.addAttribute("storeList", storeList);
         return "store/storeDetailMenu";
     }
@@ -231,9 +233,10 @@ public class StoreController {
     @GetMapping("store-detail-review")
     public String storeDetailReview(
             @RequestParam("storeId") int storeId,
-            Model model
+            Model model, HttpSession session
     ) {
-        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        Integer userId = (Integer)session.getAttribute("userId");
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId, userId);
         model.addAttribute("storeList", storeList);
         return "store/storeDetailReview";
     }
@@ -241,9 +244,10 @@ public class StoreController {
     @GetMapping("store-detail-info")
     public String storeDetailInfo(
             @RequestParam("storeId") int storeId,
-            Model model
+            Model model, HttpSession session
     ) {
-        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        Integer userId = (Integer)session.getAttribute("userId");
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId, userId);
         model.addAttribute("storeList", storeList);
         return "store/storeDetailInfo";
     }

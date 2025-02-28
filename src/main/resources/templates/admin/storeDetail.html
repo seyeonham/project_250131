@@ -31,12 +31,7 @@
           <div th:text="|${storeList.reviewAverage}점|"></div>
         </div>
         <div th:if="${session.userId} != null" class="mr-3 d-flex">
-          <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/full-heart.png" width="25"></a>
-          <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/empty-heart.png" width="25"></a>
-          <div th:text="${storeList.bookmarkCount}" class="ml-2"></div>
-        </div>
-        <div th:if="${session.userId} == null" class="d-flex">
-          <a href="/user/sign-in"><img src="/img/empty-heart.png" width="25"></a>
+          <img src="/img/full-heart.png" width="25">
           <div th:text="${storeList.bookmarkCount}" class="ml-2"></div>
         </div>
       </div>

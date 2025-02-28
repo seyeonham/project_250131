@@ -44,6 +44,35 @@ public class FileManagerService {
         return "/images/" + "menu/" + directoryName + "/" + file.getOriginalFilename();
     }
 
+    // input: multipart file, storeId(폴더명으로 사용), userId(폴더명으로 사용)
+    // output: imagePath(String)
+    public String uploadReviewFile(MultipartFile file, int storeId, int userId) {
+
+        // 메뉴 폴더 찾기
+        String uploadPath = BASE_UPLOAD_PATH + "review";
+
+        // 폴더 생성
+        String directoryName = storeId + "_" + userId + "_" + System.currentTimeMillis();
+        String filePath = uploadPath + File.separator + directoryName;
+
+        File directory = new File(filePath);
+        if (!directory.mkdirs()) {
+            return null;
+        }
+
+        // 파일 업로드
+        try {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(filePath + File.separator + file.getOriginalFilename());
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return "/images/" + "review/" + directoryName + "/" + file.getOriginalFilename();
+    }
+
     public void deleteFile(String imagePath) {
         Path path = Paths.get(BASE_UPLOAD_PATH + imagePath.replace("/images/", ""));
 

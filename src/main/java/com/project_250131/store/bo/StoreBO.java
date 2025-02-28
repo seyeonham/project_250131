@@ -5,10 +5,13 @@ import com.project_250131.menu.bo.MenuBO;
 import com.project_250131.menu.domain.Menu;
 import com.project_250131.review.bo.ReviewBO;
 import com.project_250131.review.domain.Review;
+import com.project_250131.review.domain.ReviewDTO;
 import com.project_250131.store.domain.StoreDetailDTO;
 import com.project_250131.store.domain.StoreListDTO;
 import com.project_250131.store.entity.StoreEntity;
 import com.project_250131.store.repository.StoreRepository;
+import com.project_250131.user.bo.UserBO;
+import com.project_250131.user.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +31,7 @@ public class StoreBO {
     private final MenuBO menuBO;
     private final ReviewBO reviewBO;
     private final BookmarkBO bookmarkBO;
+    private final UserBO userBO;
 
     public Page<StoreEntity> getStoreList(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
@@ -223,7 +227,7 @@ public class StoreBO {
         return storeList;
     }
 
-    public StoreDetailDTO generateStoreByStoreId(int storeId) {
+    public StoreDetailDTO generateStoreByStoreId(int storeId, Integer userId) {
         StoreDetailDTO storeDetailDTO = new StoreDetailDTO();
 
         // 맛집 정보
@@ -236,7 +240,25 @@ public class StoreBO {
 
         // 리뷰
         List<Review> reviewList = reviewBO.getReviewListByStoreId(storeId);
-        storeDetailDTO.setReviewList(reviewList);
+        List<ReviewDTO> reviewDTOList = new ArrayList<>();
+
+        for (Review review : reviewList) {
+            ReviewDTO reviewDTO = new ReviewDTO();
+            reviewDTO.setId(review.getId());
+            reviewDTO.setStoreId(review.getStoreId());
+            reviewDTO.setUserId(review.getUserId());
+            reviewDTO.setImagePath(review.getImagePath());
+            reviewDTO.setPoint(review.getPoint());
+            reviewDTO.setContent(review.getContent());
+            reviewDTO.setCreatedAt(review.getCreatedAt());
+            reviewDTO.setUpdatedAt(review.getUpdatedAt());
+
+            UserEntity user = userBO.getUserEntityById(review.getUserId());
+            reviewDTO.setUserName(user.getName());
+
+            reviewDTOList.add(reviewDTO);
+        }
+        storeDetailDTO.setReviewList(reviewDTOList);
 
         // 리뷰 평점
         double point = reviewBO.getReviewPointByStoreId(storeId);
@@ -245,6 +267,12 @@ public class StoreBO {
         // 북마크 개수
         int bookmarkCount = bookmarkBO.getBookmarkCountByStoreId(storeId);
         storeDetailDTO.setBookmarkCount(bookmarkCount);
+
+        // 북마크 여부
+        if (userId != null) {
+            boolean bookmark = bookmarkBO.getBookmarkByUserIdStoreId(userId, storeId);
+            storeDetailDTO.setBookmark(bookmark);
+        }
 
         return storeDetailDTO;
     }

@@ -25,4 +25,27 @@
         WHERE
             `storeId` = #{storeId}
     </select>
+
+    <insert id="insertReview" parameterType="map">
+        INSERT INTO `review`
+        (
+            `storeId`
+            ,`userId`
+            ,`imagePath`
+            ,`point`
+            ,`content`
+            ,`createdAt`
+            ,`updatedAt`
+        )
+        VALUES
+        (
+            #{storeId}
+            , #{userId}
+            , #{imagePath}
+            , #{point}
+            , #{content}
+            , NOW()
+            , NOW()
+        )
+    </insert>
 </mapper>

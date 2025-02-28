@@ -82,7 +82,7 @@ public class AdminController {
             @RequestParam("storeId") int storeId,
             Model model
     ) {
-        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId);
+        StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId, null);
         model.addAttribute("storeList", storeList);
 
         return "admin/storeDetail";

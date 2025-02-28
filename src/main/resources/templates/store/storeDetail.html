@@ -18,7 +18,7 @@
                 </div>
                 <div th:if="${session.userId} != null" class="mr-3 d-flex">
                     <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/full-heart.png" width="25"></a>
-                    <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/empty-heart.png" width="25"></a>
+                    <a href="/bookmark/store"><img th:if="${storeList.bookmark} == false" src="/img/empty-heart.png" width="25"></a>
                     <div th:text="${storeList.bookmarkCount}" class="ml-2"></div>
                 </div>
                 <div th:if="${session.userId} == null" class="d-flex">
@@ -141,6 +141,104 @@
                         $("#reviewBtn").removeClass("detail-on-btn");
                         $("#reviewBtn").addClass("detail-btn");
                         $("#storeDetailAppend").html(data);
+                    }
+                });
+            });
+
+            // 이미지의 a 태그 클릭 => file 동작
+            $(document).on("click", "#fileUploadBtn", function(e) {
+                e.preventDefault();
+                $("#file").click();
+            });
+
+            // 파일이 선택될 때
+            $(document).on("change", "#file", function(e) {
+                // 취소 누를 때 처리
+                if (e.target.files[0] == null) {
+                    $("#file").val(""); // 보이진 않지만 파일 태그에 올라온 것 제거
+                    $("#fileName").text(""); // 보이는 파일명 초기화
+                    return;
+                }
+
+                // 업로드 된 파일명만
+                let fileName = e.target.files[0].name;
+
+                // 1) 유효성 체크
+                let ext = fileName.split(".").pop().toLowerCase();
+                if (ext != "gif" && ext != "jpg" && ext != "png") {
+                    alert("이미지 파일만 업로드 할 수 있습니다.");
+                    $("#file").val(""); // 보이진 않지만 파일 태그에 올라온 것 제거
+                    $("#fileName").text(""); // 보이는 파일명 초기화
+                    return;
+                }
+
+                $("#fileName").text(fileName);
+            });
+
+            // 리뷰 작성
+            $(document).on("click", "#addReviewBtn", function() {
+                let storeId = $(".store-detail-box").data("store-id");
+                let content = $("#reviewContent").val();
+
+                // 별점 가져오기
+                let selectedStar = document.querySelector("#starPoint input:checked");
+                let point = 0;
+                if (!selectedStar) {
+                    alert("별점을 선택해주세요.");
+                    return;
+                } else {
+                    point = selectedStar.value;
+                }
+
+                // 파일 존재 여부
+                let fileData = null;
+                if ($("#file").length > 0 && $("#file")[0].files.length > 0) {
+                    let fileName = $("#file").val();
+                    let extension = fileName.split(".").pop().toLowerCase();
+                    if ($("#file").length != 0 && $.inArray(extension, ["jpg", "png", "gif"]) == -1) {
+                        alert("이미지 파일만 업로드할 수 있습니다.");
+                        $("#file").val(""); // 파일을 비운다.
+                        $("#fileName").text(""); // 보이는 파일명도 초기화
+                        return;
+                    }
+
+                    fileData = $("#file")[0].files[0];
+                }
+
+                // 폼태그 만들기
+                let formData = new FormData();
+                formData.append("storeId", storeId);
+                formData.append("point", point);
+                if (content) {
+                    formData.append("content", content);
+                }
+                if (fileData) {
+                    formData.append("file", fileData);
+                }
+
+                $.ajax({
+                    // request
+                    type: "post"
+                    , url: "/review/create"
+                    , data: formData
+                    , processData: false // 파일 업로드를 위한 필수 설정
+                    , contentType: false // 파일 업로드를 위한 필수 설정
+                    , enctype: "multipart/form-data" // 파일 업로드를 위한 필수 설정
+
+                    // response
+                    , success:function(data) {
+                        if (data.code == 200) {
+                            alert("리뷰 작성이 완료되었습니다.");
+                            location.reload();
+                        } else if (data.code = 403) {
+                            alert(data.error_message);
+                            location.href = "/user/sign-in";
+                        } else {
+                            alert(data.error_message);
+                        }
+                    }
+                    , error:function(e) {
+                        alert("리뷰를 작성하는데 실패했습니다. 관리자에게 문의해주세요.");
                     }
                 });
             });
