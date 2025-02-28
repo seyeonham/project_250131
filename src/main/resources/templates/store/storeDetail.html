@@ -9,10 +9,10 @@
             <div class="store-image">
 
             </div>
-            <div class="store-detail d-flex justify-content-between align-items-end my-3">
+            <div class="display-4 mt-3" th:text="${storeList.store.storeName}"></div>
+            <div class="store-detail d-flex justify-content-between align-items-end mb-3">
                 <div class="d-flex align-items-end">
-                    <div class="display-4" th:text="${storeList.store.storeName}"></div>
-                    <div th:text="${storeList.store.continent}" class="mx-3"></div>
+                    <div th:text="${storeList.store.continent}" class="mr-3"></div>
                     <div id="reviewAverage" class="mr-2" th:data-review-average="${storeList.reviewAverage}">
                         <span class="star1">★</span>
                         <span class="star2">★</span>

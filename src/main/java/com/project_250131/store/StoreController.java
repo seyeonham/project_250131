@@ -4,13 +4,13 @@ import com.project_250131.continent.bo.ContinentBO;
 import com.project_250131.continent.entity.ContinentEntity;
 import com.project_250131.region.bo.RegionBO;
 import com.project_250131.region.entity.RegionEntity;
+import com.project_250131.store.bo.PageBO;
 import com.project_250131.store.bo.StoreBO;
+import com.project_250131.store.domain.Page;
 import com.project_250131.store.domain.StoreDetailDTO;
 import com.project_250131.store.domain.StoreListDTO;
-import com.project_250131.store.entity.StoreEntity;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,6 +31,7 @@ public class StoreController {
     private final StoreBO storeBO;
     private final RegionBO regionBO;
     private final ContinentBO continentBO;
+    private final PageBO pageBO;
 
     @GetMapping("/user-store-list")
     public String userStoreList(
@@ -40,41 +41,28 @@ public class StoreController {
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
         String userRegion = (String)session.getAttribute("userRegion");
-
-        Pageable updatedPageable = PageRequest.of(page - 1, pageable.getPageSize(), pageable.getSort());
-
-        int currentGroup = (int) Math.ceil((double) page / 10);
-        int startPage = (currentGroup - 1) * 10 + 1;
+        Page storeListPage = null;
+        int storeCount = 0;
 
         if (userId == null) {
-            List<StoreListDTO> storeList = storeBO.generateStoreList(userId, pageable);
-            long storeCount = storeBO.getStoreCount();
-            int totalPages = (int) Math.ceil((double) storeCount / pageable.getPageSize());
-            int endPage = Math.min(startPage + 9, totalPages);
-            model.addAttribute("storeList", storeList);
-            model.addAttribute("storeCount", storeCount);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("endPage", endPage);
-        } else {
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(updatedPageable, userRegion, userId);
-            int storeRegionCount = storeBO.getStoreCountByRegion(userRegion);
-            List<ContinentEntity> continentList = continentBO.getContinentEntityList();
+            storeCount = storeBO.getStoreCount();
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeList = storeBO.generateStoreList(userId, storeListPage.getPageable());
 
-            int totalPages = (int) Math.ceil((double) storeRegionCount / pageable.getPageSize());
-            int endPage = Math.min(startPage + 9, totalPages);
+            model.addAttribute("storeList", storeList);
+        } else {
+            storeCount = storeBO.getStoreCountByRegion(userRegion);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), userRegion, userId);
+
 
             model.addAttribute("region", userRegion);
-            model.addAttribute("continentList", continentList);
-            model.addAttribute("storeRegionList", storeRegionList);
-            model.addAttribute("storeRegionCount", storeRegionCount);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("endPage", endPage);
+            model.addAttribute("storeList", storeRegionList);
         }
 
+        model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
-        model.addAttribute("pageable", updatedPageable);
-        model.addAttribute("currentGroup", currentGroup);
-        model.addAttribute("startPage", startPage);
+        model.addAttribute("storeListPage", storeListPage);
         return "store/userStoreList";
     }
 
@@ -87,48 +75,29 @@ public class StoreController {
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
-
-        Pageable updatedPageable = PageRequest.of(page - 1, pageable.getPageSize(), pageable.getSort());
-
-        int currentGroup = (int) Math.ceil((double) page / 10);
-        int startPage = (currentGroup - 1) * 10 + 1;
+        Page storeListPage = null;
+        int storeCount = 0;
 
         if (region != null) {
-
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(updatedPageable, region, userId);
-            int storeRegionCount = storeBO.getStoreCountByRegion(region);
-            List<ContinentEntity> continentList = continentBO.getContinentEntityList();
-
-            int totalPages = (int) Math.ceil((double) storeRegionCount / pageable.getPageSize());
-            int endPage = Math.min(startPage + 9, totalPages);
+            storeCount = storeBO.getStoreCountByRegion(region);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId);
 
             model.addAttribute("region", region);
-            model.addAttribute("continentList", continentList);
-            model.addAttribute("storeRegionList", storeRegionList);
-            model.addAttribute("storeRegionCount", storeRegionCount);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("endPage", endPage);
+            model.addAttribute("storeList", storeRegionList);
 
         } else if (continent != null) {
-            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(updatedPageable, continent, userId);
-            int storeContinentCount = storeBO.getStoreCountByContinent(continent);
-            List<RegionEntity> regionList = regionBO.getRegionList();
-
-            int totalPages = (int) Math.ceil((double) storeContinentCount / pageable.getPageSize());
-            int endPage = Math.min(startPage + 9, totalPages);
+            storeCount = storeBO.getStoreCountByContinent(continent);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(storeListPage.getPageable(), continent, userId);
 
             model.addAttribute("continent", continent);
-            model.addAttribute("regionList", regionList);
-            model.addAttribute("storeContinentList", storeContinentList);
-            model.addAttribute("storeContinentCount", storeContinentCount);
-            model.addAttribute("totalPages", totalPages);
-            model.addAttribute("endPage", endPage);
+            model.addAttribute("storeList", storeContinentList);
         }
 
+        model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
-        model.addAttribute("pageable", updatedPageable);
-        model.addAttribute("currentGroup", currentGroup);
-        model.addAttribute("startPage", startPage);
+        model.addAttribute("storeListPage", storeListPage);
         return "store/storeList";
     }
 
@@ -142,67 +111,37 @@ public class StoreController {
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
-
-        Pageable updatedPageable = PageRequest.of(page - 1, pageable.getPageSize(), pageable.getSort());
-
-        int currentGroup = (int) Math.ceil((double) page / 10);
-        int startPage = 0;
-        int totalPages = 0;
-        int endPage = 0;
+        Page storeListPage = null;
+        int storeCount = 0;
 
         if (region != null) {
-
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(updatedPageable, region, userId);
-            int storeRegionCount = storeBO.getStoreCountByRegion(region);
-            List<ContinentEntity> continentList = continentBO.getContinentEntityList();
-
-            if (storeRegionCount > 0) {
-                totalPages = (int) Math.ceil((double) storeRegionCount / pageable.getPageSize());
-                startPage = (currentGroup - 1) * 10 + 1;
-                endPage = Math.min(startPage + 9, totalPages);
-            }
+            storeCount = storeBO.getStoreCountByRegion(region);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId);
 
             model.addAttribute("region", region);
-            model.addAttribute("continentList", continentList);
-            model.addAttribute("storeRegionList", storeRegionList);
-            model.addAttribute("storeRegionCount", storeRegionCount);
+            model.addAttribute("storeList", storeRegionList);
 
         } else if (continent != null) {
-            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(updatedPageable, continent, userId);
-            int storeContinentCount = storeBO.getStoreCountByContinent(continent);
-            List<RegionEntity> regionList = regionBO.getRegionList();
-
-            if (storeContinentCount > 0) {
-                totalPages = (int) Math.ceil((double) storeContinentCount / pageable.getPageSize());
-                startPage = (currentGroup - 1) * 10 + 1;
-                endPage = Math.min(startPage + 9, totalPages);
-            }
+            storeCount = storeBO.getStoreCountByContinent(continent);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(storeListPage.getPageable(), continent, userId);
 
             model.addAttribute("continent", continent);
-            model.addAttribute("regionList", regionList);
-            model.addAttribute("storeContinentList", storeContinentList);
-            model.addAttribute("storeContinentCount", storeContinentCount);
-        } else if (name != null) {
-            List<StoreListDTO> storeNameList = storeBO.generateStoreListByStoreName(updatedPageable, name, userId);
-            int storeNameCount = storeBO.getStoreCountByStoreName(name);
+            model.addAttribute("storeList", storeContinentList);
 
-            if (storeNameCount > 0) {
-                totalPages = (int) Math.ceil((double) storeNameCount / pageable.getPageSize());
-                startPage = (currentGroup - 1) * 10 + 1;
-                endPage = Math.min(startPage + 9, totalPages);
-            }
+        } else if (name != null) {
+            storeCount = storeBO.getStoreCountByStoreName(name);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeNameList = storeBO.generateStoreListByStoreName(storeListPage.getPageable(), name, userId);
 
             model.addAttribute("name", name);
-            model.addAttribute("storeNameList", storeNameList);
-            model.addAttribute("storeNameCount", storeNameCount);
+            model.addAttribute("storeList", storeNameList);
         }
 
-        model.addAttribute("totalPages", totalPages);
-        model.addAttribute("endPage", endPage);
+        model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
-        model.addAttribute("pageable", updatedPageable);
-        model.addAttribute("currentGroup", currentGroup);
-        model.addAttribute("startPage", startPage);
+        model.addAttribute("storeListPage", storeListPage);
         return "store/searchList";
     }
 

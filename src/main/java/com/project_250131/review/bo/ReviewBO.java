@@ -40,7 +40,9 @@ public class ReviewBO {
 
     public int deleteReviewById(int id) {
         Review review = reviewMapper.selectReviewById(id);
-        fileManagerService.deleteFile(review.getImagePath());
+        if (review.getImagePath() != null) {
+            fileManagerService.deleteFile(review.getImagePath());
+        }
         int rowCount = reviewMapper.deleteReviewById(id);
         return rowCount;
     }

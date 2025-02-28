@@ -18,167 +18,40 @@
             </div>
         </div>
         <div class="store-list">
-            <!-- 지역 -->
-            <div th:if="${storeRegionList} != null">
-                <div th:text="'&quot;' + ${region} + '&quot;'" class="keyword"></div>
+            <div th:if="${storeList} != null">
+                <div th:if="${region} != null" th:text="'&quot;' + ${region} + '&quot;'" class="keyword"></div>
+                <div th:if="${continent} != null" th:text="'&quot;' + ${continent} + '&quot;'" class="keyword"></div>
+                <div th:if="${name} != null" th:text="'&quot;' + ${name} + '&quot;'" class="keyword"></div>
                 <div class="d-flex justify-content-between align-items-end">
-                    <div th:text="|검색결과 ${storeRegionCount}개|"></div>
-                    <div class="d-flex">
-                        <select class="form-control mr-2">
-                            <option>전체</option>
-                            <span th:each="continent : ${continentList}">
-                                <option th:text="${continent.continent}"></option>
-                            </span>
-                        </select>
-                        <select class="form-control">
-                            <option>기본순</option>
-                            <option>별점순</option>
-                            <option>리뷰순</option>
-                        </select>
-                    </div>
-                </div>
-                <div th:each="storeList : ${storeRegionList}" class="store-box mt-3">
-                    <a th:href="|/store/store-detail?storeId=${storeList.store.id}|">
-                        <div th:if="${storeList.menuImage} != null">
-                            <img th:src="${storeList.menuImage}">
-                        </div>
-                        <div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-end">
-                                    <div th:text="${storeList.store.storeName}" class="store-name"></div>
-                                    <div>
-                                        별점
-                                    </div>
-                                    <div th:text="|${storeList.reviewAverage}점|"></div>
-                                </div>
-                                <div th:if="${session.userId} != null" class="mr-3">
-                                    <div th:if="${storeList.bookmark} == true"><img src="/img/full-heart.png" width="25"></div>
-                                    <div th:if="${storeList.bookmark} == false"><img src="/img/empty-heart.png" width="25"></div>
-                                </div>
-                            </div>
-                            <div th:text="${storeList.store.continent}" class="store-continent"></div>
-                            <div th:text="${storeList.store.roadAddress}" class="store-address"></div>
-                        </div>
-                    </a>
-                </div>
-                <!-- 페이징 -->
-                <div class="pagination" th:if="${storeRegionCount} != 0">
-                    <ul>
-                        <!-- 이전 페이지 -->
-                        <li th:if="${startPage > 1}">
-                            <a th:href="@{/store/search-list(region=${region}, page=${startPage - 1})}">이전</a>
-                        </li>
-
-                        <!-- 페이지 번호 출력 (1 ~ pagesToShow) -->
-                        <li th:each="i : ${#numbers.sequence(startPage, endPage)}"
-                            th:classappend="${i == currentPage} ? 'active'">
-                            <a th:href="@{/store/search-list(region=${region}, page=${i})}" th:text="${i}"></a>
-                        </li>
-
-                        <!-- 다음 버튼 -->
-                        <li th:if="${endPage < totalPages}">
-                            <a th:href="@{/store/search-list(region=${region}, page=${endPage + 1})}">다음</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 대륙 -->
-            <div th:if="${storeContinentList} != null">
-                <div th:text="'&quot;' + ${continent} + '&quot;'" class="keyword"></div>
-                <div class="d-flex justify-content-between align-items-end">
-                    <div th:text="|검색결과 ${storeContinentCount}개|"></div>
-                    <div class="d-flex">
-                        <select class="form-control mr-2">
-                            <option>전체</option>
-                            <span th:each="region : ${regionList}">
-                                <option th:text="${region.region}"></option>
-                            </span>
-                        </select>
-                        <select class="form-control">
-                            <option>기본순</option>
-                            <option>별점순</option>
-                            <option>리뷰순</option>
-                        </select>
-                    </div>
-                </div>
-                <div th:each="storeList : ${storeContinentList}" class="store-box mt-3">
-                    <a th:href="|/store/store-detail?storeId=${storeList.store.id}|">
-                        <div class="d-flex m-2">
-                            <div th:if="${storeList.menuImage} != null">
-                                <img th:src="${storeList.menuImage}" width="130" height="130">
-                            </div>
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex align-items-end">
-                                        <div th:text="${storeList.store.storeName}" class="store-name"></div>
-                                        <div>
-                                            별점
-                                        </div>
-                                        <div th:text="|${storeList.reviewAverage}점|"></div>
-                                    </div>
-                                    <div th:if="${session.userId} != null" class="mr-3">
-                                        <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/full-heart.png" width="25"></a>
-                                        <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/empty-heart.png" width="25"></a>
-                                    </div>
-                                </div>
-                                <div th:text="${storeList.store.continent}" class="store-continent"></div>
-                                <div th:text="${storeList.store.roadAddress}" class="store-address"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- 페이징 -->
-                <div class="pagination" th:if="${storeContinentCount} != 0">
-                    <ul>
-                        <!-- 이전 페이지 -->
-                        <li th:if="${startPage > 1}">
-                            <a th:href="@{/store/search-list(continent=${continent}, page=${startPage - 1})}">이전</a>
-                        </li>
-
-                        <!-- 페이지 번호 출력 (1 ~ pagesToShow) -->
-                        <li th:each="i : ${#numbers.sequence(startPage, endPage)}"
-                            th:classappend="${i == currentPage} ? 'active'">
-                            <a th:href="@{/store/search-list(continent=${continent}, page=${i})}" th:text="${i}"></a>
-                        </li>
-
-                        <!-- 다음 버튼 -->
-                        <li th:if="${endPage < totalPages}">
-                            <a th:href="@{/store/search-list(continent=${continent}, page=${endPage + 1})}">다음</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- 이름 -->
-            <div th:if="${storeNameList} != null">
-                <div th:text="'&quot;' + ${name} + '&quot;'" class="keyword"></div>
-                <div class="d-flex justify-content-between align-items-end">
-                    <div th:text="|검색결과 ${storeNameCount}개|"></div>
+                    <div th:text="|검색결과 ${storeCount}개|"></div>
                     <select class="form-control w-25">
                         <option>기본순</option>
                         <option>별점순</option>
                         <option>리뷰순</option>
                     </select>
                 </div>
-                <div th:each="storeList : ${storeNameList}" class="store-box mt-3">
+                <div th:each="storeList : ${storeList}" class="store-box mt-3">
                     <a th:href="|/store/store-detail?storeId=${storeList.store.id}|">
                         <div class="d-flex m-2">
                             <div th:if="${storeList.menuImage} != null">
                                 <img th:src="${storeList.menuImage}" width="130" height="130">
                             </div>
-                            <div>
+                            <div class="w-100">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-end">
                                         <div th:text="${storeList.store.storeName}" class="store-name"></div>
-                                        <div>
-                                            별점
+                                        <div class="rated-star ml-2 mb-1" th:data-review-average="${storeList.reviewAverage}">
+                                            <span class="star1">★</span>
+                                            <span class="star2">★</span>
+                                            <span class="star3">★</span>
+                                            <span class="star4">★</span>
+                                            <span class="star5">★</span>
                                         </div>
-                                        <div th:text="|${storeList.reviewAverage}점|"></div>
+                                        <div class="mb-2 ml-2" th:text="|${storeList.reviewAverage}점|"></div>
                                     </div>
                                     <div th:if="${session.userId} != null" class="mr-3">
-                                        <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/full-heart.png" width="25"></a>
-                                        <a href="/bookmark/store"><img th:if="${storeList.bookmark} == true" src="/img/empty-heart.png" width="25"></a>
+                                        <div th:if="${storeList.bookmark} == true"><img src="/img/full-heart.png" width="25"></div>
+                                        <div th:if="${storeList.bookmark} == false"><img src="/img/empty-heart.png" width="25"></div>
                                     </div>
                                 </div>
                                 <div th:text="${storeList.store.continent}" class="store-continent"></div>
@@ -188,22 +61,28 @@
                     </a>
                 </div>
                 <!-- 페이징 -->
-                <div class="pagination" th:if="${storeNameCount} != 0">
+                <div class="pagination" th:if="${storeCount} != 0">
                     <ul>
                         <!-- 이전 페이지 -->
-                        <li th:if="${startPage > 1}">
-                            <a th:href="@{/store/search-list(name=${name}, page=${startPage - 1})}">이전</a>
+                        <li th:if="${storeListPage.startPage > 1}">
+                            <a th:if="${region} != null" th:href="@{/store/search-list(region=${region}, page=${storeListPage.startPage - 1})}">이전</a>
+                            <a th:if="${continent} != null" th:href="@{/store/search-list(continent=${continent}, page=${storeListPage.startPage - 1})}">이전</a>
+                            <a th:if="${name} != null" th:href="@{/store/search-list(name=${name}, page=${storeListPage.startPage - 1})}">이전</a>
                         </li>
 
                         <!-- 페이지 번호 출력 (1 ~ pagesToShow) -->
-                        <li th:each="i : ${#numbers.sequence(startPage, endPage)}"
+                        <li th:each="i : ${#numbers.sequence(storeListPage.startPage, storeListPage.endPage)}"
                             th:classappend="${i == currentPage} ? 'active'">
-                            <a th:href="@{/store/search-list(name=${name}, page=${i})}" th:text="${i}"></a>
+                            <a th:if="${region} != null" th:href="@{/store/search-list(region=${region}, page=${i})}" th:text="${i}"></a>
+                            <a th:if="${continent} != null" th:href="@{/store/search-list(continent=${continent}, page=${i})}" th:text="${i}"></a>
+                            <a th:if="${name} != null" th:href="@{/store/search-list(name=${name}, page=${i})}" th:text="${i}"></a>
                         </li>
 
                         <!-- 다음 버튼 -->
-                        <li th:if="${endPage < totalPages}">
-                            <a th:href="@{/store/search-list(name=${name}, page=${endPage + 1})}">다음</a>
+                        <li th:if="${storeListPage.endPage < storeListPage.totalPages}">
+                            <a th:if="${region} != null" th:href="@{/store/search-list(region=${region}, page=${storeListPage.endPage + 1})}">다음</a>
+                            <a th:if="${continent} != null" th:href="@{/store/search-list(continent=${continent}, page=${storeListPage.endPage + 1})}">다음</a>
+                            <a th:if="${name} != null" th:href="@{/store/search-list(name=${name}, page=${storeListPage.endPage + 1})}">다음</a>
                         </li>
                     </ul>
                 </div>
@@ -213,6 +92,24 @@
 
     <script>
         $(function() {
+            // 별점
+            let ratedStars = document.querySelectorAll(".rated-star");
+            ratedStars.forEach((ratedStar) => {
+                let stars = ratedStar.querySelectorAll("span");
+                let point = parseInt(ratedStar.dataset.reviewAverage, 10);
+
+                if (stars.length > 0) {
+                    stars.forEach((star, index) => {
+                        if (index < point) {
+                            star.classList.add("active");
+                        } else {
+                            star.classList.remove("active");
+                        }
+                    });
+                }
+            });
+
+            // 맛집 검색
             $("#searchBtn").on("click", function() {
                 let searchType = $("#searchType").val();
                 let keyword = $("#keyword").val().trim();

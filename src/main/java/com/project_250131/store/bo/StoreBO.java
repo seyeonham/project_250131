@@ -41,8 +41,8 @@ public class StoreBO {
         return storeRepository.findAll(pageable);
     }
 
-    public long getStoreCount() {
-        return storeRepository.count();
+    public int getStoreCount() {
+        return (int) storeRepository.count();
     }
 
     public StoreEntity getStoreById(int id) {
