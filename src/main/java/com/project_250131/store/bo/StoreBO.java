@@ -1,6 +1,7 @@
 package com.project_250131.store.bo;
 
 import com.project_250131.bookmark.bo.BookmarkBO;
+import com.project_250131.bookmark.domain.Bookmark;
 import com.project_250131.menu.bo.MenuBO;
 import com.project_250131.menu.domain.Menu;
 import com.project_250131.review.bo.ReviewBO;
@@ -20,9 +21,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -39,6 +38,10 @@ public class StoreBO {
         int size = pageable.getPageSize();
         PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
         return storeRepository.findAll(pageable);
+    }
+
+    public List<StoreEntity> getStoreList() {
+        return storeRepository.findAll();
     }
 
     public int getStoreCount() {
@@ -233,6 +236,152 @@ public class StoreBO {
             storeList.add(storeListDTO);
         }
 
+        return storeList;
+    }
+
+    // 북마크한 맛집 목록
+    public List<StoreListDTO> generateBookmarkStoreList(Pageable pageable, int userId) {
+        List<StoreListDTO> storeList = new ArrayList<>();
+
+        List<Bookmark> bookmarkList = bookmarkBO.getBookmarkListByUserIdDeleteYn(userId);
+
+        List<StoreEntity> storeEntityList = getStoreList();
+
+        for (StoreEntity storeEntity : storeEntityList) {
+            StoreListDTO storeListDTO = new StoreListDTO();
+
+            for (Bookmark bookmark : bookmarkList) {
+                if (bookmark.getStoreId() == storeEntity.getId()) {
+
+                    // 맛집 1개
+                    storeListDTO.setStore(storeEntity);
+                    int storeId = storeEntity.getId();
+
+                    // 메뉴 대표 이미지
+                    if (menuBO.getMenuByStoreId(storeId) != null) {
+                        String imagePath = menuBO.getMenuByStoreId(storeId).getImagePath();
+                        storeListDTO.setMenuImage(imagePath);
+                    }
+
+                    // 리뷰 평점
+                    double point = reviewBO.getReviewPointByStoreId(storeId);
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    String dfAverage = df.format(point);
+                    storeListDTO.setReviewAverage(dfAverage);
+
+                    // 북마크 여부
+                    boolean bookmarkYn = bookmarkBO.getBookmarkByUserIdStoreId(userId, storeId);
+                    storeListDTO.setBookmark(bookmarkYn);
+
+                    storeList.add(storeListDTO);
+                }
+            }
+        }
+        return storeList;
+    }
+
+    // 최근 방문한 맛집 목록
+    public List<StoreListDTO> generateReviewStoreList(Pageable pageable, int userId) {
+        List<StoreListDTO> storeList = new ArrayList<>();
+
+        List<Review> reviewList = reviewBO.getReviewListByUserId(userId);
+
+        List<StoreEntity> storeEntityList = getStoreList();
+
+        Set<Integer> processedStoreIds = new HashSet<>();
+
+        for (StoreEntity storeEntity : storeEntityList) {
+            int storeId = storeEntity.getId();
+
+            if (processedStoreIds.contains(storeId)) {
+                continue;
+            }
+
+            for (Review review : reviewList) {
+                if (review.getStoreId() == storeEntity.getId()) {
+                    StoreListDTO storeListDTO = new StoreListDTO();
+
+                    // 맛집 1개
+                    storeListDTO.setStore(storeEntity);
+                    storeId = storeEntity.getId();
+
+                    // 메뉴 대표 이미지
+                    if (menuBO.getMenuByStoreId(storeId) != null) {
+                        String imagePath = menuBO.getMenuByStoreId(storeId).getImagePath();
+                        storeListDTO.setMenuImage(imagePath);
+                    }
+
+                    // 리뷰 평점
+                    double point = reviewBO.getReviewPointByStoreId(storeId);
+                    DecimalFormat df = new DecimalFormat("#.#");
+                    String dfAverage = df.format(point);
+                    storeListDTO.setReviewAverage(dfAverage);
+
+                    // 북마크 여부
+                    boolean bookmark = bookmarkBO.getBookmarkByUserIdStoreId(userId, storeId);
+                    storeListDTO.setBookmark(bookmark);
+
+                    storeList.add(storeListDTO);
+
+                    processedStoreIds.add(storeId);
+                    break;
+                }
+            }
+        }
+        return storeList;
+    }
+
+    // 단골 맛집 목록
+    public List<StoreListDTO> generateRegularStoreList(Pageable pageable, int userId) {
+        List<StoreListDTO> storeList = new ArrayList<>();
+
+        List<Review> reviewList = reviewBO.getReviewListByUserId(userId);
+
+        List<StoreEntity> storeEntityList = getStoreList();
+
+        Map<Integer, Integer> reviewCountMap = new HashMap<>();
+        for (Review review : reviewList) {
+            int storeId = review.getStoreId();
+            reviewCountMap.put(storeId, reviewCountMap.getOrDefault(storeId, 0) + 1);
+        }
+
+        Set<Integer> validStoreIds = new HashSet<>();
+        for (Map.Entry<Integer, Integer> entry : reviewCountMap.entrySet()) {
+            if (entry.getValue() >= 3) {
+                validStoreIds.add(entry.getKey());
+            }
+        }
+
+        for (StoreEntity storeEntity : storeEntityList) {
+            int storeId = storeEntity.getId();
+
+            if (!validStoreIds.contains(storeId)) {
+                continue;
+            }
+
+            StoreListDTO storeListDTO = new StoreListDTO();
+
+            // 맛집 1개
+            storeListDTO.setStore(storeEntity);
+
+            // 메뉴 대표 이미지
+            if (menuBO.getMenuByStoreId(storeId) != null) {
+                String imagePath = menuBO.getMenuByStoreId(storeId).getImagePath();
+                storeListDTO.setMenuImage(imagePath);
+            }
+
+            // 리뷰 평점
+            double point = reviewBO.getReviewPointByStoreId(storeId);
+            DecimalFormat df = new DecimalFormat("#.#");
+            String dfAverage = df.format(point);
+            storeListDTO.setReviewAverage(dfAverage);
+
+            // 북마크 여부
+            boolean bookmark = bookmarkBO.getBookmarkByUserIdStoreId(userId, storeId);
+            storeListDTO.setBookmark(bookmark);
+
+            storeList.add(storeListDTO);
+        }
         return storeList;
     }
 

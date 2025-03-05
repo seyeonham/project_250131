@@ -15,9 +15,9 @@
             <img th:if="${session.userId} != null" src="/img/profile.png" width="40">
           </button>
           <div class="drop-options" th:if="${session.userId} != null">
-            <a href="#">내 단골 맛집</a>
-            <a href="#">최근 방문한 가게</a>
-            <a href="#">즐겨찾기 맛집</a>
+            <a href="/store/regular-store-list">내 단골 맛집</a>
+            <a href="/store/visit-store-list">최근 방문한 가게</a>
+            <a href="/store/bookmark-store-list">즐겨찾기 맛집</a>
             <a href="/user/edit-profile">정보 수정</a>
             <a href="/user/sign-out">로그아웃</a>
           </div>

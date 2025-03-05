@@ -102,10 +102,11 @@
             $(".bookmarkBtn").on("click", function(e) {
                 e.preventDefault();
                 let storeId = $(this).data("store-id");
+                console.log(storeId);
 
                 $.ajax({
                     // request
-                    type:"patch"
+                    type:"post"
                     , url:"/bookmark/store"
                     , data:{"storeId":storeId}
 

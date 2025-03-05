@@ -25,6 +25,39 @@
         WHERE
             `storeId` = #{storeId}
     </select>
+    <select id="selectReviewListByUserId" parameterType="int">
+        SELECT
+            `id`
+            ,`storeId`
+            ,`userId`
+            ,`imagePath`
+            ,`point`
+            ,`content`
+            ,`createdAt`
+            ,`updatedAt`
+        FROM
+            `review`
+        WHERE
+            `userId` = #{userId}
+    </select>
+    <select id="selectReviewCountByUserId" parameterType="int">
+        SELECT
+            COUNT(DISTINCT storeId)
+        FROM
+            `review`
+        WHERE
+            `userId` = #{userId}
+    </select>
+    <select id="selectRegularReviewCountByUserId" parameterType="int">
+        SELECT
+            CAST(COUNT(DISTINCT storeId) AS UNSIGNED)
+        FROM
+            `review`
+        WHERE
+            `userId` = #{userId}
+        GROUP BY `storeId`
+        HAVING COUNT(*) &gt;= 3
+    </select>
     <select id="selectReviewById" parameterType="int">
         SELECT
             `id`

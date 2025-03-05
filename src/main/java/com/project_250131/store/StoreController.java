@@ -1,9 +1,11 @@
 package com.project_250131.store;
 
+import com.project_250131.bookmark.bo.BookmarkBO;
+import com.project_250131.bookmark.domain.Bookmark;
 import com.project_250131.continent.bo.ContinentBO;
-import com.project_250131.continent.entity.ContinentEntity;
 import com.project_250131.region.bo.RegionBO;
-import com.project_250131.region.entity.RegionEntity;
+import com.project_250131.review.bo.ReviewBO;
+import com.project_250131.review.domain.Review;
 import com.project_250131.store.bo.PageBO;
 import com.project_250131.store.bo.StoreBO;
 import com.project_250131.store.domain.Page;
@@ -11,7 +13,6 @@ import com.project_250131.store.domain.StoreDetailDTO;
 import com.project_250131.store.domain.StoreListDTO;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/store")
@@ -29,9 +33,9 @@ import java.util.List;
 public class StoreController {
 
     private final StoreBO storeBO;
-    private final RegionBO regionBO;
-    private final ContinentBO continentBO;
     private final PageBO pageBO;
+    private final BookmarkBO bookmarkBO;
+    private final ReviewBO reviewBO;
 
     @GetMapping("/user-store-list")
     public String userStoreList(
@@ -145,6 +149,84 @@ public class StoreController {
         return "store/searchList";
     }
 
+    @GetMapping("/bookmark-store-list")
+    public String bookmarkStoreList(
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            Model model, HttpSession session
+    ) {
+        Integer userId = (Integer)session.getAttribute("userId");
+        Page storeListPage = null;
+        int storeCount = 0;
+
+        if (userId == null) {
+            return "redirect:/user/sign-in";
+        } else {
+            storeCount = bookmarkBO.getBookmarkCountByUserIdDeleteYn(userId);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeList = storeBO.generateBookmarkStoreList(storeListPage.getPageable(), userId);
+
+            model.addAttribute("storeList", storeList);
+        }
+
+        model.addAttribute("storeCount", storeCount);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("storeListPage", storeListPage);
+        return "store/bookmarkStoreList";
+    }
+
+    @GetMapping("/visit-store-list")
+    public String visitStoreList(
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            Model model, HttpSession session
+    ) {
+        Integer userId = (Integer)session.getAttribute("userId");
+        Page storeListPage = null;
+        int storeCount = 0;
+
+        if (userId == null) {
+            return "redirect:/user/sign-in";
+        } else {
+            storeCount = reviewBO.getReviewCountByUserId(userId);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeList = storeBO.generateReviewStoreList(storeListPage.getPageable(), userId);
+
+            model.addAttribute("storeList", storeList);
+        }
+
+        model.addAttribute("storeCount", storeCount);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("storeListPage", storeListPage);
+        return "store/visitStoreList";
+    }
+
+    @GetMapping("/regular-store-list")
+    public String regularStoreList(
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            Model model, HttpSession session
+    ) {
+        Integer userId = (Integer)session.getAttribute("userId");
+        Page storeListPage = null;
+        int storeCount = 0;
+
+        if (userId == null) {
+            return "redirect:/user/sign-in";
+        } else {
+            storeCount = reviewBO.getRegularReviewCountByUserId(userId);
+            storeListPage = pageBO.storeListPage(pageable, page, storeCount);
+            List<StoreListDTO> storeList = storeBO.generateRegularStoreList(storeListPage.getPageable(), userId);
+
+            model.addAttribute("storeList", storeList);
+        }
+
+        model.addAttribute("storeCount", storeCount);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("storeListPage", storeListPage);
+        return "store/regularStoreList";
+    }
+
     @GetMapping("/store-detail")
     public String storeDetail(
             @RequestParam("storeId") int storeId,
@@ -153,6 +235,7 @@ public class StoreController {
 
         Integer userId = (Integer)session.getAttribute("userId");
         StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId, userId);
+
         model.addAttribute("storeList", storeList);
 
         return "store/storeDetail";
@@ -176,6 +259,23 @@ public class StoreController {
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
         StoreDetailDTO storeList = storeBO.generateStoreByStoreId(storeId, userId);
+
+        List<Review> reviewList = reviewBO.getReviewListByStoreId(storeId);
+
+        Map<Integer, Integer> reviewCountMap = new HashMap<>();
+        List<Integer> regularReview = new ArrayList<>();
+        for (Review review : reviewList) {
+            int reviewUserId = review.getUserId();
+
+            int count = reviewCountMap.getOrDefault(reviewUserId, 0) + 1;
+            reviewCountMap.put(reviewUserId, count);
+
+            if (count >= 3 && !regularReview.contains(reviewUserId)) {
+                regularReview.add(reviewUserId);
+            }
+        }
+
+        model.addAttribute("regularReview", regularReview);
         model.addAttribute("storeList", storeList);
         return "store/storeDetailReview";
     }

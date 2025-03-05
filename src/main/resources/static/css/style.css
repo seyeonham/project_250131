@@ -217,6 +217,13 @@ textarea {
     border-radius:12px;
 }
 
+.regular-user{
+    border: solid, 1px;
+    border-color: #88DC9B;
+    background-color: #88DC9B;
+    border-radius: 5px;
+}
+
 /* dropdown */
 
 .dropdown {

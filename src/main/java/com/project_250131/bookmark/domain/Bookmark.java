@@ -10,7 +10,7 @@ public class Bookmark {
     private int id;
     private int userId;
     private int storeId;
-    private boolean deleteYn;
+    private int deleteYn;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

@@ -4,10 +4,9 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{layout/defaultLayout}">
 <th:block layout:fragment="content">
-    <section class="contents">
+    <section class="contents d-flex justify-content-center">
         <div class="store-list">
-            <div class="display-4 my-3" th:if="${region} != null" th:text="${region}">지역</div>
-            <div class="display-4 my-3" th:if="${continent} != null" th:text="${continent}">대륙</div>
+            <div class="display-4 my-3">즐겨찾기 목록</div>
             <div class="d-flex justify-content-between align-items-end">
                 <div th:text="|검색결과 ${storeCount}개|"></div>
                 <select class="form-control w-25">
@@ -16,7 +15,7 @@
                     <option>리뷰순</option>
                 </select>
             </div>
-            <div th:each="storeList : ${storeList}" class="store-box mt-3">
+            <div th:each="storeList : ${storeList}" class="store-box mt-3" th:if="${storeList} != null">
                 <a th:href="|/store/store-detail?storeId=${storeList.store.id}|">
                     <div class="d-flex m-2">
                         <div th:if="${storeList.menuImage} != null">
@@ -35,7 +34,7 @@
                                     </div>
                                     <div class="mb-2 ml-2" th:text="|${storeList.reviewAverage}점|"></div>
                                 </div>
-                                <div th:if="${session.userId} != null" class="mr-3">
+                                <div th:if="${session.userId} != null" class="mr-3 d-flex justify-content-end">
                                     <a href="#" class="bookmarkBtn" th:data-store-id="${storeList.store.id}"><img th:if="${storeList.bookmark} == true" src="/img/full-heart.png" width="25"></a>
                                     <a href="#" class="bookmarkBtn" th:data-store-id="${storeList.store.id}"><img th:if="${storeList.bookmark} == false" src="/img/empty-heart.png" width="25"></a>
                                 </div>
@@ -51,21 +50,18 @@
                 <ul>
                     <!-- 이전 페이지 -->
                     <li th:if="${storeListPage.startPage > 1}">
-                        <a th:if="${region} != null" th:href="@{/store/store-list(region=${region}, page=${storeListPage.startPage - 1})}">이전</a>
-                        <a th:if="${continent} != null" th:href="@{/store/store-list(continent=${continent}, page=${storeListPage.startPage - 1})}">이전</a>
+                        <a th:href="@{/store/bookmark-store-list(page=${storeListPage.startPage - 1})}">이전</a>
                     </li>
 
                     <!-- 페이지 번호 출력 (1 ~ pagesToShow) -->
                     <li th:each="i : ${#numbers.sequence(storeListPage.startPage, storeListPage.endPage)}"
                         th:classappend="${i == currentPage} ? 'active'">
-                        <a th:if="${region} != null" th:href="@{/store/store-list(region=${region}, page=${i})}" th:text="${i}"></a>
-                        <a th:if="${continent} != null" th:href="@{/store/store-list(continent=${continent}, page=${i})}" th:text="${i}"></a>
+                        <a th:href="@{/store/bookmark-store-list(page=${i})}" th:text="${i}"></a>
                     </li>
 
                     <!-- 다음 버튼 -->
                     <li th:if="${storeListPage.endPage < storeListPage.totalPages}">
-                        <a th:if="${region} != null" th:href="@{/store/store-list(region=${region}, page=${storeListPage.endPage + 1})}">다음</a>
-                        <a th:if="${continent} != null" th:href="@{/store/store-list(continent=${continent}, page=${storeListPage.endPage + 1})}">다음</a>
+                        <a th:href="@{/store/bookmark-store-list(page=${storeListPage.endPage + 1})}">다음</a>
                     </li>
                 </ul>
             </div>

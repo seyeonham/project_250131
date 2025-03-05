@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -26,6 +29,19 @@ public class ReviewBO {
 
     public List<Review> getReviewListByStoreId(int storeId) {
         return reviewMapper.selectReviewListByStoreId(storeId);
+    }
+
+    public List<Review> getReviewListByUserId(int userId) {
+        return reviewMapper.selectReviewListByUserId(userId);
+    }
+
+    public int getReviewCountByUserId(int userId) {
+        return reviewMapper.selectReviewCountByUserId(userId);
+    }
+
+    public int getRegularReviewCountByUserId(int userId) {
+        Integer count = reviewMapper.selectRegularReviewCountByUserId(userId);
+        return count != null ? count : 0;
     }
 
     public int addReview(int storeId, int userId, MultipartFile file, int point, String content) {

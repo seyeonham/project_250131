@@ -34,6 +34,7 @@
         <div class="w-100 ml-2 mt-1">
             <div class="d-flex justify-content-between">
                 <div class="d-flex align-items-center">
+                    <div class="regular-user mb-2 mr-1" th:each="regular : ${regularReview}" th:if="${regular} == ${review.userId}">단골</div>
                     <h4 th:text="${review.userName}"></h4>
                     <div class="rated-star ml-2 mb-3" th:data-review-point="${review.point}">
                         <span class="star1">★</span>

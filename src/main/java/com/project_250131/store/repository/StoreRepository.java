@@ -21,4 +21,6 @@ public interface StoreRepository extends JpaRepository<StoreEntity, Integer> {
 
     public Page<StoreEntity> findByStoreNameContaining(String name, Pageable pageable);
     public int countByStoreNameContaining(String name);
+
+    public Page<StoreEntity> findById(int userId, Pageable pageable);
 }

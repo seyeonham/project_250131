@@ -25,6 +25,59 @@
         WHERE
             `userId` = #{userId}
             AND `storeId` = #{storeId}
+    </select>
+
+    <select id="selectBookmarkByUserIdDeleteYn" parameterType="int">
+        SELECT
+            `id`
+            ,`userId`
+            ,`storeId`
+            ,`deleteYn`
+            ,`createdAt`
+            ,`updatedAt`
+        FROM
+            `bookmark`
+        WHERE
+            `userId` = #{userId}
             AND `deleteYn` = 0
     </select>
+
+    <select id="selectBookmarkCountByUserIdDeleteYn" parameterType="int">
+        SELECT
+            COUNT(1)
+        FROM
+            `bookmark`
+        WHERE
+            `userId` = #{userId}
+            AND `deleteYn` = 0
+    </select>
+
+    <update id="updateBookmarkByUserIdStoreId" parameterType="map">
+        UPDATE `bookmark`
+        SET
+            `deleteYn` = NOT `deleteYn`
+            , `updatedAt` = NOW()
+        WHERE
+            `userId` = #{userId}
+            AND `storeId` = #{storeId}
+    </update>
+
+    <insert id="insertBookmark" parameterType="map">
+        INSERT INTO `bookmark`
+        (
+            `userId`
+            ,`storeId`
+            ,`deleteYn`
+            ,`createdAt`
+            ,`updatedAt`
+        )
+        VALUES
+        (
+            #{userId}
+            , #{storeId}
+            , 0
+            , NOW()
+            , NOW()
+        )
+    </insert>
 </mapper>

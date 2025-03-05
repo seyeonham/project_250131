@@ -50,8 +50,8 @@
                                         <div class="mb-2 ml-2" th:text="|${storeList.reviewAverage}점|"></div>
                                     </div>
                                     <div th:if="${session.userId} != null" class="mr-3">
-                                        <div th:if="${storeList.bookmark} == true"><img src="/img/full-heart.png" width="25"></div>
-                                        <div th:if="${storeList.bookmark} == false"><img src="/img/empty-heart.png" width="25"></div>
+                                        <a href="#" class="bookmarkBtn" th:data-store-id="${storeList.store.id}"><img th:if="${storeList.bookmark} == true" src="/img/full-heart.png" width="25"></a>
+                                        <a href="#" class="bookmarkBtn" th:data-store-id="${storeList.store.id}"><img th:if="${storeList.bookmark} == false" src="/img/empty-heart.png" width="25"></a>
                                     </div>
                                 </div>
                                 <div th:text="${storeList.store.continent}" class="store-continent"></div>
@@ -127,6 +127,35 @@
                     location.href = `/store/search-list?name=${keyword}`;
                 }
 
+            });
+
+            // 북마크
+            $(".bookmarkBtn").on("click", function(e) {
+                e.preventDefault();
+                let storeId = $(this).data("store-id");
+                console.log(storeId);
+
+                $.ajax({
+                    // request
+                    type:"post"
+                    , url:"/bookmark/store"
+                    , data:{"storeId":storeId}
+
+                    // response
+                    , success:function(data) {
+                        if (data.code == 200) {
+                            location.reload();
+                        } else if (data.code == 403) {
+                            alert(data.error_message);
+                            location.href = "/user/sign-in";
+                        } else {
+                            alert(data.error_message);
+                        }
+                    }
+                    ,error:function(e) {
+                        alert("북마크하는데 실패했습니다. 관리자에게 문의해주세요.");
+                    }
+                });
             });
         });
     </script>
