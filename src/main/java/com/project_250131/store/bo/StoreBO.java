@@ -13,6 +13,7 @@ import com.project_250131.store.entity.StoreEntity;
 import com.project_250131.store.repository.StoreRepository;
 import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,12 +54,21 @@ public class StoreBO {
         return store.orElse(null);
     }
 
-    public Page<StoreEntity> getStoreListByRegion(String region, Pageable pageable) {
+    public Page<StoreEntity> getStoreListByRegion(String region, Pageable pageable, String sort) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
         int size = pageable.getPageSize();
-        PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+
+        Pageable sortedPageable = null;
+        if (sort.equals("default")) {
+            sortedPageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
+        } else if (sort.equals("rating")) {
+            sortedPageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, ));
+        } else if (sort.equals("review")) {
+
+        }
+
         return storeRepository
-                .findByRoadAddressContainingOrStreetAddressContaining(region, region, pageable);
+                .findByRoadAddressContainingOrStreetAddressContaining(region, region, sortedPageable);
     }
 
     public int getStoreCountByRegion(String region) {
@@ -161,7 +171,6 @@ public class StoreBO {
 
             storeList.add(storeListDTO);
         }
-
         return storeList;
     }
 

@@ -16,6 +16,7 @@ public interface ReviewMapper {
     public List<Review> selectReviewListByUserId(int userId);
     public int selectReviewCountByUserId(int userId);
     public Integer selectRegularReviewCountByUserId(int userId);
+    public int selectReviewCountByStoreId(int storeId);
 
     public int insertReview(
             @Param("storeId") int storeId,

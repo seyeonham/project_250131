@@ -44,6 +44,10 @@ public class ReviewBO {
         return count != null ? count : 0;
     }
 
+    public int getReviewCountByStoreId(int storeId) {
+        return reviewMapper.selectReviewCountByStoreId(storeId);
+    }
+
     public int addReview(int storeId, int userId, MultipartFile file, int point, String content) {
         String imagePath = null;
         if (file != null) {

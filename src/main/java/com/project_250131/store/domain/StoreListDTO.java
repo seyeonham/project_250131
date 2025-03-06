@@ -23,4 +23,7 @@ public class StoreListDTO {
 
     // 유저의 북마크 여부
     private boolean bookmark;
+
+    // 리뷰 개수
+    private int reviewCount;
 }

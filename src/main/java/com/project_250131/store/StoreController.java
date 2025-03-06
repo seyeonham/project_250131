@@ -1,9 +1,6 @@
 package com.project_250131.store;
 
 import com.project_250131.bookmark.bo.BookmarkBO;
-import com.project_250131.bookmark.domain.Bookmark;
-import com.project_250131.continent.bo.ContinentBO;
-import com.project_250131.region.bo.RegionBO;
 import com.project_250131.review.bo.ReviewBO;
 import com.project_250131.review.domain.Review;
 import com.project_250131.store.bo.PageBO;
@@ -41,6 +38,7 @@ public class StoreController {
     public String userStoreList(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sort", defaultValue = "default") String sort,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -57,7 +55,7 @@ public class StoreController {
         } else {
             storeCount = storeBO.getStoreCountByRegion(userRegion);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), userRegion, userId);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), userRegion, userId, sort);
 
 
             model.addAttribute("region", userRegion);
@@ -76,6 +74,7 @@ public class StoreController {
             @RequestParam(value = "region", required = false) String region,
             @RequestParam(value = "continent", required = false) String continent,
             @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sorting", defaultValue = "default") String sorting,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -85,7 +84,7 @@ public class StoreController {
         if (region != null) {
             storeCount = storeBO.getStoreCountByRegion(region);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId, sorting);
 
             model.addAttribute("region", region);
             model.addAttribute("storeList", storeRegionList);
@@ -99,6 +98,7 @@ public class StoreController {
             model.addAttribute("storeList", storeContinentList);
         }
 
+        model.addAttribute("sorting", sorting);
         model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
         model.addAttribute("storeListPage", storeListPage);
@@ -112,6 +112,7 @@ public class StoreController {
             @RequestParam(value = "continent", required = false) String continent,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sort", defaultValue = "default") String sort,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -121,7 +122,7 @@ public class StoreController {
         if (region != null) {
             storeCount = storeBO.getStoreCountByRegion(region);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId, sort);
 
             model.addAttribute("region", region);
             model.addAttribute("storeList", storeRegionList);

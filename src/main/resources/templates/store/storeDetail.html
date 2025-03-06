@@ -6,8 +6,20 @@
 <th:block layout:fragment="content">
     <section class="contents">
         <div class="store-detail-box" th:each="storeList : ${storeList}" th:data-store-id="${storeList.store.id}">
-            <div class="store-image">
-
+            <div id="storeImages" class="carousel slide mt-1" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item" th:each="menu, status : ${storeList.menuList}" th:classappend="${status.index == 0} ? 'active'">
+                        <img th:src="${menu.imagePath}" class="d-block w-100" alt="메뉴 사진" height="500">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#storeImages" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#storeImages" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
             </div>
             <div class="display-4 mt-3" th:text="${storeList.store.storeName}"></div>
             <div class="store-detail d-flex justify-content-between align-items-end mb-3">

@@ -2,12 +2,14 @@ package com.project_250131.store.domain;
 
 import com.project_250131.store.entity.StoreEntity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
 @Data
 public class StoreDTO {
 
@@ -23,6 +25,28 @@ public class StoreDTO {
     private String openHourWeekends;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+    // DB에 없는 필드
+    private int reviewAverage;
+    private int reviewCount;
+
+    public StoreDTO(StoreEntity storeEntity, int reviewAverage, int reviewCount) {
+        this.id = storeEntity.getId();
+        this.storeName = storeEntity.getStoreName();
+        this.continent = storeEntity.getContinent();
+        this.roadAddress = storeEntity.getRoadAddress();
+        this.streetAddress = storeEntity.getStreetAddress();
+        this.latitude = storeEntity.getLatitude();
+        this.longitude = storeEntity.getLongitude();
+        this.phoneNumber = storeEntity.getPhoneNumber();
+        this.openHourWeekdays = storeEntity.getOpenHourWeekdays();
+        this.openHourWeekends = storeEntity.getOpenHourWeekends();
+        this.createdAt = storeEntity.getCreatedAt();
+        this.updatedAt = storeEntity.getUpdatedAt();
+
+        this.reviewAverage = reviewAverage;
+        this.reviewCount = reviewCount;
+    }
 
     public static List<String> getFieldNames() {
         Field[] declaredFields = StoreDTO.class.getDeclaredFields();
