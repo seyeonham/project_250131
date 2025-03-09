@@ -13,7 +13,7 @@ import java.util.List;
 public class StoreListDTO {
 
     // 맛집 1개
-    private StoreEntity store;
+    private StoreDTO store;
 
     // 맛집 대표 메뉴 이미지
     private String menuImage;

@@ -7,6 +7,7 @@ import com.project_250131.menu.domain.Menu;
 import com.project_250131.review.bo.ReviewBO;
 import com.project_250131.review.domain.Review;
 import com.project_250131.review.domain.ReviewDTO;
+import com.project_250131.store.domain.StoreDTO;
 import com.project_250131.store.domain.StoreDetailDTO;
 import com.project_250131.store.domain.StoreListDTO;
 import com.project_250131.store.entity.StoreEntity;
@@ -15,14 +16,12 @@ import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -54,21 +53,29 @@ public class StoreBO {
         return store.orElse(null);
     }
 
-    public Page<StoreEntity> getStoreListByRegion(String region, Pageable pageable, String sort) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        int size = pageable.getPageSize();
+    public Page<StoreDTO> getStoreListByRegion(String region, Pageable pageable, String sort) {
 
-        Pageable sortedPageable = null;
-        if (sort.equals("default")) {
-            sortedPageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
-        } else if (sort.equals("rating")) {
-            sortedPageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, ));
+        List<StoreEntity> storeEntities = storeRepository
+                .findByRoadAddressContainingOrStreetAddressContaining(region, region);
+
+        List<StoreDTO> storeDTOList = storeEntities.stream().map(storeEntity -> {
+            int storeId = storeEntity.getId();
+            double reviewAverage = reviewBO.getReviewPointByStoreId(storeId);
+            int reviewCount = reviewBO.getReviewCountByStoreId(storeId);
+            return new StoreDTO(storeEntity, reviewAverage, reviewCount);
+        }).collect(Collectors.toList());
+
+        if (sort.equals("rating")) {
+            storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewAverage).reversed()); // 별점 높은 순
         } else if (sort.equals("review")) {
-
+            storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewCount).reversed()); // 리뷰 많은 순
         }
 
-        return storeRepository
-                .findByRoadAddressContainingOrStreetAddressContaining(region, region, sortedPageable);
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), storeDTOList.size());
+        List<StoreDTO> pagedList = storeDTOList.subList(start, end);
+
+        return new PageImpl<>(pagedList, pageable, storeDTOList.size());
     }
 
     public int getStoreCountByRegion(String region) {
@@ -105,13 +112,13 @@ public class StoreBO {
     public List<StoreListDTO> generateStoreList(Integer userId, Pageable pageable) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
-        Page<StoreEntity> stores = getStoreList(pageable);
+        Page<StoreDTO> stores = getStoreList(pageable);
 
-        for (StoreEntity storeEntity : stores) {
+        for (StoreDTO storeDTO : stores) {
             StoreListDTO storeListDTO = new StoreListDTO();
 
             // 맛집 1개
-            storeListDTO.setStore(storeEntity);
+            storeListDTO.setStore(storeDTO);
             int storeId = storeEntity.getId();
 
             // 메뉴 대표 이미지
@@ -139,17 +146,17 @@ public class StoreBO {
     }
 
     // 지역별 맛집 목록
-    public List<StoreListDTO> generateStoreListByRegion(Pageable pageable, String region, Integer userId) {
+    public List<StoreListDTO> generateStoreListByRegion(Pageable pageable, String region, Integer userId, String sort) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
-        Page<StoreEntity> stores = getStoreListByRegion(region, pageable);
+        Page<StoreDTO> stores = getStoreListByRegion(region, pageable, sort);
 
-        for (StoreEntity storeEntity : stores) {
+        for (StoreDTO storeDTO : stores) {
             StoreListDTO storeListDTO = new StoreListDTO();
 
             // 맛집 1개
-            storeListDTO.setStore(storeEntity);
-            int storeId = storeEntity.getId();
+            storeListDTO.setStore(storeDTO);
+            int storeId = storeDTO.getId();
 
             // 메뉴 대표 이미지
             if (menuBO.getMenuByStoreId(storeId) != null) {

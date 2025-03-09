@@ -27,10 +27,10 @@ public class StoreDTO {
     private LocalDateTime updatedAt;
 
     // DB에 없는 필드
-    private int reviewAverage;
+    private double reviewAverage;
     private int reviewCount;
 
-    public StoreDTO(StoreEntity storeEntity, int reviewAverage, int reviewCount) {
+    public StoreDTO(StoreEntity storeEntity, double reviewAverage, int reviewCount) {
         this.id = storeEntity.getId();
         this.storeName = storeEntity.getStoreName();
         this.continent = storeEntity.getContinent();
