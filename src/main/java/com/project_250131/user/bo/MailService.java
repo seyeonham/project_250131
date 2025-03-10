@@ -1,6 +1,5 @@
 package com.project_250131.user.bo;
 
-import com.project_250131.config.MailConfig;
 import com.project_250131.config.MailProperties;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

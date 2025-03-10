@@ -1,7 +1,6 @@
 package com.project_250131.store.batch;
 
 import com.project_250131.store.domain.StoreDTO;
-import com.project_250131.store.entity.StoreEntity;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.stereotype.Component;

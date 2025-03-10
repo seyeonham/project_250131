@@ -1,10 +1,8 @@
 package com.project_250131.store.domain;
 
 import com.project_250131.menu.domain.Menu;
-import com.project_250131.review.domain.Review;
 import com.project_250131.review.domain.ReviewDTO;
 import com.project_250131.store.entity.StoreEntity;
-import com.project_250131.user.entity.UserEntity;
 import lombok.Data;
 
 import java.util.List;

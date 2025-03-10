@@ -3,7 +3,6 @@ package com.project_250131.bookmark.bo;
 import com.project_250131.bookmark.domain.Bookmark;
 import com.project_250131.bookmark.mapper.BookmarkMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

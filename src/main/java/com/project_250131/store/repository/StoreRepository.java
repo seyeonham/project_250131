@@ -8,18 +8,18 @@ import java.util.Optional;
 
 public interface StoreRepository extends JpaRepository<StoreEntity, Integer> {
 
-    public List<StoreEntity> findAll();
+    List<StoreEntity> findAll();
 
-    public List<StoreEntity> findByRoadAddressContainingOrStreetAddressContaining
+    List<StoreEntity> findByRoadAddressContainingOrStreetAddressContaining
             (String roadRegion, String streetRegion);
-    public int countByRoadAddressContainingOrStreetAddressContaining
+    int countByRoadAddressContainingOrStreetAddressContaining
             (String roadRegion, String streetRegion);
 
-    public List<StoreEntity> findByContinentContaining(String continent);
-    public int countByContinentContaining(String continent);
+    List<StoreEntity> findByContinentContaining(String continent);
+    int countByContinentContaining(String continent);
 
-    public List<StoreEntity> findByStoreNameContaining(String name);
-    public int countByStoreNameContaining(String name);
+    List<StoreEntity> findByStoreNameContaining(String name);
+    int countByStoreNameContaining(String name);
 
-    public Optional<StoreEntity> findById(int userId);
+    Optional<StoreEntity> findById(int userId);
 }

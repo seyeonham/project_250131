@@ -2,8 +2,6 @@ package com.project_250131.admin;
 
 import com.project_250131.admin.bo.AdminMenuBO;
 import com.project_250131.admin.bo.AdminStoreBO;
-import com.project_250131.menu.bo.MenuBO;
-import com.project_250131.menu.domain.Menu;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

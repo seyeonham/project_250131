@@ -1,13 +1,6 @@
 package com.project_250131.store.domain;
 
-import com.project_250131.bookmark.domain.Bookmark;
-import com.project_250131.continent.entity.ContinentEntity;
-import com.project_250131.menu.domain.Menu;
-import com.project_250131.region.entity.RegionEntity;
-import com.project_250131.store.entity.StoreEntity;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class StoreListDTO {

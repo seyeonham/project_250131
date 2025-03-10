@@ -4,7 +4,6 @@ import com.project_250131.menu.domain.Menu;
 import com.project_250131.menu.mapper.MenuMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 

@@ -9,21 +9,21 @@ import java.util.List;
 @Mapper
 public interface BookmarkMapper {
 
-    public int selectBookmarkCountByStoreId(int storeId);
+    int selectBookmarkCountByStoreId(int storeId);
 
-    public Bookmark selectBookmarkByUserIdStoreId(
+    Bookmark selectBookmarkByUserIdStoreId(
             @Param("userId") int userId,
             @Param("storeId") int storeId);
 
-    public List<Bookmark> selectBookmarkByUserIdDeleteYn(int userId);
+    List<Bookmark> selectBookmarkByUserIdDeleteYn(int userId);
 
-    public int selectBookmarkCountByUserIdDeleteYn(int userId);
+    int selectBookmarkCountByUserIdDeleteYn(int userId);
 
-    public int updateBookmarkByUserIdStoreId(
+    int updateBookmarkByUserIdStoreId(
             @Param("userId") int userId,
             @Param("storeId") int storeId);
 
-    public int insertBookmark(
+    int insertBookmark(
             @Param("userId") int userId,
             @Param("storeId") int storeId);
 }

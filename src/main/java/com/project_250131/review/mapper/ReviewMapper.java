@@ -5,25 +5,24 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-import java.util.Map;
 
 @Mapper
 public interface ReviewMapper {
 
-    public Double selectReviewPointByStoreId(int storeId);
-    public List<Review> selectReviewListByStoreId(int storeId);
-    public Review selectReviewById(int id);
-    public List<Review> selectReviewListByUserId(int userId);
-    public int selectReviewCountByUserId(int userId);
-    public Integer selectRegularReviewCountByUserId(int userId);
-    public int selectReviewCountByStoreId(int storeId);
+    Double selectReviewPointByStoreId(int storeId);
+    List<Review> selectReviewListByStoreId(int storeId);
+    Review selectReviewById(int id);
+    List<Review> selectReviewListByUserId(int userId);
+    int selectReviewCountByUserId(int userId);
+    Integer selectRegularReviewCountByUserId(int userId);
+    int selectReviewCountByStoreId(int storeId);
 
-    public int insertReview(
+    int insertReview(
             @Param("storeId") int storeId,
             @Param("userId") int userId,
             @Param("imagePath") String imagePath,
             @Param("point") int point,
             @Param("content") String content);
 
-    public int deleteReviewById(int id);
+    int deleteReviewById(int id);
 }

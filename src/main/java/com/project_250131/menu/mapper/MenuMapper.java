@@ -10,18 +10,18 @@ import java.util.List;
 @Mapper
 public interface MenuMapper {
 
-    public Menu selectMenuByStoreId(int storeId);
+    Menu selectMenuByStoreId(int storeId);
 
-    public List<Menu> selectMenuListByStoreId(int storeId);
+    List<Menu> selectMenuListByStoreId(int storeId);
 
-    public Menu selectMenuById(int menuId);
+    Menu selectMenuById(int menuId);
 
-    public int insertMenu(
+    int insertMenu(
             @Param("storeId") int storeId,
             @Param("imagePath") String imagePath,
             @Param("name") String name,
             @Param("price") int price
             );
 
-    public int deleteMenu(int menuId);
+    int deleteMenu(int menuId);
 }

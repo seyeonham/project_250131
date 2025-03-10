@@ -5,7 +5,6 @@ import com.project_250131.continent.entity.ContinentEntity;
 import com.project_250131.store.bo.StoreBO;
 import com.project_250131.store.domain.StoreDetailDTO;
 import com.project_250131.store.domain.StoreListDTO;
-import jakarta.mail.Store;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

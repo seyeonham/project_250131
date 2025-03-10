@@ -66,10 +66,8 @@ public class StoreBO {
     }
 
     public List<StoreDTO> getStoreList() {
-        // 1️⃣ JPA에서 전체 StoreEntity 리스트 가져오기
         List<StoreEntity> storeEntities = storeRepository.findAll();
 
-        // 2️⃣ StoreEntity -> StoreDTO 변환 및 리뷰 정보 추가
         List<StoreDTO> storeDTOList = storeEntities.stream().map(storeEntity -> {
             int storeId = storeEntity.getId();
             double reviewAverage = reviewBO.getReviewPointByStoreId(storeId);
