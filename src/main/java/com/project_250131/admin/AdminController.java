@@ -32,6 +32,7 @@ public class AdminController {
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "page", defaultValue = "1") int page,
             @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "sorting", defaultValue = "default") String sorting,
             Model model
     ) {
         Pageable updatedPageable = PageRequest.of(page - 1, pageable.getPageSize(), pageable.getSort());
@@ -42,7 +43,7 @@ public class AdminController {
         int endPage = 0;
 
         if (keyword == null) {
-            List<StoreListDTO> storeList = storeBO.generateStoreList(null, updatedPageable);
+            List<StoreListDTO> storeList = storeBO.generateStoreList(null, updatedPageable, sorting);
             long storeCount = storeBO.getStoreCount();
 
             if (storeCount > 0) {
@@ -54,7 +55,7 @@ public class AdminController {
             model.addAttribute("storeList", storeList);
             model.addAttribute("storeCount", storeCount);
         } else {
-            List<StoreListDTO> storeNameList = storeBO.generateStoreListByStoreName(updatedPageable, keyword, null);
+            List<StoreListDTO> storeNameList = storeBO.generateStoreListByStoreName(updatedPageable, keyword, null, sorting);
             long storeCount = storeBO.getStoreCountByStoreName(keyword);
 
             if (storeCount > 0) {

@@ -17,11 +17,13 @@
             </div>
             <div class="d-flex justify-content-between align-items-end">
                 <div th:text="|검색결과 ${storeCount}개|"></div>
-                <select class="form-control w-25">
-                    <option>기본순</option>
-                    <option>별점순</option>
-                    <option>리뷰순</option>
-                </select>
+                <form method="get" action="/store/user-store-list" id="sortForm">
+                    <select id="sorting" name="sorting" class="form-control">
+                        <option value="default" th:selected="${sorting == 'default'}">기본순</option>
+                        <option value="rating" th:selected="${sorting == 'rating'}">별점순</option>
+                        <option value="review" th:selected="${sorting == 'review'}">리뷰순</option>
+                    </select>
+                </form>
             </div>
             <div th:each="storeList : ${storeList}" class="store-box mt-3">
                 <a th:href="|/store/store-detail?storeId=${storeList.store.id}|">
@@ -58,21 +60,21 @@
                 <ul>
                     <!-- 이전 페이지 -->
                     <li th:if="${storeListPage.startPage > 1}">
-                        <a th:if="${session.userId} == null or (${session.userId} != null and ${session.userRegion} == null)" th:href="@{/store/user-store-list(page=${storeListPage.startPage - 1})}">이전</a>
-                        <a th:if="${session.userRegion} != null" th:href="@{/store/user-store-list(region=${region}, page=${storeListPage.startPage - 1})}">이전</a>
+                        <a th:if="${session.userId} == null or (${session.userId} != null and ${session.userRegion} == null)" th:href="@{/store/user-store-list(sorting=${sorting != null ? sorting : 'default'}, page=${storeListPage.startPage - 1})}">이전</a>
+                        <a th:if="${session.userRegion} != null" th:href="@{/store/user-store-list(region=${region}, sorting=${sorting != null ? sorting : 'default'}, page=${storeListPage.startPage - 1})}">이전</a>
                     </li>
 
                     <!-- 페이지 번호 출력 (1 ~ pagesToShow) -->
                     <li th:each="i : ${#numbers.sequence(storeListPage.startPage, storeListPage.endPage)}"
                         th:classappend="${i == currentPage} ? 'active'">
-                        <a th:if="${session.userId} == null or (${session.userId} != null and ${session.userRegion} == null)" th:href="@{/store/user-store-list(page=${i})}" th:text="${i}"></a>
-                        <a th:if="${session.userRegion} != null" th:href="@{/store/user-store-list(region=${region}, page=${i})}" th:text="${i}"></a>
+                        <a th:if="${session.userId} == null or (${session.userId} != null and ${session.userRegion} == null)" th:href="@{/store/user-store-list(sorting=${sorting != null ? sorting : 'default'}, page=${i})}" th:text="${i}"></a>
+                        <a th:if="${session.userRegion} != null" th:href="@{/store/user-store-list(region=${region}, sorting=${sorting != null ? sorting : 'default'}, page=${i})}" th:text="${i}"></a>
                     </li>
 
                     <!-- 다음 버튼 -->
                     <li th:if="${storeListPage.endPage < storeListPage.totalPages}">
-                        <a th:if="${session.userId} == null or (${session.userId} != null and ${session.userRegion} == null)" th:href="@{/store/user-store-list(page=${storeListPage.endPage + 1})}">다음</a>
-                        <a th:if="${session.userRegion} != null" th:href="@{/store/user-store-list(region=${region}, page=${storeListPage.endPage + 1})}">다음</a>
+                        <a th:if="${session.userId} == null or (${session.userId} != null and ${session.userRegion} == null)" th:href="@{/store/user-store-list(sorting=${sorting != null ? sorting : 'default'}, page=${storeListPage.endPage + 1})}">다음</a>
+                        <a th:if="${session.userRegion} != null" th:href="@{/store/user-store-list(region=${region}, sorting=${sorting != null ? sorting : 'default'}, page=${storeListPage.endPage + 1})}">다음</a>
                     </li>
                 </ul>
             </div>
@@ -126,6 +128,11 @@
                     }
                 });
             });
+
+            // 정렬
+            $("#sorting").on("change", function() {
+                $("#sortForm").submit();
+            })
         });
     </script>
 </th:block>

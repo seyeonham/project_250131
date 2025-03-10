@@ -14,9 +14,10 @@ import com.project_250131.store.entity.StoreEntity;
 import com.project_250131.store.repository.StoreRepository;
 import com.project_250131.user.bo.UserBO;
 import com.project_250131.user.entity.UserEntity;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
@@ -33,15 +34,50 @@ public class StoreBO {
     private final BookmarkBO bookmarkBO;
     private final UserBO userBO;
 
-    public Page<StoreEntity> getStoreList(Pageable pageable) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        int size = pageable.getPageSize();
-        PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
-        return storeRepository.findAll(pageable);
+    public Page<StoreDTO> getStoreList(Pageable pageable, String sort) {
+
+        List<StoreEntity> storeEntities = storeRepository.findAll();
+
+        List<StoreDTO> storeDTOList = storeEntities.stream().map(storeEntity -> {
+            int storeId = storeEntity.getId();
+            double reviewAverage = reviewBO.getReviewPointByStoreId(storeId);
+            int reviewCount = reviewBO.getReviewCountByStoreId(storeId);
+            return new StoreDTO(storeEntity, reviewAverage, reviewCount);
+        }).collect(Collectors.toList());
+
+        if (sort != null) {
+            if (sort.equals("rating")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewAverage).reversed()); // 별점 높은 순
+            } else if (sort.equals("review")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewCount).reversed()); // 리뷰 많은 순
+            } else {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+            }
+        } else {
+            storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), storeDTOList.size());
+        List<StoreDTO> pagedList = storeDTOList.subList(start, end);
+
+        return new PageImpl<>(pagedList, pageable, storeDTOList.size());
+
     }
 
-    public List<StoreEntity> getStoreList() {
-        return storeRepository.findAll();
+    public List<StoreDTO> getStoreList() {
+        // 1️⃣ JPA에서 전체 StoreEntity 리스트 가져오기
+        List<StoreEntity> storeEntities = storeRepository.findAll();
+
+        // 2️⃣ StoreEntity -> StoreDTO 변환 및 리뷰 정보 추가
+        List<StoreDTO> storeDTOList = storeEntities.stream().map(storeEntity -> {
+            int storeId = storeEntity.getId();
+            double reviewAverage = reviewBO.getReviewPointByStoreId(storeId);
+            int reviewCount = reviewBO.getReviewCountByStoreId(storeId);
+            return new StoreDTO(storeEntity, reviewAverage, reviewCount);
+        }).collect(Collectors.toList());
+
+        return storeDTOList;
     }
 
     public int getStoreCount() {
@@ -65,11 +101,18 @@ public class StoreBO {
             return new StoreDTO(storeEntity, reviewAverage, reviewCount);
         }).collect(Collectors.toList());
 
-        if (sort.equals("rating")) {
-            storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewAverage).reversed()); // 별점 높은 순
-        } else if (sort.equals("review")) {
-            storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewCount).reversed()); // 리뷰 많은 순
+        if (sort != null) {
+            if (sort.equals("rating")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewAverage).reversed()); // 별점 높은 순
+            } else if (sort.equals("review")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewCount).reversed()); // 리뷰 많은 순
+            } else {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+            }
+        } else {
+            storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
         }
+
 
         int start = (int) pageable.getOffset();
         int end = Math.min(start + pageable.getPageSize(), storeDTOList.size());
@@ -84,11 +127,33 @@ public class StoreBO {
         return count;
     }
 
-    public Page<StoreEntity> getStoreListByContinent(String continent, Pageable pageable) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        int size = pageable.getPageSize();
-        PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
-        return storeRepository.findByContinentContaining(continent, pageable);
+    public Page<StoreDTO> getStoreListByContinent(String continent, Pageable pageable, String sort) {
+        List<StoreEntity> storeEntities = storeRepository.findByContinentContaining(continent);
+
+        List<StoreDTO> storeDTOList = storeEntities.stream().map(storeEntity -> {
+            int storeId = storeEntity.getId();
+            double reviewAverage = reviewBO.getReviewPointByStoreId(storeId);
+            int reviewCount = reviewBO.getReviewCountByStoreId(storeId);
+            return new StoreDTO(storeEntity, reviewAverage, reviewCount);
+        }).collect(Collectors.toList());
+
+        if (sort != null) {
+            if (sort.equals("rating")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewAverage).reversed()); // 별점 높은 순
+            } else if (sort.equals("review")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewCount).reversed()); // 리뷰 많은 순
+            } else {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+            }
+        } else {
+            storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), storeDTOList.size());
+        List<StoreDTO> pagedList = storeDTOList.subList(start, end);
+
+        return new PageImpl<>(pagedList, pageable, storeDTOList.size());
     }
 
     public int getStoreCountByContinent(String continent) {
@@ -96,11 +161,33 @@ public class StoreBO {
         return count;
     }
 
-    public Page<StoreEntity> getStoreListByStoreName(String name, Pageable pageable) {
-        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1);
-        int size = pageable.getPageSize();
-        PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "id"));
-        return storeRepository.findByStoreNameContaining(name, pageable);
+    public Page<StoreDTO> getStoreListByStoreName(String name, Pageable pageable, String sort) {
+        List<StoreEntity> storeEntities = storeRepository.findByStoreNameContaining(name);
+
+        List<StoreDTO> storeDTOList = storeEntities.stream().map(storeEntity -> {
+            int storeId = storeEntity.getId();
+            double reviewAverage = reviewBO.getReviewPointByStoreId(storeId);
+            int reviewCount = reviewBO.getReviewCountByStoreId(storeId);
+            return new StoreDTO(storeEntity, reviewAverage, reviewCount);
+        }).collect(Collectors.toList());
+
+        if (sort != null) {
+            if (sort.equals("rating")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewAverage).reversed()); // 별점 높은 순
+            } else if (sort.equals("review")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewCount).reversed()); // 리뷰 많은 순
+            } else {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+            }
+        } else {
+            storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+        }
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), storeDTOList.size());
+        List<StoreDTO> pagedList = storeDTOList.subList(start, end);
+
+        return new PageImpl<>(pagedList, pageable, storeDTOList.size());
     }
 
     public int getStoreCountByStoreName(String name) {
@@ -109,17 +196,17 @@ public class StoreBO {
     }
 
     // 전체 맛집 목록
-    public List<StoreListDTO> generateStoreList(Integer userId, Pageable pageable) {
+    public List<StoreListDTO> generateStoreList(Integer userId, Pageable pageable, String sort) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
-        Page<StoreDTO> stores = getStoreList(pageable);
+        Page<StoreDTO> stores = getStoreList(pageable, sort);
 
         for (StoreDTO storeDTO : stores) {
             StoreListDTO storeListDTO = new StoreListDTO();
 
             // 맛집 1개
             storeListDTO.setStore(storeDTO);
-            int storeId = storeEntity.getId();
+            int storeId = storeDTO.getId();
 
             // 메뉴 대표 이미지
             if (menuBO.getMenuByStoreId(storeId) != null) {
@@ -182,17 +269,17 @@ public class StoreBO {
     }
 
     // 대륙별 맛집 목록
-    public List<StoreListDTO> generateStoreListByContinent(Pageable pageable, String continent, Integer userId) {
+    public List<StoreListDTO> generateStoreListByContinent(Pageable pageable, String continent, Integer userId, String sort) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
-        Page<StoreEntity> stores = getStoreListByContinent(continent, pageable);
+        Page<StoreDTO> stores = getStoreListByContinent(continent, pageable, sort);
 
-        for (StoreEntity storeEntity : stores) {
+        for (StoreDTO storeDTO : stores) {
             StoreListDTO storeListDTO = new StoreListDTO();
 
             // 맛집 1개
-            storeListDTO.setStore(storeEntity);
-            int storeId = storeEntity.getId();
+            storeListDTO.setStore(storeDTO);
+            int storeId = storeDTO.getId();
 
             // 메뉴 대표 이미지
             if (menuBO.getMenuByStoreId(storeId) != null) {
@@ -219,17 +306,17 @@ public class StoreBO {
     }
 
     // 이름별 맛집 목록
-    public List<StoreListDTO> generateStoreListByStoreName(Pageable pageable, String name, Integer userId) {
+    public List<StoreListDTO> generateStoreListByStoreName(Pageable pageable, String name, Integer userId, String sort) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
-        Page<StoreEntity> stores = getStoreListByStoreName(name, pageable);
+        Page<StoreDTO> stores = getStoreListByStoreName(name, pageable, sort);
 
-        for (StoreEntity storeEntity : stores) {
+        for (StoreDTO storeDTO : stores) {
             StoreListDTO storeListDTO = new StoreListDTO();
 
             // 맛집 1개
-            storeListDTO.setStore(storeEntity);
-            int storeId = storeEntity.getId();
+            storeListDTO.setStore(storeDTO);
+            int storeId = storeDTO.getId();
 
             // 메뉴 대표 이미지
             if (menuBO.getMenuByStoreId(storeId) != null) {
@@ -256,22 +343,22 @@ public class StoreBO {
     }
 
     // 북마크한 맛집 목록
-    public List<StoreListDTO> generateBookmarkStoreList(Pageable pageable, int userId) {
+    public List<StoreListDTO> generateBookmarkStoreList(Pageable pageable, int userId, String sort) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
         List<Bookmark> bookmarkList = bookmarkBO.getBookmarkListByUserIdDeleteYn(userId);
 
-        List<StoreEntity> storeEntityList = getStoreList();
+        List<StoreDTO> storeDTOList = getStoreList();
 
-        for (StoreEntity storeEntity : storeEntityList) {
+        for (StoreDTO storeDTO : storeDTOList) {
             StoreListDTO storeListDTO = new StoreListDTO();
 
             for (Bookmark bookmark : bookmarkList) {
-                if (bookmark.getStoreId() == storeEntity.getId()) {
+                if (bookmark.getStoreId() == storeDTO.getId()) {
 
                     // 맛집 1개
-                    storeListDTO.setStore(storeEntity);
-                    int storeId = storeEntity.getId();
+                    storeListDTO.setStore(storeDTO);
+                    int storeId = storeDTO.getId();
 
                     // 메뉴 대표 이미지
                     if (menuBO.getMenuByStoreId(storeId) != null) {
@@ -293,33 +380,34 @@ public class StoreBO {
                 }
             }
         }
-        return storeList;
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), storeList.size());
+        return storeList.subList(start, end);
     }
 
     // 최근 방문한 맛집 목록
-    public List<StoreListDTO> generateReviewStoreList(Pageable pageable, int userId) {
+    public List<StoreListDTO> generateReviewStoreList(Pageable pageable, int userId, String sort) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
         List<Review> reviewList = reviewBO.getReviewListByUserId(userId);
 
-        List<StoreEntity> storeEntityList = getStoreList();
+        List<StoreDTO> storeDTOList = getStoreList();
 
         Set<Integer> processedStoreIds = new HashSet<>();
 
-        for (StoreEntity storeEntity : storeEntityList) {
-            int storeId = storeEntity.getId();
+        for (Review review : reviewList) {
+            int storeId = review.getStoreId();
 
             if (processedStoreIds.contains(storeId)) {
                 continue;
             }
 
-            for (Review review : reviewList) {
-                if (review.getStoreId() == storeEntity.getId()) {
+            for (StoreDTO storeDTO : storeDTOList) {
+                if (storeDTO.getId() == storeId) {
                     StoreListDTO storeListDTO = new StoreListDTO();
 
                     // 맛집 1개
-                    storeListDTO.setStore(storeEntity);
-                    storeId = storeEntity.getId();
+                    storeListDTO.setStore(storeDTO);
 
                     // 메뉴 대표 이미지
                     if (menuBO.getMenuByStoreId(storeId) != null) {
@@ -338,22 +426,24 @@ public class StoreBO {
                     storeListDTO.setBookmark(bookmark);
 
                     storeList.add(storeListDTO);
-
                     processedStoreIds.add(storeId);
+
                     break;
                 }
             }
         }
-        return storeList;
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), storeList.size());
+        return storeList.subList(start, end);
     }
 
     // 단골 맛집 목록
-    public List<StoreListDTO> generateRegularStoreList(Pageable pageable, int userId) {
+    public List<StoreListDTO> generateRegularStoreList(Pageable pageable, int userId, String sort) {
         List<StoreListDTO> storeList = new ArrayList<>();
 
         List<Review> reviewList = reviewBO.getReviewListByUserId(userId);
 
-        List<StoreEntity> storeEntityList = getStoreList();
+        List<StoreDTO> storeDTOList = getStoreList();
 
         Map<Integer, Integer> reviewCountMap = new HashMap<>();
         for (Review review : reviewList) {
@@ -368,8 +458,8 @@ public class StoreBO {
             }
         }
 
-        for (StoreEntity storeEntity : storeEntityList) {
-            int storeId = storeEntity.getId();
+        for (StoreDTO storeDTO : storeDTOList) {
+            int storeId = storeDTO.getId();
 
             if (!validStoreIds.contains(storeId)) {
                 continue;
@@ -378,7 +468,7 @@ public class StoreBO {
             StoreListDTO storeListDTO = new StoreListDTO();
 
             // 맛집 1개
-            storeListDTO.setStore(storeEntity);
+            storeListDTO.setStore(storeDTO);
 
             // 메뉴 대표 이미지
             if (menuBO.getMenuByStoreId(storeId) != null) {
@@ -398,7 +488,9 @@ public class StoreBO {
 
             storeList.add(storeListDTO);
         }
-        return storeList;
+        int start = (int) pageable.getOffset();
+        int end = Math.min(start + pageable.getPageSize(), storeList.size());
+        return storeList.subList(start, end);
     }
 
     public StoreDetailDTO generateStoreByStoreId(int storeId, Integer userId) {

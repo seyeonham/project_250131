@@ -14,9 +14,9 @@
                     <input type="hidden" th:if="${region} != null" name="region" th:value="${region}">
                     <input type="hidden" th:if="${continent} != null" name="continent" th:value="${continent}">
                     <select id="sorting" name="sorting" class="form-control">
-                        <option value="default">기본순</option>
-                        <option value="rating">별점순</option>
-                        <option value="review">리뷰순</option>
+                        <option value="default" th:selected="${sorting == 'default'}">기본순</option>
+                        <option value="rating" th:selected="${sorting == 'rating'}">별점순</option>
+                        <option value="review" th:selected="${sorting == 'review'}">리뷰순</option>
                     </select>
                 </form>
             </div>

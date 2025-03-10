@@ -38,7 +38,7 @@ public class StoreController {
     public String userStoreList(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "sort", defaultValue = "default") String sort,
+            @RequestParam(value = "sorting", defaultValue = "default") String sorting,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -49,19 +49,20 @@ public class StoreController {
         if (userId == null) {
             storeCount = storeBO.getStoreCount();
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeList = storeBO.generateStoreList(userId, storeListPage.getPageable());
+            List<StoreListDTO> storeList = storeBO.generateStoreList(userId, storeListPage.getPageable(), sorting);
 
             model.addAttribute("storeList", storeList);
         } else {
             storeCount = storeBO.getStoreCountByRegion(userRegion);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), userRegion, userId, sort);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), userRegion, userId, sorting);
 
 
             model.addAttribute("region", userRegion);
             model.addAttribute("storeList", storeRegionList);
         }
 
+        model.addAttribute("sorting", sorting);
         model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
         model.addAttribute("storeListPage", storeListPage);
@@ -74,7 +75,7 @@ public class StoreController {
             @RequestParam(value = "region", required = false) String region,
             @RequestParam(value = "continent", required = false) String continent,
             @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "sorting", defaultValue = "default") String sorting,
+            @RequestParam(value = "sorting", required = false) String sorting,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -92,7 +93,7 @@ public class StoreController {
         } else if (continent != null) {
             storeCount = storeBO.getStoreCountByContinent(continent);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(storeListPage.getPageable(), continent, userId);
+            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(storeListPage.getPageable(), continent, userId, sorting);
 
             model.addAttribute("continent", continent);
             model.addAttribute("storeList", storeContinentList);
@@ -112,7 +113,7 @@ public class StoreController {
             @RequestParam(value = "continent", required = false) String continent,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "sort", defaultValue = "default") String sort,
+            @RequestParam(value = "sorting", required = false) String sorting,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -122,7 +123,7 @@ public class StoreController {
         if (region != null) {
             storeCount = storeBO.getStoreCountByRegion(region);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId, sort);
+            List<StoreListDTO> storeRegionList = storeBO.generateStoreListByRegion(storeListPage.getPageable(), region, userId, sorting);
 
             model.addAttribute("region", region);
             model.addAttribute("storeList", storeRegionList);
@@ -130,7 +131,7 @@ public class StoreController {
         } else if (continent != null) {
             storeCount = storeBO.getStoreCountByContinent(continent);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(storeListPage.getPageable(), continent, userId);
+            List<StoreListDTO> storeContinentList = storeBO.generateStoreListByContinent(storeListPage.getPageable(), continent, userId, sorting);
 
             model.addAttribute("continent", continent);
             model.addAttribute("storeList", storeContinentList);
@@ -138,12 +139,13 @@ public class StoreController {
         } else if (name != null) {
             storeCount = storeBO.getStoreCountByStoreName(name);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeNameList = storeBO.generateStoreListByStoreName(storeListPage.getPageable(), name, userId);
+            List<StoreListDTO> storeNameList = storeBO.generateStoreListByStoreName(storeListPage.getPageable(), name, userId, sorting);
 
             model.addAttribute("name", name);
             model.addAttribute("storeList", storeNameList);
         }
 
+        model.addAttribute("sorting", sorting);
         model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
         model.addAttribute("storeListPage", storeListPage);
@@ -154,6 +156,7 @@ public class StoreController {
     public String bookmarkStoreList(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sorting", required = false) String sorting,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -165,11 +168,12 @@ public class StoreController {
         } else {
             storeCount = bookmarkBO.getBookmarkCountByUserIdDeleteYn(userId);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeList = storeBO.generateBookmarkStoreList(storeListPage.getPageable(), userId);
+            List<StoreListDTO> storeList = storeBO.generateBookmarkStoreList(storeListPage.getPageable(), userId, sorting);
 
             model.addAttribute("storeList", storeList);
         }
 
+        model.addAttribute("sorting", sorting);
         model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
         model.addAttribute("storeListPage", storeListPage);
@@ -180,6 +184,7 @@ public class StoreController {
     public String visitStoreList(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sorting", required = false) String sorting,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -191,11 +196,12 @@ public class StoreController {
         } else {
             storeCount = reviewBO.getReviewCountByUserId(userId);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeList = storeBO.generateReviewStoreList(storeListPage.getPageable(), userId);
+            List<StoreListDTO> storeList = storeBO.generateReviewStoreList(storeListPage.getPageable(), userId, sorting);
 
             model.addAttribute("storeList", storeList);
         }
 
+        model.addAttribute("sorting", sorting);
         model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
         model.addAttribute("storeListPage", storeListPage);
@@ -206,6 +212,7 @@ public class StoreController {
     public String regularStoreList(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable,
             @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "sorting", required = false) String sorting,
             Model model, HttpSession session
     ) {
         Integer userId = (Integer)session.getAttribute("userId");
@@ -217,11 +224,12 @@ public class StoreController {
         } else {
             storeCount = reviewBO.getRegularReviewCountByUserId(userId);
             storeListPage = pageBO.storeListPage(pageable, page, storeCount);
-            List<StoreListDTO> storeList = storeBO.generateRegularStoreList(storeListPage.getPageable(), userId);
+            List<StoreListDTO> storeList = storeBO.generateRegularStoreList(storeListPage.getPageable(), userId, sorting);
 
             model.addAttribute("storeList", storeList);
         }
 
+        model.addAttribute("sorting", sorting);
         model.addAttribute("storeCount", storeCount);
         model.addAttribute("currentPage", page);
         model.addAttribute("storeListPage", storeListPage);
