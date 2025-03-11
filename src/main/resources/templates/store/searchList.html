@@ -24,7 +24,7 @@
                 <div th:if="${name} != null" th:text="'&quot;' + ${name} + '&quot;'" class="keyword"></div>
                 <div class="d-flex justify-content-between align-items-end">
                     <div th:text="|검색결과 ${storeCount}개|"></div>
-                    <form method="get" action="/store/search-store-list" id="sortForm">
+                    <form method="get" action="/store/search-list" id="sortForm">
                         <input type="hidden" th:if="${region} != null" name="region" th:value="${region}">
                         <input type="hidden" th:if="${continent} != null" name="continent" th:value="${continent}">
                         <input type="hidden" th:if="${name} != null" name="name" th:value="${name}">

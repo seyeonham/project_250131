@@ -48,15 +48,15 @@
         WHERE
             `userId` = #{userId}
     </select>
-    <select id="selectRegularReviewCountByUserId" parameterType="int">
-        SELECT
-            CAST(COUNT(DISTINCT storeId) AS UNSIGNED)
-        FROM
-            `review`
-        WHERE
-            `userId` = #{userId}
-        GROUP BY `storeId`
-        HAVING COUNT(*) &gt;= 3
+    <select id="selectRegularReviewCountByUserId" parameterType="int" resultType="int">
+        SELECT COUNT(*)
+        FROM (
+            SELECT storeId
+            FROM review
+            WHERE userId = #{userId}
+            GROUP BY storeId
+            HAVING COUNT(*) >= 3
+        ) AS subquery;
     </select>
     <select id="selectReviewById" parameterType="int">
         SELECT

@@ -65,7 +65,7 @@ public class StoreBO {
 
     }
 
-    public List<StoreDTO> getStoreList() {
+    public List<StoreDTO> getStoreList(String sort) {
         List<StoreEntity> storeEntities = storeRepository.findAll();
 
         List<StoreDTO> storeDTOList = storeEntities.stream().map(storeEntity -> {
@@ -74,6 +74,18 @@ public class StoreBO {
             int reviewCount = reviewBO.getReviewCountByStoreId(storeId);
             return new StoreDTO(storeEntity, reviewAverage, reviewCount);
         }).collect(Collectors.toList());
+
+        if (sort != null) {
+            if (sort.equals("rating")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewAverage).reversed()); // 별점 높은 순
+            } else if (sort.equals("review")) {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getReviewCount).reversed()); // 리뷰 많은 순
+            } else {
+                storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+            }
+        } else {
+            storeDTOList.sort(Comparator.comparing(StoreDTO::getId));
+        }
 
         return storeDTOList;
     }
@@ -346,7 +358,7 @@ public class StoreBO {
 
         List<Bookmark> bookmarkList = bookmarkBO.getBookmarkListByUserIdDeleteYn(userId);
 
-        List<StoreDTO> storeDTOList = getStoreList();
+        List<StoreDTO> storeDTOList = getStoreList(sort);
 
         for (StoreDTO storeDTO : storeDTOList) {
             StoreListDTO storeListDTO = new StoreListDTO();
@@ -389,20 +401,21 @@ public class StoreBO {
 
         List<Review> reviewList = reviewBO.getReviewListByUserId(userId);
 
-        List<StoreDTO> storeDTOList = getStoreList();
+        List<StoreDTO> storeDTOList = getStoreList(sort);
 
         Set<Integer> processedStoreIds = new HashSet<>();
 
-        for (Review review : reviewList) {
-            int storeId = review.getStoreId();
+        for (StoreDTO storeDTO : storeDTOList) {
+            int storeId = storeDTO.getId();
 
             if (processedStoreIds.contains(storeId)) {
                 continue;
             }
 
-            for (StoreDTO storeDTO : storeDTOList) {
-                if (storeDTO.getId() == storeId) {
-                    StoreListDTO storeListDTO = new StoreListDTO();
+            StoreListDTO storeListDTO = new StoreListDTO();
+
+            for (Review review : reviewList) {
+                if (storeId == review.getStoreId()) {
 
                     // 맛집 1개
                     storeListDTO.setStore(storeDTO);
@@ -441,7 +454,7 @@ public class StoreBO {
 
         List<Review> reviewList = reviewBO.getReviewListByUserId(userId);
 
-        List<StoreDTO> storeDTOList = getStoreList();
+        List<StoreDTO> storeDTOList = getStoreList(sort);
 
         Map<Integer, Integer> reviewCountMap = new HashMap<>();
         for (Review review : reviewList) {

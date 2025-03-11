@@ -36,11 +36,6 @@
       <div th:text="'&quot;' + ${keyword} + '&quot;'" class="keyword" th:if="${keyword} != null"></div>
       <div class="d-flex justify-content-between align-items-end mt-2">
         <div th:text="|검색결과 ${storeCount}개|"></div>
-        <select class="form-control w-25">
-          <option>기본순</option>
-          <option>별점순</option>
-          <option>리뷰순</option>
-        </select>
       </div>
       <div th:each="storeList : ${storeList}" class="store-box border-warning mt-3">
         <a th:href="|/admin/store-detail?storeId=${storeList.store.id}|">
