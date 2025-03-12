@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -188,16 +190,40 @@ public class UserRestController {
 
     @GetMapping("/send-passcode")
     public Map<String, Object> sendPasscode(
-            @RequestParam("email") String email
+            @RequestParam("email") String email,
+            HttpSession session
     ) {
-
         Map<String, Object> result = new HashMap<>();
+        result.put("code", 200);
+
         try {
-            int passcode = mailService.sendMail(email);
-            result.put("code", 200);
-            result.put("passcode", passcode);
+            CompletableFuture<Integer> passcode = mailService.sendMail(email);
+            session.setAttribute("passcode", passcode);
         } catch (MessagingException e) {
-            result.put("code", 500);
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    @PostMapping("/check-passcode")
+    public Map<String, Object> checkPasscode(
+            @RequestParam("passcode") int passcode,
+            HttpSession session
+    ) {
+        Map<String, Object> result = new HashMap<>();
+        CompletableFuture<Integer> storedPasscodeAsync = (CompletableFuture<Integer>)session.getAttribute("passcode");
+        int storedPasscode = 0;
+        try {
+            storedPasscode = storedPasscodeAsync.get();
+            if (storedPasscode == passcode) {
+                result.put("code", 200);
+            } else {
+                result.put("code", 500);
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
 

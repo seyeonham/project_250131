@@ -96,7 +96,11 @@ public class UserBO {
 
         Optional<UserEntity> user = userRepository.findById(userId);
         String hashedPassword = "";
-        if (newPassword != "") {
+        if (provider.equals("naver") && newPassword != null) {
+            hashedPassword = EncryptUtils.bcrypt(newPassword);
+        }
+
+        if (provider.equals("local") && newPassword != "") {
             hashedPassword = EncryptUtils.bcrypt(newPassword);
         }
 
@@ -122,10 +126,10 @@ public class UserBO {
                 UserEntity userEntity = user.get();
                 userEntity = userEntity.builder()
                         .id(userId)
-                        .loginId(loginId)
-                        .password(hashedPassword)
-                        .name(name != "" ? name : userEntity.getName())
-                        .email(email != "" ? email : userEntity.getEmail())
+                        .loginId(null)
+                        .password(null)
+                        .name(userEntity.getName())
+                        .email(userEntity.getEmail())
                         .region(region != null ? region : userEntity.getRegion())
                         .provider(provider)
                         .createdAt(userEntity.getCreatedAt())

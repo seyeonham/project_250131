@@ -6,8 +6,10 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 
 @RequiredArgsConstructor
@@ -17,7 +19,8 @@ public class MailService {
     private final JavaMailSender mailSender;
     private final MailProperties mailProperties;
 
-    public int sendMail(String email) throws MessagingException {
+    @Async
+    public CompletableFuture<Integer> sendMail(String email) throws MessagingException {
         int passcode = ThreadLocalRandom.current().nextInt(111111, 1000000);
 
         String title = "맛집랭킹 비밀번호 찾기 인증번호";
@@ -38,6 +41,6 @@ public class MailService {
 
         mailSender.send(message);
 
-        return passcode;
+        return CompletableFuture.completedFuture(passcode);
     }
 }
