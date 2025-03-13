@@ -74,7 +74,7 @@ public class AdminController {
         model.addAttribute("pageable", updatedPageable);
         model.addAttribute("currentGroup", currentGroup);
         model.addAttribute("startPage", startPage);
-        return "admin/StoreList";
+        return "admin/storeList";
     }
 
     @GetMapping("store-detail")
