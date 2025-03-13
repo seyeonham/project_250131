@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 @Slf4j
 @Component
 public class FileManagerService {
-    public static final String BASE_UPLOAD_PATH = "C:\\함세연\\project\\project_images\\";
+    public static final String BASE_UPLOAD_PATH = "/home/ec2-user/project_images/";
 
     // input: multipart file, storeId(폴더명으로 사용)
     // output: imagePath(String)
