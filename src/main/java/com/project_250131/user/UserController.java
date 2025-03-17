@@ -57,7 +57,7 @@ public class UserController {
     @GetMapping("/naver-login")
     public void naverLogin(HttpServletResponse response) throws IOException {
         String clientId = "qOmR_kGT5NAw084OznZs";
-        String redirectUri = URLEncoder.encode("http://localhost:80/user/naver/callback", "UTF-8");
+        String redirectUri = URLEncoder.encode("http://ec2-15-165-205-65.ap-northeast-2.compute.amazonaws.com:8080/user/naver/callback", "UTF-8");
         String state = UUID.randomUUID().toString(); // CSRF 방지를 위한 랜덤 값
 
         String naverLoginUrl = "https://nid.naver.com/oauth2.0/authorize"
